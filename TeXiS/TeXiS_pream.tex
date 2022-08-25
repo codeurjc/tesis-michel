@@ -1,0 +1,88 @@
+\usepackage{verbatim}
+\ifx\generaacronimos\undefined
+  
+  
+  \newcommand{\glosstex}[1]{}
+  \newcommand{\acronym}[1]{}
+  \newcommand{\ac}[1]{#1}
+  \newcommand{\acs}[1]{#1}
+  \newcommand{\acl}[1]{#1}
+  \newcommand{\acf}[1]{#1}
+\else
+  
+\fi
+
+\usepackage{shortvrb}
+\usepackage[utf8]{inputenc}
+\usepackage[round]{natbib}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{url}
+\usepackage{ifpdf}
+\ifpdf
+   \RequirePackage[pdfborder=0,colorlinks,hyperindex,pdfpagelabels]{hyperref}
+   \def\pdfBorderAttrs{/Border [0 0 0] } 
+\fi
+\ifpdf
+\else
+\usepackage{hyperref}
+\fi
+\hypersetup{colorlinks=false}
+\usepackage{makeidx}
+\ifpdf
+\else
+   \ifx\release\undefined
+      \usepackage{showidx}
+   \fi
+\fi
+\ifx\generaindice\undefined
+\else
+\makeindex
+\fi
+\ifx\release\undefined
+
+\fi
+\usepackage{multicol}
+\usepackage{subfig}
+\makeatletter
+\newbox\sf@box
+\newenvironment{SubFloat}[2][]
+{\def\sf@one{#1}
+\def\sf@two{#2}
+\setbox\sf@box\hbox
+\bgroup}
+{ \egroup
+\ifx\@empty\sf@two\@empty\relax
+\def\sf@two{\@empty}
+\fi
+\ifx\@empty\sf@one\@empty\relax
+\subfloat[\sf@two]{\box\sf@box}
+\else
+\subfloat[\sf@one][\sf@two]{\box\sf@box}
+\fi}
+\makeatother
+\usepackage{listings}
+\lstset{basicstyle=\small}
+\lstset{showstringspaces=false}
+\lstset{tabsize=3}
+\usepackage{tabularx}
+\addto\captionsspanish{
+  \def\tablename{Table}
+  \def\listtablename{List of Tables}
+  \def\listfigurename{List of Figures}
+  \def\contentsname{Contents}
+  \def\chaptername{Chapter}
+}
+\usepackage[T1]{fontenc}
+\usepackage{epsfig}
+\setlength{\parskip}{0.2ex}
+\usepackage{calc}
+\usepackage{titlesec}
+
+% MY LIBS
+\usepackage{tabularx,adjustbox,booktabs}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{footnote}
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
+\clearrow

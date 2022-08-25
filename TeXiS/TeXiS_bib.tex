@@ -1,0 +1,53 @@
+%---------------------------------------------------------------------
+%
+%                         TeXiS_bib.tex
+%
+%---------------------------------------------------------------------
+
+
+% Ficheros .bib
+\def\ficherosBibliografia{}
+\newcommand{\setBibFiles}[1]{
+\def\ficherosBibliografia{#1}
+}
+
+% Frase celebre
+\def\citaBibliografia{}
+\newcommand{\setCitaBibliografia}[1]{
+\def\citaBibliografia{#1}
+}
+
+%%%
+\newcommand{\makeBib}{
+
+\let\oldbibpreamble\bibpreamble
+
+\def\bibpreamble{%
+\oldbibpreamble
+\ifx\generatoc\undefined
+\else
+\addcontentsline{toc}{chapter}{Bibliography}
+\fi
+
+\label{bibliography}
+
+\citaBibliografia
+}
+
+\specialHead{Bibliography}
+
+
+\begingroup
+\spanishdeactivate{~}
+\bibliographystyle{TeXiS/TeXiS}
+%\bibliographystyle{abbrv}
+\bibliography{\ficherosBibliografia}
+\endgroup
+
+} %\newcommand{\makeBib}
+
+%%%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../Tesis.tex"
+%%% End:

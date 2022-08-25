@@ -1,0 +1,40 @@
+\setcounter{tocdepth}{2} 
+
+\setcounter{secnumdepth}{3} 
+
+\ifpdf
+   \pdfbookmark[1]{Contents}{contents}
+\fi
+
+\specialHead{Contents}
+
+\tableofcontents
+
+\newpage 
+
+\specialHead{List of Figures}
+
+\ifpdf
+   \pdfbookmark[1]{List of Figures}{List of Figures}
+\fi
+
+\listoffigures
+
+\newpage
+
+
+\ifpdf
+   \pdfbookmark[1]{List of Tables}{List of Tables}
+\fi
+
+\specialHead{List of Tables}
+
+\listoftables
+
+\newpage
+
+%%%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../Tesis.tex"
+%%% End:

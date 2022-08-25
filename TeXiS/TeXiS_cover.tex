@@ -1,0 +1,156 @@
+%---------------------------------------------------------------------
+%
+%                            TeXiS_cover.tex
+%
+%---------------------------------------------------------------------
+
+% Ttulo de la portada
+\def\tituloPortadaVal{\titulo}
+\newcommand{\tituloPortada}[1]{
+\def\tituloPortadaVal{#1}
+}
+
+% Autor
+\def\autorPortadaVal{\autor}
+\newcommand{\autorPortada}[1]{
+\def\autorPortadaVal{#1}
+}
+
+% Tutor
+\def\directorPortadaVal{Tutor no definido. Usa
+  \texttt{$\backslash$tutorPortada}}
+\newcommand{\directorPortada}[1]{
+\def\directorPortadaVal{#1}
+}
+
+% Fecha de publicacion
+\def\fechaPublicacionVal{}
+\newcommand{\fechaPublicacion}[1]{
+\def\fechaPublicacionVal{#1}
+}
+
+% Imagen de la portada (escudo)
+\def\imagenPortadaVal{Imagenes/Vectorial/Todo}
+\newcommand{\imagenPortada}[1]{
+\def\imagenPortadaVal{#1}
+}
+\def\escalaImagenPortadaVal{1.0}
+\newcommand{\escalaImagenPortada}[1]{
+\def\escalaImagenPortadaVal{#1}
+}
+% Tipo de documento (TESIS, MANUAL, ...)
+\def\tipoDocumentoVal{TESIS DOCTORAL}
+\newcommand{\tipoDocumento}[1]{
+\def\tipoDocumentoVal{#1}
+}
+
+% Instituci-n
+\def\institucionVal{}
+\newcommand{\institucion}[1]{
+\def\institucionVal{#1}
+}
+
+%%%
+%% COMANDO PARA CREAR LAS PORTADAS.
+%% CONTIENE TODO EL C-DIGO LaTeX
+%%%
+\newcommand{\makeCover}{
+
+\newlength{\cambioIzquierdo}
+\setlength{\cambioIzquierdo}{1in + \hoffset + \oddsidemargin}
+% Si te falla aqu-, incluye el paquete calc en el pre-mbulo.
+% 1in = 1 pulgada = 72.27 pt
+
+% En la parte derecha hay que restar el "margen" visible total, que es
+% el tama-o de la hoja restando el espacio hasta la izquierda del
+% p-rrafo y su ancho. Aprovechamos que el primer espacio lo tenemos en
+% \cambioIzquierdo.
+\newlength{\cambioDerecho}
+\setlength{\cambioDerecho}{\cambioIzquierdo + \textwidth}
+\setlength{\cambioDerecho}{\paperwidth - \cambioDerecho}
+
+\newlength{\margenPortada}
+\setlength{\margenPortada}{3.5cm}
+
+\setlength{\cambioIzquierdo}{\cambioIzquierdo - \margenPortada}
+\setlength{\cambioDerecho}{\cambioDerecho - \margenPortada}
+
+
+%%%
+% Portada
+%%%
+
+
+% P-gina sin cabeceras
+\thispagestyle{empty}
+
+\begin{cambiamargen}{-\cambioIzquierdo}{-\cambioDerecho}
+
+
+% En la primera hoja no se entiende de p-ginas pares e impares
+\newlength{\evensidemarginOriginal}
+\setlength{\evensidemarginOriginal}{\evensidemargin}
+
+\newlength{\oddsidemarginOriginal}
+\setlength{\oddsidemarginOriginal}{\oddsidemargin}
+
+\setlength{\evensidemargin}{0cm}
+\setlength{\oddsidemargin}{0cm}
+
+% Comienza el tex...
+\begin{huge}
+
+  \vspace{-4.5cm}
+
+  \begin{center}
+    \includegraphics[scale=\escalaImagenPortadaVal]{\imagenPortadaVal}
+  \end{center}
+
+  % Cuidado: Ajustarlo si el t-tulo cambia...
+  \newlength{\longTitulo}
+  \settowidth{\longTitulo}{%
+  \textbf{-------------------------------------------------------}
+  }
+  \begin{center}
+  \rule{\longTitulo}{.5mm}\\
+  \vskip 1cm
+  \textbf{\tituloPortadaVal}
+  \vskip 0.7cm
+  \rule{\longTitulo}{.5mm}\\
+  \end{center}
+  
+\end{huge}
+
+\vfill
+
+\begin{center}
+  {\Large \textbf{\tipoDocumentoVal}}
+\end{center}
+
+\vfill
+
+\begin{large}
+
+\begin{center}
+\textbf{Autor: }\autorPortadaVal\\[0.3cm]
+\textbf{Directores: }\directorPortadaVal\\[1.3cm]
+
+\textbf{\institucionVal}\\[1em]
+\textbf{\fechaPublicacionVal}
+
+\end{center}
+
+\end{large}
+
+\vfill
+
+\end{cambiamargen}
+
+\newpage
+
+}
+%%%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../Tesis.tex"
+%%% End:

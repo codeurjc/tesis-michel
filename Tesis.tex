@@ -1,0 +1,95 @@
+\documentclass[11pt,a4paper,twoside]{book}
+
+\newcommand{\ficherosBasicosTeXiS}{%
+TeXiS/TeXiS_pream,TeXiS/TeXiS_cab,TeXiS/TeXiS_bib,TeXiS/TeXiS_cover%
+}
+\newcommand{\ficherosBasicosTexto}{%
+constantes,Cascaras/bibliografia,config%
+}
+\newcommand{\compilaCapitulo}[1]{%
+\includeonly{\ficherosBasicosTeXiS,\ficherosBasicosTexto,Capitulos/#1}%
+}
+
+\newcommand{\compilaApendice}[1]{%
+\includeonly{\ficherosBasicosTeXiS,\ficherosBasicosTexto,Apendices/#1}%
+}
+
+\include{config}
+
+% Paquete de la plantilla
+\usepackage{TeXiS/TeXiS}
+
+\begin{document}
+
+\frontmatter
+
+\include{Cascaras/cover}
+
+\include{Cascaras/acknowledgements}
+
+\chapter{Abstract}
+\specialHead{Abstract}
+\input{pages/Abstract.tex}
+
+\include{config/toc_config}
+
+\mainmatter
+\restauraCabecera
+
+\chapter{Introducction}
+\label{sec:intro} 
+\pagenumbering{arabic}
+\input{pages/Introduction} 
+
+\chapter{Related work}
+\label{sec:related}
+\input{pages/PreviousWork}
+
+\chapter{Methodology}
+\label{sec:metodology}
+\input{pages/Methodology}
+
+\chapter{Computer description}
+\label{sec:compdesc}
+\input{pages/ComputerDescription}
+
+\chapter{Experimental results of the projects analysis}
+\label{sec:results}
+\input{pages/ExperimentalResults}
+
+\chapter{Taxonomy of failures}
+\label{sec:taxonomy}
+\input{pages/Taxonomy}
+
+\chapter{Discussion}
+\label{sec:discussion}
+\input{pages/Discussion}
+
+\chapter{Conclusions and future Work}
+\label{sec:conclusions}
+\input{pages/Conclusions}
+
+% Ap-ndices
+%\appendix
+%\include{...}
+%\include{...}
+%\include{...}
+
+\backmatter
+
+%
+% Bibliography
+%
+
+%\include{Cascaras/bibliografia}
+
+\specialHead{Bibliography}
+\bibliographystyle{abbrv}
+\bibliography{bibliography}
+
+%
+% Final
+%
+\include{Cascaras/fin}
+
+\end{document}
