@@ -1,0 +1,161 @@
+%---------------------------------------------------------------------
+%
+%                          TeXiS.sty
+%
+%---------------------------------------------------------------------
+%
+% TeXiS.sty
+% Copyright 2009 Marco Antonio Gomez-Martin, Pedro Pablo Gomez-Martin
+%
+% This file belongs to TeXiS, a LaTeX template for writting
+% Thesis and other documents. The complete last TeXiS package can
+% be obtained from http://gaia.fdi.ucm.es/projects/texis/
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainers of this work are Marco Antonio Gomez-Martin
+% and Pedro Pablo Gomez-Martin
+%
+%---------------------------------------------------------------------
+%
+% Fichero que declara nuevos comandos LaTeX usados a lo largo
+% del documento
+%
+%---------------------------------------------------------------------
+
+\ProvidesPackage{TeXiS/TeXiS}
+
+\RequirePackage{verbatim}  % Se necesita para el comando "example".
+                           % Si el paquete por alguna raz-n no es
+                           % compatible con alguno otro utilizado
+                           % puedes quitar el comando example y
+                           % eliminar la dependencia; el comando
+                           % example es utilizado en el manual de la
+                           % plantilla, pero no es probable que lo
+                           % necesites en otro tipo de documentos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Comando:
+%
+%       \begin{FraseCelebre}
+%             \begin{Frase}
+%                Y as-, del mucho leer y del poco dormir...
+%             \end{Frase}
+%             \begin{Fuente}
+%                Don Quijote de la Mancha
+%
+%                Miguel de Cervantes
+%             \end{Fuente}
+%       \begin{FraseCelebre}
+%
+% Resultado:
+%
+% A-ade la frase c-lebre del principio de un cap-tulo.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{FraseCelebre}% Definici-n del entorno de FraseCelebre
+ {\begin{list}{}{%
+     \setlength{\leftmargin}{0.5\textwidth}% Desplazamos el inicio de
+                                 % los p-rrafos a la derecha la mitad
+                                 % de la anchura de la l-nea de texto.
+                                 % Puede que quieras cambiar esto
+                                 % por otra cantidad como '5cm'.
+     \setlength{\parsep}{0cm}% La separaci-n entre p-rrafos de la
+                             % frase o de la fuente es normal, sin
+                             % espacio extra.
+     \addtolength{\topsep}{0.5cm}% Aumentamos un poco la separaci-n
+                                 % entre la parte de la fase c-lebre
+                                 % y los p-rrafos de alrededor
+   }
+ }
+ {\unskip \end{list}}
+
+\newenvironment{Frase}%
+  {\item \begin{flushright}\small\em}%
+  {\end{flushright}}
+
+\newenvironment{Fuente}%
+  {\item \begin{flushright}\small}%
+  {\end{flushright}}
+%
+% Notas de lo que hace:
+% El entorno FraseCelebre es un entorno de lista. Uno de esos entornos
+% sirve para hacer tus \begin{enumerate} o \begin{itemize}
+% particulares.  Se definen cosas como el margen izquierdo y derecho
+% de cada p-rrafo, la separaci-n entre cada p-rrafo dentro del mismo
+% \item, la separaci-n entre items y cosas as-. Todo eso se hace en la
+% definici-n del entorno de la lista, en nuestro caso en FraseCelebre.
+% Hay informaci-n sobre las cosas parametrizables en la p-gina 62 del
+% libro "The LaTeX companion".  Luego para la frase y el autor
+% podr-amos poner \item y el texto y listo.  Pero en lugar de eso he
+% creado otros dos entornos para poderlos alinear a la derecha (no he
+% conseguido crearlo directamente en la definici-n de la lista de
+% FraseCelebre... a parte de que haciendolo as- podr-a decidir no
+% alinear el autor y funcionar-a ;-))
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Comando: 
+%
+%       \begin{cambiamargen}{izdo}{der}
+%            BLA BLA BLA
+%       \end{cambiamargen}
+%
+% Resultado: 
+%
+% Modifica el margen de la p-gina en los p-rrafos que est-n dentro del
+% entorno. Los dos par-metros indican el _desplazamiento_ del margen
+% respecto al margen original. Un valor positivo en ambos hace que las
+% l-neas sean m-s cortas, y uno negativo las alarga.
+%
+% El funcionamiento se basa en utilizar un entorno lista, que permite
+% especificar directamente los desplazamientos respecto a los m-rgenes
+% originales de los extremos de sus p-rrafos. Pero la variable
+% \textwidth _no_ cambia, por lo que no cuentes con ella internamente
+% para, por ejemplo, ajustar tablas o algo as-.
+%
+% Para m-s informaci-n sobre los m-rgenes, consulta el fichero de la
+% portada, TeXiS_cover.tex
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{cambiamargen}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+
+\def\generaindice{1}
+\def\generatoc{1}
+\ifx\acronimosEnRelease\undefined
+\else
+    \def\generaacronimos{1}
+\fi 
+
+% Incluimos el fichero que incorpora todos los paquetes necesarios
+\include{config/TeXiS/TeXiS_pream}
+
+% Incluimos el fichero que define la cabecera utilizada, y macros
+% -tiles utilizadas en cap-tulos y secciones especiales
+\include{config/TeXiS/TeXiS_cab}
+
+% Fichero con las macros para crear las portadas
+\include{config/TeXiS/TeXiS_cover}
+
+%%%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../Tesis.tex"
+%%% End:

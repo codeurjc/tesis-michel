@@ -1,18 +1,18 @@
 %---------------------------------------------------------------------
 %
-%                      resumen.tex
+%                        TeXiS_indice.tex
 %
 %---------------------------------------------------------------------
 
-\chapter{Abstract}
-\specialHead{Abstract}
+\ifx\generatoc\undefined
+\else
+   \addcontentsline{toc}{chapter}{\indexname}
+\fi
 
-\input{pages/Abstract.tex}
-
-\endinput
+\printindex
 
 %%%
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../Tesis.tex"
+%%% TeX-master: "./tesis.tex"
 %%% End:

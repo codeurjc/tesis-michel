@@ -1,0 +1,44 @@
+%---------------------------------------------------------------------
+%
+%                          TeXiS_cab.tex
+%
+%---------------------------------------------------------------------
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\addtolength{\headheight}{2pt}
+
+\newcommand{\restoreHeader}{
+\fancyhead[LO]{\rightmark}
+\fancyhead[RE]{\leftmark}
+}
+
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\chaptermark}[1]{%
+\markboth{\textsc{\chaptertitlename\ \thechapter.}\ #1}{}%
+}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\fancyhf{}
+\restoreHeader
+\fancyhead[RO,LE]{\thepage}
+
+\newcommand{\specialHead}[1]{
+\fancyhead[LO]{\textsc{#1}}
+\fancyhead[RE]{\textsc{#1}}
+}
+
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}
+  \thispagestyle{empty}
+  \newpage
+  \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+%%%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../Tesis.tex"
+%%% End:

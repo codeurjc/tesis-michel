@@ -1,21 +1,7 @@
 \usepackage{verbatim}
-\ifx\generaacronimos\undefined
-  
-  
-  \newcommand{\glosstex}[1]{}
-  \newcommand{\acronym}[1]{}
-  \newcommand{\ac}[1]{#1}
-  \newcommand{\acs}[1]{#1}
-  \newcommand{\acl}[1]{#1}
-  \newcommand{\acf}[1]{#1}
-\else
-  
-\fi
 
 \usepackage{shortvrb}
 \usepackage[utf8]{inputenc}
-\usepackage[round]{natbib}
-\usepackage[spanish,activeacute]{babel}
 \usepackage{url}
 \usepackage{ifpdf}
 \ifpdf
@@ -64,25 +50,10 @@
 \lstset{basicstyle=\small}
 \lstset{showstringspaces=false}
 \lstset{tabsize=3}
-\usepackage{tabularx}
-\addto\captionsspanish{
-  \def\tablename{Table}
-  \def\listtablename{List of Tables}
-  \def\listfigurename{List of Figures}
-  \def\contentsname{Contents}
-  \def\chaptername{Chapter}
-}
+
 \usepackage[T1]{fontenc}
 \usepackage{epsfig}
 \setlength{\parskip}{0.2ex}
 \usepackage{calc}
 \usepackage{titlesec}
 
-% MY LIBS
-\usepackage{tabularx,adjustbox,booktabs}
-\usepackage{xcolor}
-\usepackage{tcolorbox}
-\usepackage{footnote}
-\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
-\newcommand\clearrow{\global\let\rowmac\relax}
-\clearrow

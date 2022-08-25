@@ -5,54 +5,54 @@
 %---------------------------------------------------------------------
 
 % Ttulo de la portada
-\def\tituloPortadaVal{\titulo}
-\newcommand{\tituloPortada}[1]{
-\def\tituloPortadaVal{#1}
+\def\thesisTitleVal{}
+\newcommand{\thesisTitle}[1]{
+\def\thesisTitleVal{#1}
 }
 
 % Autor
-\def\autorPortadaVal{\autor}
+\def\author{}
 \newcommand{\autorPortada}[1]{
-\def\autorPortadaVal{#1}
+\def\author{#1}
 }
 
 % Tutor
-\def\directorPortadaVal{Tutor no definido. Usa
+\def\directorVal{Tutor no definido. Usa
   \texttt{$\backslash$tutorPortada}}
-\newcommand{\directorPortada}[1]{
-\def\directorPortadaVal{#1}
+\newcommand{\director}[1]{
+\def\directorVal{#1}
 }
 
 % Fecha de publicacion
-\def\fechaPublicacionVal{}
-\newcommand{\fechaPublicacion}[1]{
-\def\fechaPublicacionVal{#1}
+\def\publishDateVal{}
+\newcommand{\publishDate}[1]{
+\def\publishDateVal{#1}
 }
 
 % Imagen de la portada (escudo)
-\def\imagenPortadaVal{Imagenes/Vectorial/Todo}
-\newcommand{\imagenPortada}[1]{
-\def\imagenPortadaVal{#1}
+\def\institutionLogoVal{Imagenes/Vectorial/Todo}
+\newcommand{\institutionLogo}[1]{
+\def\institutionLogoVal{#1}
 }
-\def\escalaImagenPortadaVal{1.0}
-\newcommand{\escalaImagenPortada}[1]{
-\def\escalaImagenPortadaVal{#1}
+\def\institutionLogoScaleVal{1.0}
+\newcommand{\institutionLogoScale}[1]{
+\def\institutionLogoScaleVal{#1}
 }
 % Tipo de documento (TESIS, MANUAL, ...)
-\def\tipoDocumentoVal{TESIS DOCTORAL}
-\newcommand{\tipoDocumento}[1]{
-\def\tipoDocumentoVal{#1}
+\def\documentTypeVal{TESIS DOCTORAL}
+\newcommand{\documentType}[1]{
+\def\documentTypeVal{#1}
 }
 
-% Instituci-n
-\def\institucionVal{}
-\newcommand{\institucion}[1]{
-\def\institucionVal{#1}
+% Institucion
+\def\institutionVal{}
+\newcommand{\institution}[1]{
+\def\institutionVal{#1}
 }
 
 %%%
 %% COMANDO PARA CREAR LAS PORTADAS.
-%% CONTIENE TODO EL C-DIGO LaTeX
+%% CONTIENE TODO EL CODIGO LaTeX
 %%%
 \newcommand{\makeCover}{
 
@@ -103,7 +103,7 @@
   \vspace{-4.5cm}
 
   \begin{center}
-    \includegraphics[scale=\escalaImagenPortadaVal]{\imagenPortadaVal}
+    \includegraphics[scale=\institutionLogoScaleVal]{\institutionLogoVal}
   \end{center}
 
   % Cuidado: Ajustarlo si el t-tulo cambia...
@@ -114,7 +114,7 @@
   \begin{center}
   \rule{\longTitulo}{.5mm}\\
   \vskip 1cm
-  \textbf{\tituloPortadaVal}
+  \textbf{\thesisTitleVal}
   \vskip 0.7cm
   \rule{\longTitulo}{.5mm}\\
   \end{center}
@@ -124,7 +124,7 @@
 \vfill
 
 \begin{center}
-  {\Large \textbf{\tipoDocumentoVal}}
+  {\Large \textbf{\documentTypeVal}}
 \end{center}
 
 \vfill
@@ -132,11 +132,11 @@
 \begin{large}
 
 \begin{center}
-\textbf{Autor: }\autorPortadaVal\\[0.3cm]
-\textbf{Directores: }\directorPortadaVal\\[1.3cm]
+\textbf{Autor: }\author\\[0.3cm]
+\textbf{Directores: }\directorVal\\[1.3cm]
 
-\textbf{\institucionVal}\\[1em]
-\textbf{\fechaPublicacionVal}
+\textbf{\institutionVal}\\[1em]
+\textbf{\publishDateVal}
 
 \end{center}
 

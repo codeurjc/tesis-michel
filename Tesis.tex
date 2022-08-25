@@ -1,31 +1,21 @@
 \documentclass[11pt,a4paper,twoside]{book}
 
-\newcommand{\ficherosBasicosTeXiS}{%
-TeXiS/TeXiS_pream,TeXiS/TeXiS_cab,TeXiS/TeXiS_bib,TeXiS/TeXiS_cover%
-}
-\newcommand{\ficherosBasicosTexto}{%
-constantes,Cascaras/bibliografia,config%
-}
-\newcommand{\compilaCapitulo}[1]{%
-\includeonly{\ficherosBasicosTeXiS,\ficherosBasicosTexto,Capitulos/#1}%
-}
+% Paquete de la plantilla (oculto en config/)
+\usepackage{config/TeXiS/TeXiS}
 
-\newcommand{\compilaApendice}[1]{%
-\includeonly{\ficherosBasicosTeXiS,\ficherosBasicosTexto,Apendices/#1}%
-}
+% Mis paquetes
+\include{config/custom_libs}
 
-\include{config}
-
-% Paquete de la plantilla
-\usepackage{TeXiS/TeXiS}
-
+% Documento
 \begin{document}
 
 \frontmatter
 
-\include{Cascaras/cover}
+% Portada
+\include{pages/other/cover}
 
-\include{Cascaras/acknowledgements}
+% Agradecimientos
+\include{pages/other/acknowledgements}
 
 \chapter{Abstract}
 \specialHead{Abstract}
@@ -34,9 +24,9 @@ constantes,Cascaras/bibliografia,config%
 \include{config/toc_config}
 
 \mainmatter
-\restauraCabecera
+\restoreHeader
 
-\chapter{Introducction}
+\chapter{Introduction}
 \label{sec:intro} 
 \pagenumbering{arabic}
 \input{pages/Introduction} 
@@ -69,27 +59,15 @@ constantes,Cascaras/bibliografia,config%
 \label{sec:conclusions}
 \input{pages/Conclusions}
 
-% Ap-ndices
-%\appendix
-%\include{...}
-%\include{...}
-%\include{...}
-
 \backmatter
 
 %
 % Bibliography
 %
 
-%\include{Cascaras/bibliografia}
-
 \specialHead{Bibliography}
 \bibliographystyle{abbrv}
 \bibliography{bibliography}
-
-%
-% Final
-%
-\include{Cascaras/fin}
+\addcontentsline{toc}{chapter}{Bibliography}
 
 \end{document}
