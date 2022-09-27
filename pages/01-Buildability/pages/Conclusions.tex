@@ -1,0 +1,20 @@
+In this paper we have shown a replication and a reproduction study by Tufano et al.~\cite{tufano2017there} about the compilability of the history of past commits of a project. In the first one we have repeated their analysis, with those repositories for which we found all commits, and in the second one we extended its generality by using the same methodology with a different, more diverse set of Java projects, and considering also Ant and Gradle in addition to Maven.
+
+The main contributions of this paper are:
+
+\begin{itemize}
+\item A discussion and guidelines on reproduction packages for studies on the compilability of past snapshots. 
+\item A dataset and software, usable by other researchers, to study long-term degradation of compilability.
+\item A partial validation of the results of the original study. In particular, results about frequency of errors causing build failures have been validated and extended.
+\item Evidence on how compilability degrades over time, and how it could be mitigated by ensuring future availability of dependencies.
+\item Evidence on the compilability of a different, more diverse set of Java projects, showing some differences with the original study.
+\item Evidence on how the building tools affect future compilability.
+\end{itemize}
+
+%\grex{Lo he dejado así}
+%:\jgb{Lo he retocado un poco}
+In summary, we wanted to shed some more light on to which extent past snapshots of projects are compilable ``as such'', because that is the basis to know how much build-repair techniques are needed if past artifacts of a project need to be reproduced from source code.
+Since our study was a replication and a reproduction, a part of our results could be expected, but still they add more detail and evidence to the original study. In addition, we also found some differences, generalized evidence by analyzing a more diverse set of projects, and produced a tool to automate the analysis of any Java repository, which could be used in further studies by any researcher.
+
+Still, more research is needed to draw general conclusions on the compilability of past snapshots, especially for languages other than Java, to get a more precise knowledge about how compilability degrades over time, and how this degradation could be mitigated.
+

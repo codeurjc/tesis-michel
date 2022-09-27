@@ -1,0 +1,197 @@
+% REPRODUCTION RESULTS
+
+\subsection{Compilability}
+
+To answer RQ\textsubscript{2a}, we repeated the same analysis of the replication study, but now for the 80 projects of our reproduction study. Of them, 20 projects were classified as having a short history (Q1, less than 1,974 commits), 40 as medium history (Q2 and Q3), and 20 as long (Q4, more than 4,847 commits). Compilability results are shown in Table~\ref{table:results-reproduction}.
+
+\begin{table*}[h]
+\caption{Reproduction study - Compilability results}
+%\label{table:ourResultsCompilabilityReproduction}
+\label{table:results-reproduction}
+
+
+% TABLE 1
+\begin{center}
+\begin{tabular}{r|rrrrrrr}
+\toprule
+  \bf{Projects} & \multicolumn{7}{c}{Fraction built (in \%)}\\
+                & \multicolumn{7}{c}{} \\
+                & \bf{Min} & \bf{1st Qu.} & \bf{Median} & \bf{Mean} & \bf{3rd Qu.} & \bf{Max} & \bf{SD} \\    
+\midrule
+Short history  & 0.00     & 37.43        & 55.42       & 58.21          & 82.27 &  99.38 & 28.12 \\
+Medium history & 0.00     & 10.56        & 34.94       & 40.35          & 68.60 & 100.00 & 33.34 \\
+Long history   & 0.00     & 4.27        & 12.80       & 27.76          & 48.04 &  93.52 & 31.76 \\
+\midrule
+All            & 0.00     & 10.56        & 36.25       & \textbf{41.66} & 70.62 & 100.00 & 33.18 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% TABLE 2
+\begin{center}
+\begin{tabular}{r|rrr}
+\toprule
+  \bf{Projects} & \multicolumn{3}{c}{Total commits} \\
+                & \multicolumn{1}{c}{\bf{with}} & \multicolumn{1}{c}{\bf{Build}} & \multicolumn{1}{c}{\bf{Fraction}} \\
+                & \bf{build conf.} & \bf{success} & \multicolumn{1}{c}{\bf{built}}\\    
+\midrule
+Short history  & 28,312 & 15,948 & 56.32\%\\
+Medium history & 114,716 & 44,688 & 38.96\%\\
+Long history   & 138,459 & 37,852 & 27.33\%\\
+\midrule
+All            & 281,487	 & 98,488	 & 34.98\%\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{table*}
+
+% TABLE 3
+
+\begin{table*}[h]
+  \caption{Reproduction study - Compilability by build system.}
+  \label{table:results-reproduction-build-systems}
+
+\begin{center}
+  \begin{tabular}{r|rrr}
+  \toprule
+  \bf{Build} & \multicolumn{3}{c}{Compilability}                                  \\
+  \bf{System}	& \bf{\#Commits} & \bf{\#Build} & \bf{Fraction} \\
+             &  & \multicolumn{1}{c}{{\bf success}} & \multicolumn{1}{c}{{\bf built}} \\
+  \midrule
+  Maven           &        191,063  &                     80,310 &            42.03\%  \\
+  Ant             &         25,735  &                      4,441 &            17.26\%  \\
+  Gradle          &         64,095  &                     13,737 &            21.43\%  \\
+  \midrule
+  All             &        280,893  &                     98,488 &            35.06\%  \\
+  \bottomrule
+  \end{tabular}
+\end{center}
+
+\end{table*}
+
+% TABLE 4
+
+\begin{table*}[h]
+
+  \caption{Reproduction study - Errors by build system.}
+  \label{table:results-reproduction-build-systems-errors}
+
+\begin{center}
+  \begin{tabular}{r|rrrrrrrr}
+  \toprule
+  \bf{Build}  & \multicolumn{2}{c}{Resolution Err.}  & \multicolumn{2}{c}{Parsing Err.}  & \multicolumn{2}{c}{Compilation Err.}  & \multicolumn{2}{c}{Other Err.} \\
+  \bf{System}	& \bf{\#} & \bf{\%} & \bf{\#} & \bf{\%}  & \bf{\#} & \bf{\%}  & \bf{\#} & \bf{\%} \\
+  \midrule
+  Maven           &          75,806 &             68.45\%  &        1,967 &            1.78\% &                0 &                0.00\% &     32,980 &        29.78\% \\
+  Ant             &           4,485 &             21.06\%  &            0 &            0.00\% &            1,077 &                5.06\% &     15,732 &        73.88\% \\
+  Gradle          &          22,260 &             44.20\%  &            0 &            0.00\% &            2,373 &                4.71\% &     25,725 &        51.08\% \\
+  \midrule
+  All             &         102,551 &             56.22\%  &        1,967 &            1.08\% &            3,450&                1.89\% &     74,437 &        40.81\% \\
+  \bottomrule
+  \end{tabular}
+\end{center}
+
+\end{table*}
+
+For all categories, and for all the projects together, median and mean are close, meaning the distribution is not very skewed: to some extent we were successful in avoiding bias when selecting projects to analyze.  The standard deviation shows a large spread in the values (compatible with the values observed for the different quartiles). The fraction of snapshots that could not be built in all categories is higher than (or very close to) 50\%, which shows that automatic compilability of past snapshots can certainly not be given for granted. Projects with a short history have in general less compilability, and compilability increases as we move to projects with a medium and large history.
+
+It should be noted that in the original study, we found a great diversity in the size of the projects according to their number of commits (from projects with 25 commits to 14k).
+The problem with smaller projects ($<$203 commits) is that in many cases they have not had a natural development (the initial commit imports code from another source, as can be seen for example in following commit\footnote{https://github.com/apache/maven-app-engine/commit/b77ad9e82d7cc94627d0a000214aeb6c4b8f7738}).
+This means that part of the project's development history is lost, which is a limitation of the original study.
+In the selection criteria for the repository mining we have taken this limitation into account, setting a lower limit of 1000 commits.
+Because of this difference between experiments, the separation between small, medium and large projects is different and the groups cannot be compared between experiments. 
+Nonetheless, for the sake of completeness, we offer a comparison using the same quartiles to classify the projects into the three categories in a table that can be found in the replication package.
+
+\vspace{0.2cm}
+\fbox{\begin{minipage}{0.9\textwidth}
+\textbf{\textbf{RQ\textsubscript{2a}}: ``How many snapshots from the change history are compilable?''}
+Less than half of the snapshots with build configuration could be built. Compilability increased with the size of the commit history of projects. For all history size categories, and all projects together, mean and median compilability was less than 51\%, although variability is high (standard deviation is over 28\% in all cases).
+\end{minipage}}
+
+\subsection{Failure analysis}
+
+To answer RQ\textsubscript{2b}, we analyzed build failures, as shown in Table~\ref{table:results-reproduction-build-systems-errors}. Most of the errors are of type \textit{Resolution}, due to missing dependencies and other external artifacts. \textit{Parsing} and \textit{Compilation} errors are almost negligible.
+
+% \begin{table}[h]
+% 	\caption{Causes of failed builds (Reproduction Study)}
+% 	\label{table:resultsGithub}
+% 	\begin{center}
+% 	\begin{tabular}{rrr}
+% 		\toprule
+% 		\bf{Action}  & \bf{\#} & \bf{\%} \\
+% 		\midrule
+% 		Resolution      &  32,671   &  56.32 \\
+% 		Parsing         &     970   &   1.67 \\
+% 		Compilation     &   1,248	&   2.15 \\
+% 		Other           &  23,125   &  39.86 \\
+% 		\midrule
+% 		All            &   58,014   & 100.00 \\
+% 		\bottomrule
+% 	\end{tabular}
+% 	\end{center}
+% \end{table}
+
+%\michel{El 18.47\% de los errores son Timeouts, los hemos incluido 'Resolution'. }
+
+The fact that most errors are due to missing external objects is a good indicator of further decline of compilability in the future: as time passes, more and more artifacts will disappear, which will lead to more and more commits not building. The low numbers for \textit{Parsing} and \textit{Compilation} errors are interesting: they could be indicating that the use of automatic tools to check the compilability of snapshots (and therefore, the consistency of building configuration, and the correctness of compilation) before merging the corresponding commits.
+
+\vspace{0.2cm}
+\fbox{\begin{minipage}{0.9\textwidth}
+\textbf{\textbf{RQ\textsubscript{2b}}: ``What types of errors prevent snapshots from being built?''}
+Most of the errors observed (56\%) are due to missing dependencies and other external artifacts. The impact of these errors in the overall compilability is thus very important: almost one third (36.43\%) of all snapshots with building configuration could not be built because of them. On the contrary, parsing and compilation errors are few, meaning that most snapshots were carefully checked for these errors before committing.    
+\end{minipage}}
+
+
+\subsection{Building system}
+
+To answer RQ\textsubscript{2c}, we performed an analysis by build system. When we were detecting build configuration files, we observed some projects starting to build with Ant, then switching to Maven or Gradle, and some others using Maven and Gradle for their entire history. From the total number of commits with build configuration, 68.02\% are for Maven, 22.82\% for Gradle, and 9.16\% for Ant. The results of the analysis by build system are shown in Table~\ref{table:results-reproduction-build-systems}.
+
+The first interesting result is that compilability for snapshots with Maven is much higher (42.03\%) than for Ant or Gradle (17-22\%). With respect to specific kinds of errors, Maven is dominated by \textit{Resolution}, as Gradle and Ant is dominated by \textit{Other}. However, the sample of snapshots with Ant and Gradle is relatively small, which means our results for them are less reliable.
+
+The detailed classification of errors for all building systems can be found in the Table~\ref{table:other-errors} (The table is limited to the 20 most frequent errors. The full table can be found in the reproduction package). 
+From this classification, it is worth mentioning:
+\begin{itemize}
+ \item From the 15,732 \textit{other errors} for Ant, 8,615 are failures because they do not have the ``compile'' task defined (which is a standard in the development of projects with Ant), and about 4,610 because a specific binary or config file is expected in the path, instead of being included as a dependency.
+ \item From the 25,725 \textit{other errors} for Gradle, 5,215 of them fail because of a test that cannot be automatically ignored. A common error (4,726) is that some of the tasks, defined as scripts in the configuration file by the developer, fail to build the project. Other less common errors are the absence of a secret key (which is not usually stored in a public repository), an error in the generation of documentation or the lack of permissions for certain system folders. These errors, although a priori generic, are usually concentrated in a single project and are not significant.
+\end{itemize}. 
+
+Although all of these snapshots could not be built automatically, they could be built with minimal human intervention, or with a slightly improved set-up of the build configuration for the projects affected. Given the relatively small sample of snapshots for these two systems (Ant and Gradle, compared to Maven), considering these snapshots as errors or not would change dramatically the figures for the \textit{other errors} category for both of them. In the reporting of results, we have decided to consider those cases as errors, which is a cause for the lower compilability reported for Ant and Gradle.
+
+\begin{table}[]
+  \caption{Classification of errors for all build systems}
+  \label{table:other-errors}
+  \begin{tabular}{|r|r|r|r|r|}
+  \hline
+  \textbf{BuildSystem} & \textbf{Error}                                    & \textbf{Action} & \textbf{Count}  & \textbf{\%} \\ \hline
+  Maven                & ArtifactResolutionException        & Resolution      & 74,950          & 41.09       \\ \hline
+  Maven                & MojoFailureException               & Other           & 12,426          & 6.81        \\ \hline
+  Maven                & MojoExecutionException             & Other           & 11,562          & 6.34        \\ \hline
+  Ant                  & Target "compile" does not exist    & Other           & 8,615           & 4.72        \\ \hline
+  Gradle               & IOException: Server returned ...   & Resolution      & 8,057           & 4.42        \\ \hline
+  Gradle               & Could not resolve                  & Resolution      & 7,057           & 3.87        \\ \hline
+  Gradle               & Could not resolve all dependencies & Resolution      & 6,899           & 3.78        \\ \hline
+  Maven                & ConnectException                   & Other           & 5,524           & 3.03        \\ \hline
+  Gradle               & Task 'test' not found              & Other           & 5,215           & 2.86        \\ \hline
+  Gradle               & Execution failed for task          & Other           & 4,726           & 2.59        \\ \hline
+  Gradle               & Cannot run program                 & Other           & 4,540           & 2.49        \\ \hline
+  Ant                  & UnknownHostException               & Resolution      & 3,918           & 2.15        \\ \hline
+  Gradle               & Other Gradle error                 & Other           & 3,849           & 2.11        \\ \hline
+  Ant                  & Unable to find property file       & Other           & 3,693           & 2.02        \\ \hline
+  Gradle               & Permission denied                  & Other           & 2,295           & 1.26        \\ \hline
+  Gradle               & Compilation failed                 & Compilation     & 2,288           & 1.25        \\ \hline
+  Maven                & PluginDescriptorParsingException   & Parsing         & 1,591           & 0.87        \\ \hline
+  Gradle               & Could not find                     & Other           & 1,405           & 0.77        \\ \hline
+  Ant                  & Other Ant error                    & Other           & 1,181           & 0.65        \\ \hline
+  Gradle               & git-lfs is required to build       & Other           & 1,083           & 0.59        \\ \hline
+  Ant                  & Compile failed                     & Compilation     & 1,077           & 0.59        \\ \hline
+  \end{tabular}
+\end{table}
+
+\vspace{0.2cm}
+\fbox{\begin{minipage}{0.9\textwidth}
+\textbf{\textbf{RQ\textsubscript{2c}}: ``Are there differences in compilability depending on the building tool?''}
+The compilability observed in commits whose build system is Maven is twice as high as that obtained for Gradle and Ant. Resolution errors are dominant for Maven (68.45\%), parsing errors are very low (1,96\% for Maven and 0\% for Ant and Gradle), and compilation errors seem to be only relevant for Ant (5.06\%, 4.71\% for Gradle, 0\% for Maven). We note that both Ant and Gradle use user-written tasks or scripts that are subject to errors, mainly because they do not follow tool standards, which negatively affects their compilability.
+\end{minipage}}
+
+

@@ -31,31 +31,19 @@
 \pagenumbering{arabic}
 \input{pages/Introduction} 
 
-\chapter{Related work}
-\label{sec:related}
-\input{pages/PreviousWork}
+\chapter{Revisiting the building of past snapshots}
+\label{sec:buildability-chapter}
+\input{pages/01-Buildability/Buildability}
 
-\chapter{Methodology}
-\label{sec:metodology}
-\input{pages/Methodology}
+\chapter{Testing the past: can we still run tests in past snapshots?}
+\label{sec:testability-chapter}
+\input{pages/02-Testability/Testability}
 
-\chapter{Computer description}
-\label{sec:compdesc}
-\input{pages/ComputerDescription}
+\chapter{Towards an automated approach to identifying which change caused a bug through regression testing}
+\label{sec:bug-hunter-chapter}
+\input{pages/03-BugHunter/BugHunter}
 
-\chapter{Experimental results of the projects analysis}
-\label{sec:results}
-\input{pages/ExperimentalResults}
-
-\chapter{Taxonomy of failures}
-\label{sec:taxonomy}
-\input{pages/Taxonomy}
-
-\chapter{Discussion}
-\label{sec:discussion}
-\input{pages/Discussion}
-
-\chapter{Conclusions and future Work}
+\chapter{Conclusions, original contributions and future research}
 \label{sec:conclusions}
 \input{pages/Conclusions}
 
@@ -68,6 +56,6 @@
 \specialHead{Bibliography}
 \bibliographystyle{abbrv}
 \bibliography{bibliography}
-\addcontentsline{toc}{chapter}{Bibliography}
+%\addcontentsline{toc}{chapter}{Bibliography}
 
 \end{document}

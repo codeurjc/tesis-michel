@@ -1,0 +1,149 @@
+%\documentclass{svjour3}                     % onecolumn (standard format)
+%\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+%\documentclass[twocolumn]{svjour3}          % twocolumn
+
+\smartqed 
+
+\journalname{Empirical Software Engineering}
+
+%\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{zref-totpages}
+\usepackage[flushleft]{threeparttable}
+\usepackage{listings}
+\usepackage{paralist}
+\usepackage{hhline}
+\usepackage[strings]{underscore}
+\lstset
+{ %Formatting for code in appendix
+	basicstyle=\fontsize{7}{11}\ttfamily,
+	escapeinside={<@}{@>},
+	showstringspaces=false,
+	tabsize=1,
+	breaklines=true,
+	breakatwhitespace=false
+}
+\usepackage{booktabs}
+\usepackage{enumerate}
+\usepackage{tabularx}
+\usepackage{soul}
+\usepackage{caption}
+
+\newif\ifdraft
+\drafttrue
+%\draftfalse
+
+\input{macros}
+
+\begin{document}
+
+% jgb: Proposal for a new title
+% \title{Building the Version History of Open Source Repositories: A replication and a reproduction study}
+\titlerunning{Revisiting the Building of Past Snapshots}
+\title{Revisiting the Building of Past Snapshots -- A Replication and Reproduction Study}
+
+\author{Michel Maes-Bermejo \and
+        Micael Gallego \and
+        Francisco Gort\'azar \and
+        Gregorio Robles         \and
+        Jesus M. Gonzalez-Barahona
+}
+
+\authorrunning{Maes-Bermejo, Gallego, Gort\'azar, Robles and González-Barahona} % if too long for running head
+
+\institute{M. Maes-Bermejo, M. Gallego, F. Gort\'azar \at
+              Department of Computer Science \\
+              Universidad Rey Juan Carlos, Spain \\
+              \email{\{michel.maes,micael.gallego,francisco.gortazar\}@urjc.es}
+              \and
+              G. Robles, J.M. Gonzalez-Barahona \at
+              Department of Telematic and Computational Systems Engineering \\
+              Universidad Rey Juan Carlos, Spain \\
+              \email{\{gregorio.robles,jesus.gonzalez.barahona\}@urjc.es}
+}
+
+\date{Received: date / Accepted: date}
+
+\maketitle
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+%%
+\begin{abstract}
+	\input{pages/Abstract}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:buildability:intro}
+\input{pages/Introduction}
+
+\section{Previous Research}
+\label{sec:buildability:related}
+\input{pages/Related}
+
+\section{Definitions}
+\label{sec:buildability:definitions}
+\input{pages/Definitions}
+
+\section{Methodology}
+\label{sec:buildability:metodology}
+\input{pages/Methodology}
+
+\section{Replication Study: Results}
+\label{sec:buildability:results-repli}
+\input{pages/ReplicationResults}
+
+\section{Reproduction Study: Results}
+\label{sec:buildability:results-repro}
+\input{pages/ReproductionResults} 
+
+\section{Discussion}
+\label{sec:buildability:discussion}
+\input{pages/Discussion}
+
+\section{Conclusions and future Work}
+\label{sec:buildability:conclusions}
+\input{pages/Conclusions}
+
+\section*{Reproducibility}
+\label{sec:buildability:repro}
+
+A reproduction package is available\footnote{\url{https://github.com/BuildabilityResearcher/BuildabilityStudy}}. It includes a link to an extra package in Zenodo (due to size limitations in GitHub), with raw results and a copy of all the git repositories at the time of the analysis.
+
+%\section*{Acknowledgments}
+%\label{sec:buildability:acks}
+
+% This work has been supported by the European Commission under project ElasTest (H2020-ICT-10-2016, GA-731535); by the Regional Government of Madrid (CM) under project EDGEDATA-CM (P2018/TCS-4499) cofunded by FSE \& FEDER; by the Spanish Government under projects LERNIM (RTC-2016-4674-7) and BugBirth (RTI2018-101963-B-I00) cofunded by the Ministry of Economy and Competitiveness, FEDER \& AEI.
+
+
+\section*{Statements and Declarations}
+\label{sec:buildability:declarations}
+
+
+\subsection*{Competing interests}
+
+This work has been supported by the Regional Government of Madrid (CM) under project EDGEDATA-CM (P2018/TCS-4499) cofunded by FSE \& FEDER and by the Spanish Government under project BugBirth (RTI2018-101963-B-I00) cofunded by the Ministry of Economy and Competitiveness, FEDER \& AEI.
+
+
+\subsection*{Author contributions}
+
+All authors contributed to the study conception and design. Material preparation, data collection and analysis were performed by Michel Maes-Bermejo. The first draft of the manuscript was written by Michel Maes-Bermejo and all authors commented on previous versions of the manuscript. All authors read and approved the final manuscript.
+
+
+\subsection*{Compliance with Ethical Standards}
+
+This research has not involved human participants and/or animals.
+
+
+
+\bibliographystyle{spmpsci}
+\bibliography{bibliography}
+
+
+\end{document}

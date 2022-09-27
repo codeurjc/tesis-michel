@@ -1,0 +1,17 @@
+We derive the terminology used in this paper from Sul\'ir and Porubän~\cite{Sulir:2016:QSJ:3001878.3001882}. According to it, the build process of projects programmed with compilable languages consists of following steps:
+\begin{inparaenum}[\bf(1)]
+    \item \textbf{read} the project build (configuration) file,
+    \item \textbf{download} third party components defined in the build file,
+    \item \textbf{execute} the compiler to generate  binary files from source code, and
+    \item \textbf{package} the program in a suitable format for deployment.
+\end{inparaenum}
+
+A specific project version is {\bf compilable}\footnote{Although Sul\'ir and Porubän use the term \textit{buildable}, for consistency we have used the term \textit{compilable} instead, as in the study by Tufano et al., which we would like to replicate and reproduce.} if these steps can be executed to generate a valid binary, with a success build status. Based on this background, we define:
+
+\begin{itemize}
+\item \textbf{Snapshot}: a version of the source code of a project, represented by a commit of its git repository. It will be identified by the unique hash of the commit.
+\item \textbf{Snapshot with build configuration}: a snapshot with configuration files for a build system.
+\item \textbf{Successful build}: a snapshot that was compilable (\emph{we could build it})
+\item \textbf{Failed build}: a snapshot that could not be built.
+\item \textbf{Error for a build}: a failing build (and its cause).
+\end{itemize}

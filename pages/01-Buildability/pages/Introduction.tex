@@ -1,0 +1,86 @@
+
+% Rodr\'iguez-P\'erez et al. have found that bugs have two types of origins~\cite{rodriguez2018if}.
+% There are intrinsic bugs, introduced by the lines of code that were modified to fix it, and extrinsic bugs, introduced by changes not registered in the source code management systems (e.g., by an external dependency).
+% Identifying what type of bug we have is currently a labor-intensive task that has to be done manually.
+% To a major extent it has to cope with the question if the lines that the SZZ algorithm~\cite{sliwerski2005changes} identifies as the Bug-Introducing Change (BIC) were correct or not. 
+% In the case they were not correct, we would have an intrinsic bug; otherwise, we face an extrinsic bug.
+
+% We therefore aimed to automate the process with following idea: running a regression test for the BIC candidate.
+% This means running tests on past versions of the software.
+% The snapshot (commit) where the test fails would be the candidate for being the BIC~\cite{kim2006automatic}.
+% To do this, it is however necessary to first build, and then run the regression test on the previous snapshots of the project.
+% When doing this, we found that many of the snapshots were not compilable. %\patxi{Explicar claramente que los commits en rojo se produjeron por algún motivo. ¿Estamos seguros que estaban en rojo? Igual no tenía CI, y no se verificó. Habria que explicar que esos builds que no compilan no se pueden reproducir. Comentar ejemplos concretos.Referenciar el estado del arte para indicar que esto se sigue produciendo.}
+% We discovered that when the build failed, in some cases the failure was the original outcome of the build (i.e., there was a bug in the project or some changes broke the build), but in other cases, the problem was that we were not able to reproduce the environment conditions necessary for the build to succeed. \grex{Reescribir esta \'ultima frase que es un poco cr\'iptica.}
+
+% That way, our original aim (running regression tests on past versions of the software) required first to solve the problem of how to first build these past versions of the software. 
+% Inspecting the literature, we have found that we are not the only ones interested in such a topic.
+
+The problems for building the current snapshot from source code has been discussed in detail in the research literature (see Section~\ref{sec:buildability:related}), but the problems for \textbf{building past snapshots} have received less attention. 
+
+Compilability of past snapshots of the source code of a software product has been shown to be of interest both for researchers and practitioners~\cite{nikitin2017chainiac,RepBlds:2017:Online}. 
+Some examples of its uses are:
+\begin{inparaenum}[\bf(1)]
+	\item {\bf to search and find bugs} developers often run previous snapshots of the system in order to locate bugs and understand how they originated~\cite{Zimmermann:2006:MVA:1137983.1138001};
+	\item {\bf due to security reasons} users usually trust available binaries of a library, but a backdoor could have been introduced~\cite{deCarnedeCarnavalet:2014:CIV:2664243.2664288}, so rebuilding it from the original source allows to compare the binaries and verify that it was not modified; 
+	\item {\bf to backport bug fixes} it is necessary to build an old version to apply a patch to that specific version of the software~\cite{tian2017mining}); and
+	\item {\bf to reproduce the past state of a system}, for research purposes, it is useful to obtain a functional executable to verify the correct performance of the system~\cite{manacero2011using}, or to use the project history to predict future bugs~\cite{Zimmermann2008}).
+\end{inparaenum}
+
+To our knowledge, the most complete study on the compilability of all past snapshots is presented in~\cite{tufano2017there} (from now on ``the original paper'' or ``the original study''). It analyzes all past snapshots for 100 Java projects of one organization (the Apache Software Foundation, ASF), determining how many of them could be built, and the main causes of failure in building. Its main conclusions were: only 38\% of snapshots could be successfully built, almost all projects contained snapshots that could not be built (96\%), and the main cause of failure when building a snapshot was dependency resolution. We decided to revisit and extend this paper, with two main aims:
+
+\textbf{(1)} To validate the results of the original study, by trying to build {\bf in 2020} the same snapshots it considered {\bf in 2014}, answering the original two research questions (although slightly rephrased):
+
+\textbf{RQ\textsubscript{1a}}: ``How many snapshots from the change history are compilable?''
+
+\textbf{RQ\textsubscript{1b}}: ``Which types of errors prevent snapshots from being built?''
+
+We reproduced the conditions and methodology of the original study as much as possible, studying compilability of the same snapshots with the Maven tool, as they did. 
+In addition, we also wanted to learn if compilability had degraded. We suspected that it could be the case because one of the main reasons for failed builds in the original study was availability of dependencies, which is known to degrade over time~\cite{bavota2015apache}. So we added the following research question:
+
+\textbf{RQ\textsubscript{1c}}: ``Has compilability degraded since the original study?''
+
+While answering the previous RQs, we stumbled upon some problems that lead us to an additional one:
+
+\textbf{RQ\textsubscript{1d}}: ``Are the data in the reproduction package of the original study enough for a replication?''
+
+\textbf{(2)} To explore the generalizability of the results, by conducting another study with the same methodology but on a  set of Java projects with a more diverse background:
+
+\textbf{RQ\textsubscript{2a}}: ``How many snapshots from the change history are compilable?''
+
+\textbf{RQ\textsubscript{2b}}: ``Which types of errors prevent snapshots from being built?''
+
+\textbf{RQ\textsubscript{2c}}: ``Are there differences in compilability depending on the building tool?''
+
+With the first two questions, we check the extensibility of the results of the original paper to other Java projects. 
+The last question is aimed to find out if some building tools perform better in terms of compilability than others, for example because of the amount of information they require about the construction process and the construction context.
+
+In the rest of this paper, we refer to the study that addresses RQ\textsubscript{1[a-d]} as \emph{replication study}, and \emph{reproduction study} to the one answering RQ\textsubscript{2[a-c]}. 
+This terminology is based on~\cite{juristo2010replication} and~\cite{cartwright1991replicability}, which distinguish between \textbf{replication} (performing the same experiment again) and \textbf{reproduction} (performing the same experiment but with other input/data). Very recently, this terminology has been reviewed,\footnote{https://www.acm.org/publications/policies/artifact-review-and-badging-current} however in this paper we use the traditional definitions for replication and reproduction studies.
+
+Our replication study analyzes 79 projects from the set of 100 in the original study, and our reproduction study will be performed on a dataset of 80 FOSS (free, open source software) Java projects. In addition, for the reproduction we will extend the build systems with Ant (very popular in the old days of long-running projects) and Gradle (a newer build tool) -- the original study only considered Maven. In both studies we used our own software for checking compilability and analyzing the resulting logs (see Section~\ref{sec:buildability:repro}).
+
+
+
+
+% jgb: TODO. Likely we should move the following text to the conclusions.
+
+%Furthermore, the ASF is a decentralized open-source community of developers, whose projects have been extensively researched~\cite{roberts2006understanding, iqbal2014understanding, kabinna2016logging, bavota2015apache, bavota2013evolution}.
+%We cannot be confident that the conclusions obtained by Tufano et al. are also applicable to other open-source projects outside the Apache Foundation, given the strict rules that apply to projects pertaining the ASF\footnote{https://www.apache.org/foundation/how-it-works.html}. 
+
+
+
+% In this paper, we argue that compilability should not be limited to the current (i.e., latest) version of a software, but to all its history (or at least part of it) -- we refer to this ability as {\bf historic compilability}, and in particular to {\bf complete historic compilability} when \emph{all past versions of a software project can be built}.
+
+% We have studied the compilability of the history of several projects checking if their snapshots are compilable or not, and accounting the different errors and their duration in time.
+% We have focused on five well-known open source Java projects, which are taken from the Defects4J repository~\cite{Just:2014:DDE:2610384.2628055}, commonly used in Software Engineering research. Our expectation is that most of the snapshots of a project are compilable, as they usually have continuous integration (CI) environments that compile and test the code to find issues before submitting changes to the repository. Even when there is no CI environment, it is expected that developers will compile and test their changes before submitting them. 
+
+
+%\jgb{Review the next para, to ensure it matches reality}
+
+The rest of the paper is structured as follows:
+Section~\ref{sec:buildability:related} discusses previous research. 
+Section~\ref{sec:buildability:definitions} defines the main concepts.
+Section~\ref{sec:buildability:metodology} presents the methodology used in the studies. 
+The results of applying the methodology are reported in Sections~\ref{sec:buildability:results-repli} (replication) and~\ref{sec:buildability:results-repro} (reproduction).
+Section~\ref{sec:buildability:discussion} discusses the results, and explores threats to their validity.
+Finally, Section~\ref{sec:buildability:conclusions} draws conclusions and presents further research.
