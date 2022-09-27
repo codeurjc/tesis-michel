@@ -1,0 +1,16 @@
+name: Prueba
+
+on: 
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: Generate PDF
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - uses: xu-cheng/latex-action@v2
+        with:
+          root_file: Tesis.tex
