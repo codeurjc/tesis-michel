@@ -140,7 +140,7 @@ When searching for build files (pom.xml), we discovered that we were able to det
 Detecting the presence of these build files is a relatively simple task, as they are easy to identify if they exist.
 Nonetheless, to check if this inconsistency was due to an error in our scripts, we randomly selected a dozen commits where we found build files but the original study did not, and performed a manual inspection.
 We found that our approach is the correct one.
-So, probably the discrepancy is caused by some bug in the scripts of the original paper -- as these scripts are not publicly available, we cannot confirm this possibility.
+So, probably the discrepancy is caused by some bug in the scripts of the original paper. As these scripts are not publicly available, we cannot confirm this possibility.
 
 To explore the compilability of all of the snapshots, we used two Ubuntu 18.04 machines, one of them with 16 cores and 8 GB of RAM and the other one with 8 cores and 16 GB of RAM. The software we built was capable of balancing the load between both servers to minimize execution time, building several snapshots in parallel. Once the repositories to analyze were ready, the building of all snapshots took about four weeks of wall time to run.
 
@@ -195,7 +195,7 @@ The process we followed to explore the buildability of snapshots for the reposit
 
 \begin{itemize}
 \item After checking out a commit, three systems are considered when searching for build configuration (see ``Build File'' in Table~\ref{table:buildSystems}). In the replication study only Maven was considered.
-\item When building the snapshot with more than one build system, we tried the build systems in order: first Maven or Gradle, and if it failed, then Ant. We did not find snapshots with both Maven and Gradle. Having Ant and one of Maven or Gradle is usually due to the project transitioning from the former to the latter, thus still having the old Ant configuration and a new configuration for Maven or Gradle. Our order for testing systems considers that if the Maven or Gradle configuration worked, the project had likely already transitioned to them -- if it did not, the project was still with Ant.
+\item When building the snapshot with more than one build system, we tried the build systems in order: first Maven or Gradle, and if it failed, then Ant. We did not find snapshots with both Maven and Gradle. Having Ant and one of Maven or Gradle is usually due to the project transitioning from the former to the latter, thus still having the old Ant configuration and a new configuration for Maven or Gradle. Our order for testing systems considers that if the Maven or Gradle configuration worked, the project had likely already transitioned to them, if it did not, the project was still with Ant.
 \item For each build configuration, we executed the build command defined by the build configuration (see ``Command'' in Table~\ref{table:buildSystems}).
 \end{itemize}
 
@@ -223,4 +223,4 @@ The building of all snapshots took about two weeks of wall time, in the same env
 \subsubsection{Obtaining results}
 
 As we did for the replication study, the results of the reproduction study are obtained by analyzing the logs of the attempts to build each considered commit from our list of repositories. The analysis is the same that we described already, with the difference that in the reproduction study we considered not only if the snapshot could be built or not, but also which build system was used. We also had to extend the mapping of exceptions in error logs to one of the four categories of errors in the original study (\textit{Dependency}, \textit{Parsing}, \textit{Compiling} or \textit{Other}). 
-The new error mapping will be shown in the following sections,as well as being available in the reproduction package.
+The new error mapping will be shown in the following sections, as well as being available in the reproduction package.
