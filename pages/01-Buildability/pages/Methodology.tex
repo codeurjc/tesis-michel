@@ -1,8 +1,8 @@
 For both our replication and reproduction studies we use a similar workflow, sketched in Figure~\ref{fig:methodology}. We work with git repositories, which means that we can clone the whole repository locally, and that each code snapshot corresponds to a commit in the git history of the repository. We locate repositories to analyze, clone them, and try to find out all the commits of interest. If we cannot clone a repository, or we do not find all the commits of interest in it, we discard it. Then, for each remaining repository, we get its commits of interest, and for each of these commits we investigate if it uses a building system. If so, we try to build it.
 
-\begin{figure}[t]
+\begin{figure}[ht!]
 \centering    
-\includegraphics[height=8.5cm]{pages/01-Buildability/images/Methodology.pdf}
+\includegraphics[height=\textwidth]{pages/01-Buildability/images/Methodology.pdf}
 \caption{Basic workflow for both studies.}
 \label{fig:methodology}
 \end{figure}
@@ -15,7 +15,7 @@ For both our replication and reproduction studies we use a similar workflow, ske
 \caption{Studies (main quantities)}
 \label{table:statistics}
 \begin{center}
-\begin{tabular}{lrrrr}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrr}
 \toprule
 \textbf{Studies:}        & \textbf{Original} & \textbf{Original} & \textbf{Replic.} & \textbf{Reprod.} \\
                          & \textbf{Pristine} & \textbf{Reduced} \\
@@ -25,13 +25,13 @@ Commits                  & 174,505           & 139,389           & 139,389      
 Commits (build conf.)    & 132,484           & 101,811           & 101,811          & 281,487 \\
 Commits (build success)  & 31,696            &  22,737           & 14,664           & 98,488  \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 %\caption*{
 %  }
 \end{center}
 
 \begin{center}
-\begin{tabular}{rrrrrrrr}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrrr}
 \toprule 
 \textbf{Commits/project}  & \bf{min} & \bf{25\%} & \bf{50\%} & \bf{mean}  & \bf{75\%} & \bf{max}  & \bf{std} \\
 
@@ -51,7 +51,7 @@ Commits (build success)  & 31,696            &  22,737           & 14,664       
 
 
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{center}
 
 \end{table}
@@ -117,7 +117,7 @@ Once we cloned all git repositories, we proceeded to replicate the experiment. F
 
 \begin{figure}[t]
 \centering    
-\includegraphics[width=8cm]{pages/01-Buildability/images/AnalysisProcess.pdf}
+\includegraphics[width=\textwidth]{pages/01-Buildability/images/AnalysisProcess.pdf}
 \caption{Process for checking compilability status of commits in a repository. ``Build commit source'' includes checking out the commit, checking for Maven configuration files, and if found, running Maven to try to build the code.}
 \label{fig:commitHist}
 \end{figure}
@@ -203,16 +203,15 @@ The process we followed to explore the buildability of snapshots for the reposit
   \caption{Build systems considered in the reproduction study}
   \label{table:buildSystems}
   \centering
-  \begin{tabular}{lll}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lll}
     \toprule
-    \bf{Build } & \bf{Command} & \bf{Build}\\
-    \bf{System} &              & \bf{File }\\ 
+    \bf{Build System} & \bf{Command} & \bf{Build File}\\
     \midrule
     Maven & mvn clean compile -X & pom.xml\\
     Gradle & ./gradlew build -x test & build.gradle \\
     Ant & ant compile  & build.xml \\
     \midrule
-  \end{tabular}
+  \end{tabular*}
 \end{table}
  
 For this reproduction study, the Docker container we used included Java 8, Ant and Maven, while Gradle was run standalone (since it works self-contained). 

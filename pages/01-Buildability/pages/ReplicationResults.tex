@@ -28,36 +28,39 @@ Tables~\ref{table:replication-compilability} and \ref{table:replication-compilab
 %\label{table:originalResultsCompilability}
 \label{table:replication-compilability}
 \begin{center}
-
-\begin{tabular}{r|rrrrrrr}
-\toprule
-  \bf{Projects} & \multicolumn{7}{c}{Fraction built (in \%)} \\
-                & \multicolumn{7}{c}{} \\
-                & \bf{Min} & \bf{1st Qu.} & \bf{Median} & \bf{Mean} & \bf{3rd Qu.} & \bf{Max} & \bf{SD} \\  
-\midrule
-Short history  & 0.00     & 23.67        & 48.64       & 49.85      & 82.73       &  97.01   & 35.08 \\ 
-Medium history & 0.00     &  4.99        & 36.24       & 38.43      & 68.42       & 100.00   & 34.03 \\
-Long history   & 0.00     &  0.00        & 16.48       & 22.14      & 25.67       & 100.00   & 29.33 \\
-\midrule
-All            & 0.00     & 2.91         & 28.64       & \bf{37.19} & 66.00       & 100.00   & 34.25 \\ 
-\bottomrule
-\end{tabular}
+\resizebox{\textwidth}{!}{%
+  \begin{tabular}{llllllll}
+  \toprule
+    \bf{Projects} & \multicolumn{7}{l}{Fraction built (in \%)} \\
+                  & \multicolumn{7}{l}{} \\
+                  & \bf{Min} & \bf{1st Qu.} & \bf{Median} & \bf{Mean} & \bf{3rd Qu.} & \bf{Max} & \bf{SD} \\  
+  \midrule
+  Short history  & 0.00     & 23.67        & 48.64       & 49.85      & 82.73       &  97.01   & 35.08 \\ 
+  Medium history & 0.00     &  4.99        & 36.24       & 38.43      & 68.42       & 100.00   & 34.03 \\
+  Long history   & 0.00     &  0.00        & 16.48       & 22.14      & 25.67       & 100.00   & 29.33 \\
+  \midrule
+  All            & 0.00     & 2.91         & 28.64       & \bf{37.19} & 66.00       & 100.00   & 34.25 \\ 
+  \bottomrule
+  \end{tabular}
+}
 \end{center}
 
 \begin{center}
-\begin{tabular}{r|rrrrrrr}
-  \toprule
-  \bf{Projects} & \multicolumn{7}{c}{Fraction built (in \%)} \\
-                & \multicolumn{7}{c}{} \\
-                & \bf{Min} & \bf{1st Qu.} & \bf{Median} & \bf{Mean} & \bf{3rd Qu.} & \bf{Max} & \bf{SD} \\  
-\midrule
-Short history  & 0.00     & 0.55         & 31.49       & 40.62      & 82.72        & 99.01     & 39.97 \\ 
-Medium history & 0.00     & 0.00         & 1.70        & 20.99      & 38.24        & 95.23     & 29.52 \\ 
-Long history   & 0.00     & 0.00         & 9.44        & 17.56      & 19.17        & 100.00    & 28.31 \\ 
-\midrule
-All            & 0.00     & 0.00         & 8.74        & \bf{25.1}  & 41.64        & 100.00    & 33.07 \\ 
-\bottomrule
-\end{tabular}
+\resizebox{\textwidth}{!}{%
+  \begin{tabular}{llllllll}
+    \toprule
+    \bf{Projects} & \multicolumn{7}{l}{Fraction built (in \%)} \\
+                  & \multicolumn{7}{l}{} \\
+                  & \bf{Min} & \bf{1st Qu.} & \bf{Median} & \bf{Mean} & \bf{3rd Qu.} & \bf{Max} & \bf{SD} \\  
+  \midrule
+  Short history  & 0.00     & 0.55         & 31.49       & 40.62      & 82.72        & 99.01     & 39.97 \\ 
+  Medium history & 0.00     & 0.00         & 1.70        & 20.99      & 38.24        & 95.23     & 29.52 \\ 
+  Long history   & 0.00     & 0.00         & 9.44        & 17.56      & 19.17        & 100.00    & 28.31 \\ 
+  \midrule
+  All            & 0.00     & 0.00         & 8.74        & \bf{25.1}  & 41.64        & 100.00    & 33.07 \\ 
+  \bottomrule
+  \end{tabular}
+}
 \end{center}
 \end{table*}
 
@@ -69,11 +72,10 @@ All            & 0.00     & 0.00         & 8.74        & \bf{25.1}  & 41.64     
   \label{table:replication-compilability-2}
   \begin{center}
   
-  \begin{tabular}{r|rrrrrrr|rrr}
+  \begin{tabular*}{\textwidth}{l|llllllll|lll}
   \toprule
     \bf{Projects} & \multicolumn{3}{c}{Total commits} \\
-                  & \multicolumn{1}{c}{\bf{with}} & \multicolumn{1}{c}{\bf{Build}} & \multicolumn{1}{c}{\bf{Fraction}} \\
-                  & \bf{build conf.} & \bf{success} & \multicolumn{1}{c}{\bf{built}}\\  
+                  & \multicolumn{1}{c}{\bf{with build conf.}} & \multicolumn{1}{c}{\bf{Build success}} & \multicolumn{1}{c}{\bf{Fraction built}} \\
   \midrule
   Short history  &   2,311 &  1,129 & 48.85\% \\ 
   Medium history &  26,903 &  9,602 & 35.69\% \\
@@ -81,19 +83,7 @@ All            & 0.00     & 0.00         & 8.74        & \bf{25.1}  & 41.64     
   \midrule
   All            & 101,811 & 22,737 & 22.33\% \\ 
   \bottomrule
-  \end{tabular}
-  \end{center}
-  %\end{table*}
-  
-  %\begin{table*}[h]
-  %\caption{Compilable snapshots (Replication Study)}
-  %\label{table:ourResultsCompilability}
-  \begin{center}
-  \begin{tabular}{r|rrrrrrr|rrr}
-    \toprule
-    \bf{Projects} & \multicolumn{3}{c}{Total commits} \\
-                  & \multicolumn{1}{c}{\bf{with}} & \multicolumn{1}{c}{\bf{Build}} & \multicolumn{1}{c}{\bf{Fraction}} \\
-                  & \bf{build conf.} & \bf{success} & \multicolumn{1}{c}{\bf{built}}\\  
+
   \midrule
   Short history  &   2,311 &    876 & 37.91\%\\ 
   Medium history &  26,903 &  6,049 & 22.48\%\\ 
@@ -101,9 +91,9 @@ All            & 0.00     & 0.00         & 8.74        & \bf{25.1}  & 41.64     
   \midrule
   All            & 101,811 & 14,664 & 14.40\%\\ 
   \bottomrule
-  \end{tabular}
+  \end{tabular*}
   \end{center}
-  \end{table*}
+\end{table*}
 
 
 
@@ -129,21 +119,21 @@ It should be noted that Table~\ref{table:replication-compilability} extends the 
 \begin{table*}[h]
 \caption{Original and replication studies (Summary of results). Replication\textsubscript{a}: use same build configs, Replication\textsubscript{b}: use all detected Maven config files, Replication\textsubscript{c}: use all detected Maven and Ant config files}
 \label{table:replication-buidability-summary}
-\begin{center}
-\begin{tabular}{lrrrrrr}
-\toprule
- & \bf{Repos}            & All     & Commits           & Commits & Built & Built \\
- &                              & Commits & w/build conf    & built   & total          & mean of\\
- &                              &         &                   &         &                & projects \\
-\midrule 
-Pristine Original               & 100     & 174,505 & 132,484 & 31,696  & 23.92\%        & 37.74\% \\
-Reduced Original                &  79     & 139,389 & 101,811 & 22,737  & 22.33\%        & 37.19\% \\
-Replication\textsubscript{a}    &  79     & 139,389 & 101,811 & 14,664  & 14.40\%        & 25.09\% \\
-Replication\textsubscript{b}    &  79     & 139,389 & 108,394 & 15,106  & 13.93\%        & 25.42\% \\
-Replication\textsubscript{c}    &  79     & 139,389 & 117,124 & 17,692  & 15.10\%        & 24.85\% \\  
-\bottomrule
-\end{tabular}
-\end{center}
+\resizebox{\textwidth}{!}{%
+  \begin{tabular}{lrrrrrr}
+  \toprule
+  & Repos.                        & All     & Commits           & Commits & Built & Built \\
+  &                              & Commits & w/build conf    & built   & total          & mean of\\
+  &                              &         &                   &         &                & projects \\
+  \midrule 
+  Pristine Original               & 100     & 174,505 & 132,484 & 31,696  & 23.92\%        & 37.74\% \\
+  Reduced Original                &  79     & 139,389 & 101,811 & 22,737  & 22.33\%        & 37.19\% \\
+  Replication\textsubscript{a}    &  79     & 139,389 & 101,811 & 14,664  & 14.40\%        & 25.09\% \\
+  Replication\textsubscript{b}    &  79     & 139,389 & 108,394 & 15,106  & 13.93\%        & 25.42\% \\
+  Replication\textsubscript{c}    &  79     & 139,389 & 117,124 & 17,692  & 15.10\%        & 24.85\% \\  
+  \bottomrule
+  \end{tabular}
+}
 \end{table*}
 
 
@@ -155,7 +145,7 @@ To answer RQ\textsubscript{1b}, and provide some insight on the reasons for the 
 \caption{Causes of failed builds.}
 \label{table:allCauses}
 \begin{center}
-\begin{tabular}{rrrrr}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}rrrrr}
 \toprule
 \multicolumn{1}{l}{}	    & \multicolumn{2}{c}{\bf{Original study}}    & \multicolumn{2}{c}{\bf{Replication study}}  \\
 \bf{Categories}                 & \multicolumn{1}{r}{\#} & \multicolumn{1}{r}{\%} & \multicolumn{1}{r}{\#} & \multicolumn{1}{r}{\%}  \\
@@ -167,7 +157,7 @@ Other       & 18,839 &  23.83 & 18,954 & 21.75  \\
 \midrule
 All errors & 79,073 & 100.00 & 87,147 & 100.00 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{center}
 \end{table}
 
@@ -195,31 +185,27 @@ Table~\ref{table:causesDetailed} shows the changes we observed when building sna
 % \end{tabular}
 % \end{table}
 
-% Reduce separation between cells in next table
-\renewcommand{\tabcolsep}{2.35pt}
-
 \begin{table}[]
 \caption{Changes in builds (original to replication).}
 \label{table:causesDetailed}
 \centering
-\begin{tabular}{l|rrrrrr|rr}
-  \toprule
-  & \multicolumn{6}{c|}{\bf{Errors}} & \multicolumn{2}{c}{\bf{Builds}} \\ 
-   \multicolumn{1}{l|}{\bf{Categories}} & \multicolumn{2}{c}{\bf{Same}} & \multicolumn{2}{c}{\bf{Different}} & \multicolumn{2}{c|}{\bf{ New}} & \bf{Stable} & \bf{New} \\
- & \multicolumn{1}{c}{\#} & \multicolumn{1}{c}{\%} & \multicolumn{1}{c}{\#} & \multicolumn{1}{c}{\%} & \multicolumn{1}{c}{\#} & \multicolumn{1}{c|}{\%} & \# & \# \\
-\midrule
-Resolution             & 42,826                  & 49.14                   & 7,605                   & 5.39                    & 4,868                   & 5.59                    \\
-Parsing                & 9,485                   & 10.88                   & 694                     & 0.79                    & 171                     & 0.20                    \\
-Compilation            & 2,544                   &  2.91                   & 0                       & 0.00                    & 0                       & 0.00                    \\
-Other                  & 12,443                  & 14.27                   & 3,293                   & 7.10                    & 3,218                   & 3.69                    \\
-\midrule
-All  & 67,298 & 77.22 & 11,592 & 13.30 & 8,257 & 9.48 & 14,480 & 184 \\ 
-\bottomrule
-\end{tabular}
+\resizebox{\textwidth}{!}{%
+  \begin{tabular}{l|rrrrrr|rr}
+    \toprule
+    & \multicolumn{6}{c|}{\bf{Errors}} & \multicolumn{2}{c}{\bf{Builds}} \\ 
+    \multicolumn{1}{l|}{\bf{Categories}} & \multicolumn{2}{c}{\bf{Same}} & \multicolumn{2}{c}{\bf{Different}} & \multicolumn{2}{c|}{\bf{ New}} & \bf{Stable} & \bf{New} \\
+  & \multicolumn{1}{c}{\#} & \multicolumn{1}{c}{\%} & \multicolumn{1}{c}{\#} & \multicolumn{1}{c}{\%} & \multicolumn{1}{c}{\#} & \multicolumn{1}{c|}{\%} & \# & \# \\
+  \midrule
+  Resolution             & 42,826                  & 49.14                   & 7,605                   & 5.39                    & 4,868                   & 5.59                    \\
+  Parsing                & 9,485                   & 10.88                   & 694                     & 0.79                    & 171                     & 0.20                    \\
+  Compilation            & 2,544                   &  2.91                   & 0                       & 0.00                    & 0                       & 0.00                    \\
+  Other                  & 12,443                  & 14.27                   & 3,293                   & 7.10                    & 3,218                   & 3.69                    \\
+  \midrule
+  All  & 67,298 & 77.22 & 11,592 & 13.30 & 8,257 & 9.48 & 14,480 & 184 \\ 
+  \bottomrule
+  \end{tabular}
+}
 \end{table}
-
-% Restore original separation between cells
-\renewcommand{\tabcolsep}{6pt}
 
 For 67,298 of the snapshots that failed to build, we reported the same exception as in the previous experiment (\textit{same error}). Therefore, adding these to \textit{stable build}, 81.778 (80.66\% of the snapshots with build configuration) behaved exactly as in the original study. On the other hand, for 13.30\% of the snapshots that failed for us, we found a different error than in the original study (\textit{different error}), while 9.48\% of the snapshots that failed for us did not fail in the original study (\textit{new error}).
 

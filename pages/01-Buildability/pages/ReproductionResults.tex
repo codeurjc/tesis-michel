@@ -12,37 +12,39 @@ To answer RQ\textsubscript{2a}, we repeated the same analysis of the replication
 
 % TABLE 1
 \begin{center}
-\begin{tabular}{r|rrrrrrr}
-\toprule
-  \bf{Projects} & \multicolumn{7}{c}{Fraction built (in \%)}\\
-                & \multicolumn{7}{c}{} \\
-                & \bf{Min} & \bf{1st Qu.} & \bf{Median} & \bf{Mean} & \bf{3rd Qu.} & \bf{Max} & \bf{SD} \\    
-\midrule
-Short history  & 0.00     & 37.43        & 55.42       & 58.21          & 82.27 &  99.38 & 28.12 \\
-Medium history & 0.00     & 10.56        & 34.94       & 40.35          & 68.60 & 100.00 & 33.34 \\
-Long history   & 0.00     & 4.27        & 12.80       & 27.76          & 48.04 &  93.52 & 31.76 \\
-\midrule
-All            & 0.00     & 10.56        & 36.25       & \textbf{41.66} & 70.62 & 100.00 & 33.18 \\
-\bottomrule
-\end{tabular}
+\resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{\extracolsep{\fill}}l|lllllll|lll}
+  \toprule
+    \bf{Projects} & \multicolumn{7}{c}{Fraction built (in \%)} & \multicolumn{3}{c}{Total commits}\\
+    \bf{by history} & \multicolumn{7}{c}{} & \bf{with} & \bf{Build} & \bf{Fraction} \\
+                  & \bf{Min} & \bf{1st Qu.} & \bf{Median} & \bf{Mean} & \bf{3rd Qu.} & \bf{Max} & \bf{SD} & \bf{build conf.} & \bf{success} & \bf{built}\\   
+  \midrule
+  Short          & 0.00     & 37.43        & 55.42       & 58.21          & 82.27 &  99.38 & 28.12  & 28,312 & 15,948 & 56.32\%\\
+  Medium         & 0.00     & 10.56        & 34.94       & 40.35          & 68.60 & 100.00 & 33.34 & 114,716 & 44,688 & 38.96\%\\
+  Long           & 0.00     & 4.27        & 12.80       & 27.76          & 48.04 &  93.52 & 31.76 & 138,459 & 37,852 & 27.33\%\\
+  \midrule
+  All            & 0.00     & 10.56        & 36.25       & \textbf{41.66} & 70.62 & 100.00 & 33.18 & 281,487	 & 98,488	 & 34.98\%\\
+  \bottomrule
+  \end{tabular}
+}
 \end{center}
 
-% TABLE 2
-\begin{center}
-\begin{tabular}{r|rrr}
-\toprule
-  \bf{Projects} & \multicolumn{3}{c}{Total commits} \\
-                & \multicolumn{1}{c}{\bf{with}} & \multicolumn{1}{c}{\bf{Build}} & \multicolumn{1}{c}{\bf{Fraction}} \\
-                & \bf{build conf.} & \bf{success} & \multicolumn{1}{c}{\bf{built}}\\    
-\midrule
-Short history  & 28,312 & 15,948 & 56.32\%\\
-Medium history & 114,716 & 44,688 & 38.96\%\\
-Long history   & 138,459 & 37,852 & 27.33\%\\
-\midrule
-All            & 281,487	 & 98,488	 & 34.98\%\\
-\bottomrule
-\end{tabular}
-\end{center}
+% % TABLE 2
+% \begin{center}
+% \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l|lll}
+% \toprule
+%   \bf{Projects} & \multicolumn{3}{c}{Total commits} \\
+%                 & \multicolumn{1}{c}{\bf{with}} & \multicolumn{1}{c}{\bf{Build}} & \multicolumn{1}{c}{\bf{Fraction}} \\
+%                 & \bf{build conf.} & \bf{success} & \multicolumn{1}{c}{\bf{built}}\\    
+% \midrule
+% Short history  & 28,312 & 15,948 & 56.32\%\\
+% Medium history & 114,716 & 44,688 & 38.96\%\\
+% Long history   & 138,459 & 37,852 & 27.33\%\\
+% \midrule
+% All            & 281,487	 & 98,488	 & 34.98\%\\
+% \bottomrule
+% \end{tabular*}
+% \end{center}
 
 \end{table*}
 
@@ -53,11 +55,10 @@ All            & 281,487	 & 98,488	 & 34.98\%\\
   \label{table:results-reproduction-build-systems}
 
 \begin{center}
-  \begin{tabular}{r|rrr}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l|rrr}
   \toprule
-  \bf{Build} & \multicolumn{3}{c}{Compilability}                                  \\
-  \bf{System}	& \bf{\#Commits} & \bf{\#Build} & \bf{Fraction} \\
-             &  & \multicolumn{1}{c}{{\bf success}} & \multicolumn{1}{c}{{\bf built}} \\
+  \bf{BuildSystem} & \multicolumn{3}{c}{Compilability}                                  \\
+  \bf{}	& \bf{\#Commits} & \bf{\#Build success} & \bf{Fraction built} \\
   \midrule
   Maven           &        191,063  &                     80,310 &            42.03\%  \\
   Ant             &         25,735  &                      4,441 &            17.26\%  \\
@@ -65,7 +66,7 @@ All            & 281,487	 & 98,488	 & 34.98\%\\
   \midrule
   All             &        280,893  &                     98,488 &            35.06\%  \\
   \bottomrule
-  \end{tabular}
+  \end{tabular*}
 \end{center}
 
 \end{table*}
@@ -78,6 +79,7 @@ All            & 281,487	 & 98,488	 & 34.98\%\\
   \label{table:results-reproduction-build-systems-errors}
 
 \begin{center}
+\resizebox{\textwidth}{!}{% 
   \begin{tabular}{r|rrrrrrrr}
   \toprule
   \bf{Build}  & \multicolumn{2}{c}{Resolution Err.}  & \multicolumn{2}{c}{Parsing Err.}  & \multicolumn{2}{c}{Compilation Err.}  & \multicolumn{2}{c}{Other Err.} \\
@@ -90,6 +92,7 @@ All            & 281,487	 & 98,488	 & 34.98\%\\
   All             &         102,551 &             56.22\%  &        1,967 &            1.08\% &            3,450&                1.89\% &     74,437 &        40.81\% \\
   \bottomrule
   \end{tabular}
+}
 \end{center}
 
 \end{table*}
@@ -161,6 +164,7 @@ Although all of these snapshots could not be built automatically, they could be 
 \begin{table}[]
   \caption{Classification of errors for all build systems}
   \label{table:other-errors}
+\resizebox{\textwidth}{!}{%
   \begin{tabular}{|r|r|r|r|r|}
   \hline
   \textbf{BuildSystem} & \textbf{Error}                                    & \textbf{Action} & \textbf{Count}  & \textbf{\%} \\ \hline
@@ -186,6 +190,7 @@ Although all of these snapshots could not be built automatically, they could be 
   Gradle               & git-lfs is required to build       & Other           & 1,083           & 0.59        \\ \hline
   Ant                  & Compile failed                     & Compilation     & 1,077           & 0.59        \\ \hline
   \end{tabular}
+}
 \end{table}
 
 \vspace{0.2cm}
