@@ -25,6 +25,5 @@ acmguide.pdf
 *~
 *.bcf
 *.run.xml
-
 Tesis.*
 !Tesis.tex
