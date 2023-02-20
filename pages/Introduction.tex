@@ -1,9 +1,34 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus faucibus, nunc id accumsan ullamcorper, libero nisi sollicitudin sem, quis porta diam nisl quis nulla. Nam viverra tempor ex eu ultricies. Aliquam at felis sed sapien egestas semper a quis dolor. Maecenas at odio non nibh pulvinar bibendum. In mattis ex et est egestas, iaculis sagittis tellus varius. Cras id posuere lorem. Cras leo risus, sagittis quis ligula ac, vehicula viverra erat. Nam vel iaculis dui, eu ullamcorper felis. Vivamus bibendum purus eget metus sagittis, eu tincidunt dolor hendrerit. Ut porttitor ac lectus eu varius. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas ut blandit metus. Phasellus ut velit ut velit volutpat porttitor.
+\section{Motivation}
 
-Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras imperdiet turpis turpis, vitae ultrices risus viverra a. Sed lobortis at enim in venenatis. Aenean porttitor, nunc id tincidunt facilisis, lorem risus laoreet lorem, quis egestas magna mi eget metus. Integer lobortis porttitor nunc, sit amet semper ligula accumsan ut. Etiam blandit erat id tempor auctor. Sed at pulvinar ante. Vestibulum consequat facilisis neque, vel condimentum nisl sodales in. In quis fermentum eros, id dapibus sapien. Etiam hendrerit a urna vitae feugiat.
+In software engineering, developers collaborate with each other in order to develop a software product. 
+Software developers have been assisted for years by Version Control Systems (VCS). 
+These systems have made it possible to manage, coordinate and organize the development of software products. 
+During software development, developers implement several changes to the product in order to introduce new functionality or improve pre-existing ones (refactoring or bug fixes). 
+These changes can be grouped into a revision, the minimum unit in which a VCS allows us to version our software. This revision is also known as a "commit". 
+One of the most popular and dominant VCS in recent years has been Git~\cite{VersionControlSystemSurvey:2022:Online}.
+%Git is a distributed version control system that allows developers to work locally and collaborate with other developers.
 
-Mauris condimentum mauris tellus, ut tempus risus feugiat at. Aenean eget ornare nisl, eu gravida libero. Quisque ultricies erat orci, non consectetur dolor laoreet vel. Aenean laoreet sodales turpis vel suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu placerat tellus, vel efficitur magna. Praesent ut massa ac quam tristique sollicitudin ac vitae elit. Phasellus id lorem sed est faucibus faucibus id id turpis. Nunc fringilla eros eu sapien placerat faucibus sit amet vitae enim. Etiam sollicitudin iaculis luctus. Nulla facilisi. Integer enim sapien, venenatis vitae mattis vulputate, blandit eu leo. In lobortis erat non augue viverra porttitor sed id justo. Curabitur in dictum lacus, sed malesuada lacus. Aenean sed sapien mi. Proin sit amet nibh ut lectus cursus ullamcorper.
+Within software evolution and maintenance, one of the main activities performed by developers is bug fixing. 
+When using, these bugs were, at that moment, changes introduced in the change history as commits. 
+The fixes to these bugs are made through changes that are also reflected in the VCS as a fix commit. 
+In other words, both the changes that introduced the bug and the one that fixed the bug are recorded in the VCS. 
+From this premise, proposals have emerged to be able to locate the change that introduced the bug from the change that fixed it. 
+One of the most relevant proposals for locating the change that introduced the bug is the SZZ algorithm~\cite{Sliwerski:2005:CIF:1083142.1083147}. 
+This algorithm starts from the premise that the same lines of code that were modified or deleted in the fix changes are the ones that contained the bug. 
+In this way, the change history of a software project could be used to search for the change that introduced or modified those lines and thus be able to know which versions of the project are affected by the bug.
 
-Curabitur finibus est ac quam sagittis, quis porta magna viverra. Aenean nulla enim, sodales vel molestie in, feugiat eu lectus. Duis aliquam consequat urna et efficitur. Vivamus sollicitudin feugiat urna, ut consectetur ex finibus non. Praesent rutrum felis sit amet diam dignissim, at placerat nulla ornare. Integer eget commodo orci, cursus ultricies ante. Nullam consequat iaculis leo nec scelerisque. Etiam eu purus dapibus, hendrerit felis non, pellentesque lorem. Vestibulum in scelerisque quam, et interdum lectus. Proin tellus tortor, vulputate id iaculis sed, consequat a dui. Nulla lacus leo, lobortis vel purus eu, feugiat vestibulum metus. Praesent blandit scelerisque sapien. Fusce sit amet metus erat. Aenean sollicitudin imperdiet pellentesque. Duis volutpat bibendum lacus vel dictum. Ut elementum ullamcorper eros, quis pulvinar lacus.
+The SZZ algorithm has been for many years the state of the art when locating the change that induced an error. 
+In 2018, Gema Rodriguez presented her PhD. Thesis~\cite{rodriguez2018towards}, in which she exposed the limitations of this algorithm and all those that have been derived from it, finding numerous examples in which this algorithm failed in its purpose. 
+In her research and as part of her thesis, the author proposed a theoretical model for the identification of the change that introduced a bug, trying to improve the state of the art. 
+This model, in essence, was based on the idea of the "perfect test", a theoretical construct that was able to check if a bug was present or not in commits prior to the change that fixed it. The author of this work explained the difficulties in operationalizing this theoretical model. 
+Among the limitations encountered, she points out the difficulty of finding a candidate to be the "perfect test", the impossibility of compiling some code revisions in the past, or the impossibility of executing code of the present (the perfect test) in the commits of the past.
 
-Aliquam nec viverra nisi, laoreet bibendum ligula. Mauris lorem neque, blandit eu mauris in, porttitor tristique neque. Duis eget ex est. Mauris elementum nunc id semper maximus. Vestibulum lectus diam, ultrices eu nisi et, accumsan pretium eros. Sed pharetra pellentesque nulla, vitae euismod lorem condimentum quis. Quisque non porttitor elit. Sed eleifend iaculis mauris, ac tincidunt elit placerat eget. Phasellus sodales metus a urna convallis, nec auctor sem rhoncus. Morbi egestas finibus ipsum ut scelerisque. Ut sit amet molestie tellus.
+The motivation of my PhD. Thesis is to try to deal with these limitations, to acquire empirical knowledge of the proposed problems and to operationalize Gema's theoretical model.
+
+\section{Hypothesis}
+
+\section{Objectives}
+
+\section{Contributions}
+
+\section{Organization of the thesis}
