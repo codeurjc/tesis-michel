@@ -17,7 +17,7 @@ One of the most relevant proposals for locating the change that introduced the b
 This algorithm starts from the premise that the same lines of code that were modified or deleted in the fix changes are the ones that contained the bug. 
 In this way, the change history of a software project could be used to search for the change that introduced or modified those lines and thus be able to know which versions of the project are affected by the bug.
 
-The SZZ algorithm has been for many years the state of the art when locating the change that induced an error. 
+The SZZ algorithm has been for many years the state of the art when locating the change that induced a bug. 
 In 2018, Gema Rodriguez presented her PhD. Thesis~\cite{rodriguez2018towards}, in which she exposed the limitations of this algorithm and all those that have been derived from it, finding several examples in which this algorithm failed in its purpose. 
 In her research and as part of her thesis, the author proposed a theoretical model for the identification of the change that introduced a bug, trying to improve the state of the art. 
 This model, in essence, was based on the idea of the "perfect test", a theoretical construct that was able to check if a bug was present or not in commits prior to the change that fixed it. The author of this work explained the difficulties in operationalizing this theoretical model. 
@@ -39,6 +39,19 @@ If no previous version is found in which the test passes, then the bug is not a 
 
 \section{Objectives}
 
+The primary objective of this PhD Thesis is to validate the hypothesis proposed in the previous subsection, aiming to put into practice the theoretical model proposed in the literature and described in the introduction. 
+From the limitations pointed out by the authors of this model, particular objectives arise, related to study the history of the projects in order to understand the feasibility of our proposal.
+
+The objectives of the thesis will be three and correspond to three research projects that complement each other:
+
+\begin{itemize}
+    \item To verify the extent to which it is possible to build past commits of a project. To be able to carry out the execution of tests in the past it is required to fulfill the precondition that this code can be built: download its dependencies and compile the code (if the language requires it). There is previous work on this topic that we intend to validate and extend.
+    \item To verify the extent to which it is possible to run the tests in the past. This objective follows the line of the previous one, being the building of a project the previous step to the execution of its tests. As there is no previous work on this topic (at the time of writing this thesis), we intend to propose new metrics that will help us to assess the project level coverage provided by the tests.
+    \item To apply the knowledge acquired in achieving the previous objectives to solve our initial objective: to validate the hypothesis that it is possible to use regression testing as a "perfect test" following the theoretical model proposed in the literature, in which we will have to run tests throughout the commit history of the project in order to detect the change that introduced the bug.
+\end{itemize}
+
 \section{Contributions}
+
+The main three contributions of this thesis are outlined below.
 
 \section{Organization of the thesis}
