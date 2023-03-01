@@ -52,6 +52,32 @@ The objectives of the thesis will be three and correspond to three research proj
 
 \section{Contributions}
 
-The main three contributions of this thesis are outlined below.
+The main contributions of this thesis are outlined below.
+
+\begin{itemize}
+    \item \textbf{A replication and a reproduction study of the compilability of the history of past commits of a project}
+    This contribution addresses the first objective defined in the previous section.
+    It is a research study that investigates about the compilability of the history of past commits of a project.
+    This research is conducted through a replication of a previous study~\cite{tufano2017there} (using the original set of real software projects from that study) and a replication (using a new set of projects).
+    This contribution has been published in the Empirical Software Engineering journal in March 2022~\cite{maes2022revisiting}.
+    \michel{La sección que engloba este trabajo tiene una sección de contribuciones más detallada. Es dificil hablar de contribuciones sin el contexto completo.}
+    \item \textbf{A study of the testability of the history of past commits of a project}
+    This contribution addresses the second objective defined in the previous section.
+    \michel{Este artículo esta a medio escribir (lo re-orientamos como un case-study) y las contribuciones del mismo aún no están claras.}
+    This contribution has been submitted to and is under review at the Software Evolution and Process journal.\michel{Sin enviar aún}
+    \item \textbf{An empirical method for detecting the change that introduced a bug through regression tests}
+    This contribution addresses the third objective defined in the previous section. 
+    This study proposes the operationalization of a previous theoretical model, in which our proposal offers a tool to automatically detect the change introduced by the bug using regression tests. To accomplish this, we will start from a well-known dataset of software projects that have labeled the changes that fix a bug together with a regression test that reveals the bug.
+    This contribution has been submitted to and is under review at the Empirical Software Engineering journal.
+    \item{Otros} \michel{Si hay tiempo, podemos añadir otros artículos relacionados: el dataset de regressiones e2e y su continuación, la identificación de proyectos e2e en GitHub}
+\end{itemize}
 
 \section{Organization of the thesis}
+
+The remainder of this thesis is organized as follows.
+In Chapter~\ref{chapter:related-work} we present the related work to the reader. 
+\michel{Si la divido por subsecciones, lo comentaré aquí}
+In Chapter~\ref{chapter:buildability} addresses the study on software compilability, corresponding to the first contribution of the thesis.
+In Chapter~\ref{chapter:testability} addresses the study on software testability, corresponding to the second contribution of the thesis.
+In Chapter~\ref{chapter:bug-hunter} addresses the study on the detection of the change that introduced a bug, corresponding to the third contribution of the thesis.
+Finally, Chapter~\ref{chapter:conclusions} draws the conclusions and outlines the future work.

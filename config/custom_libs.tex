@@ -40,3 +40,41 @@
 \newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
 \newcommand\clearrow{\global\let\rowmac\relax}
 \clearrow
+
+%% COMMENTS
+
+\newcommand{\nb}[2]{
+	{
+		{\color{black}{
+				\small\fbox{\bfseries\sffamily\scriptsize#1}
+				{\sffamily\small$\triangleright~${\it\sffamily\small #2}$~\triangleleft$}
+	}}}
+}
+
+\newcommand{\add}[1]{
+	\textcolor{teal}{#1}
+}
+\newcommand{\remove}[1]{
+	\textcolor{red}{\sout{#1}}
+}
+
+% USER MACROS
+\newif\ifdraft
+\drafttrue
+
+\ifdraft
+\newcommand\michel[1]{\nb{Michel}{\color{purple}#1}}
+\newcommand\patxi[1]{\nb{Patxi}{\color{blue}#1}}
+\newcommand\mica[1]{\nb{Mica}{\color{blue}#1}}
+\newcommand{\fixme}[1]{{\textcolor{red}{[FIXME] #1}}\xspace}
+\newcommand{\cn}{{\color{violet}[citation required]}}
+
+\else
+%\usepackage[disable]{todonotes}
+\newcommand\michel[1]{}
+\newcommand\patxi[1]{}
+\newcommand\mica[1]{}
+\newcommand{\fixme}[1]{}
+\newcommand{\cn}{}
+
+\fi
