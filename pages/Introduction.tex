@@ -3,19 +3,26 @@
 In software engineering, developers collaborate with each other in order to develop a software product. 
 Software developers have been assisted for years by Version Control Systems (VCS). 
 These systems have made it possible to manage, coordinate and organize the development of software products. 
-During software development, developers implement several changes to the product in order to introduce new functionality or improve pre-existing ones (refactoring or bug fixes). \patxi{(by means of refactorings or bug-fixings)} 
-These changes can be grouped into a revision, the minimum unit in which a VCS allows us to version our software. This revision is also known as a "commit" \patxi{or "snapshot" -> porque creo que en algún paper lo llamamos snapshots, ¿no? Así introducimos desde ya el concepto}. 
-One of the most popular and dominant VCS in recent years has been Git~\cite{VersionControlSystemSurvey:2022:Online}. \patxi{Di algo de git: Git was started with the objective of solving problems Linux developers were having by using Subversion as the VCS for the Linux code. (o algo así, verifica los orígenes de git). Y no sé si no habría que introducir que puedes tener ramas, que los commits pueden tener uno o varios padres... Esas cosas habría que introducirlas en algún momento. No creo que este sea ese momento, pero habrá que hacerlo para darles más valor del que le dimos en su día en los papers.}
+During software development, developers implement several changes to the product in order to introduce new functionality or improve pre-existing ones (by means of refactorings or bug-fixings).
+These changes can be grouped into a revision, the minimum unit in which a VCS allows us to version our software. 
+This revision is also known as a "commit" or "snapshot".
+One of the most popular and dominant VCS in recent years has been Git~\cite{VersionControlSystemSurvey:2022:Online}. 
+Git was started with the goal of being an open-source distributed version control system for developing the Linux kernel.
+Among its main features is its strong support for non-linear development (i.e., multiple users can develop in forked branches of a main branch and then merge the code back together).
+%\patxi{No sé si no habría que introducir que puedes tener ramas, que los commits pueden tener uno o varios padres... Esas cosas habría que introducirlas en algún momento. No creo que este sea ese momento, pero habrá que hacerlo para darles más valor del que le dimos en su día en los papers.}
 %Git is a distributed version control system that allows developers to work locally and collaborate with other developers.
 
 Within software evolution and maintenance, one of the main activities performed by developers is bug fixing. 
-When using, these bugs were, at that moment, changes introduced in the change history as commits.\patxi{When using -> no entiendo lo que quieres decir} 
+These bugs were, at that moment, changes introduced in the change history as commits.
 The fixes to these bugs are made through changes that are also reflected in the VCS as a fix commit. 
 In other words, both the changes that introduced the bug and the one that fixed the bug are recorded in the VCS. 
-From this premise, proposals have emerged to be able to locate the change that introduced the bug from the change that fixed it. \patxi{Aquí convendría decir porqué esto es útil, para motivar más el trabajo}
+From this premise, proposals have emerged to be able to locate the change that introduced the bug from the change that fixed it. 
+If the users of our software use different versions of it, being able to detect in which change introduced the bug allows us to understand the scope of that bug and which versions have been affected and therefore should be fixed.
 One of the most relevant proposals for locating the change that introduced the bug is the SZZ algorithm~\cite{Sliwerski:2005:CIF:1083142.1083147}. 
-This algorithm starts from the premise \patxi{premise se repite dos líneas más arriba} that the same lines of code that were modified or deleted in the fix changes are the ones that contained the bug. 
-In this way, the change history of a software project could be used to search for the change that introduced or modified those lines and thus be able to know which versions of the project are affected by the bug.\patxi{Esta frase podría adelantarse porque precisamente motiva el trabajo}
+This algorithm starts from the assumption that the same lines of code that were modified or deleted in the fix changes are the ones that contained the bug. 
+In this way, the change history of a software project could be used to search for the change that introduced or modified those lines and thus be able to know which versions of the project are affected by the bug.
+\patxi{Esta frase podría adelantarse porque precisamente motiva el trabajo}
+\michel{La mantengo aquí, pero incluyo una descripción más genérica al inicio que motiva mejor el problema}
 
 The SZZ algorithm has been for many years the state of the art when locating the change that induced a bug. 
 In 2018, Gema Rodriguez presented her PhD. Thesis~\cite{rodriguez2018towards}, in which she exposed the limitations of this algorithm and all those that have been derived from it, finding several examples in which this algorithm failed in its purpose. 
@@ -23,16 +30,16 @@ In her research and as part of her thesis, the author proposed a theoretical mod
 This model, in essence, was based on the idea of the "perfect test", a theoretical construct that was able to check if a bug was present or not in commits prior to the change that fixed it. The author of this work explained the difficulties in operationalizing this theoretical model. 
 Among the limitations encountered, she points out the difficulty of finding a candidate to be the "perfect test", the impossibility of compiling some code revisions in the past, or the impossibility of executing code of the present (the perfect test) in the commits of the past.
 
-The motivation of my PhD. Thesis is to deal with these limitations, to acquire empirical knowledge of the proposed problems and to operationalize Gema's theoretical model.\patxi{Para darle más formalismo yo pondría: to operationalize the perfect test theoretical model}
+The motivation of my PhD. Thesis is to deal with these limitations, to acquire empirical knowledge of the proposed problems and to operationalize the perfect test theoretical model
 
 \section{Hypothesis}
 
-In software projects, there is a common practice that when a bug is detected, not only is it \patxi{it is} fixed but also a test is implemented to verify that the bug does not reappear (also known as regression testing). 
+In software projects, there is a common practice that when a bug is detected, not only it is fixed but also a test is implemented to verify that the bug does not reappear (also known as regression testing). 
 That bug may have had different life cycles. 
 For example, it is possible that the bug has always existed in the code, since the first day the functionality was implemented. 
 On the other hand, it is also possible that the bug was a regression, in which case, at some point in the project life cycle, the bug did not exist and was somehow incorporated into the code. 
 
-Our hypothesis is that the tests implemented when the bug is fixed can be used to determine whether the bug was a regression and be \patxi{be -> used as} the operationalization of the "perfect test" defined in the theoretical model of the previous work. 
+Our hypothesis is that the tests implemented when the bug is fixed can be used to determine whether the bug was a regression and used as the operationalization of the "perfect test" defined in the theoretical model of the previous work. 
 It would be enough to run this test with previous versions of the code. 
 If a version is found in which the test passes, then in that version the bug did not exist, and therefore it has been a regression. 
 If no previous version is found in which the test passes, then the bug is not a regression, because the functionality never worked correctly, or at least not exactly as verified by the test.
@@ -45,14 +52,17 @@ From the limitations pointed out by the authors of this model, particular object
 The objectives of the thesis will be three and correspond to three research projects that complement each other:
 
 \begin{itemize}
-    \item To verify the extent to which it is possible to build past commits of a project. To be able to carry out the execution of tests in the past it is required to fulfill the precondition that this code can be built: download its dependencies and compile the code \patxi{build, which means that its dependencies can be downloaded and the code compiles.} (if the language requires it). There is previous work on this topic that we intend to validate and extend.
-    \item To verify the extent to which it is possible to run the tests in the past. This objective follows the line of the previous one, being the building of a project the previous step to the execution of its tests\patxi{Quirtaría esta frase, es complicada de entender, o la aclararía: this objective extends the purpose of the previous one, extending it by means of trying to execute the tests after the code was compiled}. As there is no previous work on this topic (at the time of writing this thesis), we intend to propose new metrics that will help us to assess the project level coverage provided by the tests\patxi{y que no se han roto con el paso del tiempo}.
-    \item To apply the knowledge acquired in achieving the previous objectives to solve our initial objective: to validate the hypothesis that it is possible to use regression testing as a "perfect test" following the theoretical model proposed in the literature, in which we will have to run tests throughout the commit history of the project in order to detect the change that introduced the bug. \patxi{Parte esto en varias frases porque no lo entiendo bien. Sé lo que quieres decir, pero la frase es muy larga y no se entiende.}
+    \item To verify the extent to which it is possible to build past commits of a project. To be able to carry out the execution of tests in the past it is required to fulfill the precondition that this code can be built: which means that its dependencies can be downloaded and the code compiles (if the language requires it). 
+    There is previous work on this topic that we aim to validate and extend.
+    \item To verify the extent to which it is possible to run the tests in the past. This objective extends the purpose of the previous one, extending it by means of trying to execute the tests after the code was compiled. As there is no previous work on this topic (at the time of writing this thesis), we aim to propose new metrics that will help us to assess the project level coverage provided by the tests.
+    \item To apply the knowledge acquired in achieving the previous objectives to solve our initial objective: to validate the hypothesis that it is possible to use regression testing as a "perfect test" following the theoretical model proposed in the literature.
+    For that purpose, we will run regression tests along the commit history of the project to detect the change that introduced the bug.
 \end{itemize}
 
 \section{Contributions}
 
 The main contributions of this thesis are outlined below.
+These contributions will be detailed in the corresponding chapters.
 
 \begin{itemize}
     \item \textbf{A replication and a reproduction study of the compilability of the history of past commits of a project}
@@ -60,14 +70,13 @@ The main contributions of this thesis are outlined below.
     It is a research study that investigates about the compilability of the history of past commits of a project.
     This research is conducted through a replication of a previous study~\cite{tufano2017there} (using the original set of real software projects from that study) and a replication (using a new set of projects).
     This contribution has been published in the Empirical Software Engineering journal in March 2022~\cite{maes2022revisiting}.
-    \michel{La sección que engloba este trabajo tiene una sección de contribuciones más detallada. Es dificil hablar de contribuciones sin el contexto completo.}\patxi{A lo mejor puedes poner un texto al principio de esta sección indicando que cada capítulo explica en detalle las contribuciones específicas del mismo.}
     \item \textbf{A study of the testability of the history of past commits of a project}
     This contribution addresses the second objective defined in the previous section.
     \michel{Este artículo esta a medio escribir (lo re-orientamos como un case-study) y las contribuciones del mismo aún no están claras.}
     This contribution has been submitted to and is under review at the Software Evolution and Process journal.\michel{Sin enviar aún}
     \item \textbf{An empirical method for detecting the change that introduced a bug through regression tests}
     This contribution addresses the third objective defined in the previous section. 
-    This study proposes the operationalization of a previous theoretical model, in which our proposal offers a tool to automatically detect the change introduced by the bug using regression tests. To accomplish this, we will start from a well-known dataset of software projects that have labeled the changes that fix a bug together with a regression test that reveals the \patxi{the -> that} bug.
+    This study proposes the operationalization of a previous theoretical model, in which our proposal offers a tool to automatically detect the change introduced by the bug using regression tests. To accomplish this, we will start from a well-known dataset of software projects that have labeled the changes that fix a bug together with a regression test that reveals that bug.
     This contribution has been submitted to and is under review at the Empirical Software Engineering journal.
     \item{Otros} \michel{Si hay tiempo, podemos añadir otros artículos relacionados: el dataset de regressiones e2e y su continuación, la identificación de proyectos e2e en GitHub}
 \end{itemize}
