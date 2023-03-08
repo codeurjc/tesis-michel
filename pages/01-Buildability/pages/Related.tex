@@ -21,8 +21,21 @@ Even when our work is relevant to obtain reproducible builds of past versions of
 
 Compilability of past versions of a program has been used instrumentally in research or industrial activities.
 This is the case for bug location~\cite{Sliwerski:2005:CIF:1083142.1083147,Asaduzzaman:2012:BIC:2664446.2664463,Murgia:2010:MLA:1852786.1852794,Zimmermann:2006:MVA:1137983.1138001,Zimmermann2008}.
-When locating bugs, techniques like \texttt{git bisect} may be used to traverse the project history of commits back to the past, to find the change that introduced a bug~\cite{spinellis2012git,meneely2013patch}. In these cases, the utility of the technique is limited to tools performing static analysis, except when automatic compilability of past snapshots can be ensured -- then, the debugged system can be also analyzed dynamically.
+When locating bugs, techniques like GitBisect~\footnote{\url{https://git-scm.com/docs/git-bisect}} may be used to traverse the project history of commits back to the past, to find the change that introduced a bug~\cite{spinellis2012git,meneely2013patch}. 
+In these cases, the utility of the technique is limited to tools performing static analysis, except when automatic compilability of past snapshots can be ensured -- then, the debugged system can be also analyzed dynamically.
 Some authors have proposed metrics to evaluate the stability of project builds over time~\cite{6405296}.
 Others have addressed the problem in an indirect way, for example when trying to run mutant tests in previous versions of several software projects~\cite{Just:2014:MVS:2635868.2635929} provided by Defects4J~\cite{Just:2014:DDE:2610384.2628055}. However, none of those studies systematically addresses the analysis of the compilability of past versions of real systems.
 
-Finally, we already mentioned Tufano et al.'s work as the direct precedent of the studies we present in this manuscript~\cite{tufano2017there}. Thus, its methodology and results will be discussed in detail later in this chapter.
+Build breakage repair techniques have been also proposed. Macho et al. derived three automatic repair techniques from 37 broken Maven builds~\cite{macho2018automatically}. 
+Using these techniques, they were able to automatically fix 45 of an additional 84 broken builds. 
+Other authors used a different strategy to achieve higher compilability. Behnamghader et al. focus solely on a module within the software (the one that changes)~\cite{behnamghader2018scalable}. They achieved high compilability for the three different datasets considered (Apache, Google and Netflix), above 94\% in all cases. Surprisingly, another work by He et al. has found that the presence of broken builds did not result in an increase of commit frequency (thus working on solving the breakage)~\cite{he2020characteristics}. The authors also reported a correlation between tags like \textit{feature add} or \textit{refactoring} linked to a broken build, after studying 68 Java repositories.
+
+The most complete study on the compilability of all past snapshots is presented by Tufano et al.~\cite{tufano2017there}.
+This work will be the direct precedent of the studies we present on Chapter~\ref{chapter:buildability}. 
+Thus, its methodology and results will be discussed in detail later in this chapter.
+
+A study of past snapshots to detect bug-introducing commits is tackled by Querel et.al~\cite{querel:2021:warning}. 
+The authors partially replicate the work by Tufano et al., by trying to improve the compilability of eight of the Maven-based projects. 
+They do so by solving the \textit{missing dependency} problem, selecting a dependency close to the commit date. 
+Through this technique a compilability of 78.4\% is reported -- doubling in compilability compared to prior work. For those commits whose build fail, they run the \texttt{findbugs} tool~\cite{ayewah2007using} in an attempt to understand if the failure could be caused by a bug. 
+Their results were negative, although developers found the reports offered by \texttt{findbugs} useful.

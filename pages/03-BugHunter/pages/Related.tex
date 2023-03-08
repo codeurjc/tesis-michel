@@ -1,77 +1,21 @@
 \section{Transplanting code}
+\label{sec:transplating-code:related}
 
-% The tool that we propose in this work requires to transplant a particular test version (the fix of a bug) in previous versions of the code.
-% There are several papers that have dealt with the problem of transplant pieces of code. 
-% Redebug~\cite{jang2012redebug} tool starts from a known bug in a project (which has been patched) with the aim of looking for other ``clones'' of that bug where the same patch can be applied.
-% In Automatic Repair,  \textit{The Plastic Sugery Hypothesis}\cite{barr2014plastic} suggests that a piece of code that has a bug can be fixed with a fix applied to similar code. 
-% It is based on the hypothesis that there is a lot of duplicated code in a program.
-% In rapid release development process environments, some critical patches that fix an issue may skip several phases of code stabilization (patch uplift). 
-% In this practice the fix code is applied in different versions. 
-% Castelluccio et al.\cite{castelluccio2019empirical} point out that this practice can lead to regressions in the version where the fix is applied.
-
-% jgb: Proposal to substitute the previous paragaph
 Our proposal for identifying BICs is based on transplanting a test present in the snapshot that fixed a bug to earlier snapshots of the same code. Techniques for transplanting pieces of code were applied by ReDeBug~\cite{jang2012redebug} for fixing clones of a fixed bug, by transplanting the fixing patch. In this respect, the \emph{plastic surgery hypothesis}~\cite{harman2010:automated_patching}, which assumes that changes to source code can be constructed as combinations of other changes already present in the code (grafts) was studied in detail by Barr et al.~\cite{barr2014plastic}, showing how in fact patches could in many cases be transplanted to other areas of code. However, further studies~\cite{castelluccio2019empirical} show how this practice can lead to regressions in the version where the fix is applied.
-%\jgb{I'm not sure about this framing. Maybe we should either have a closer look at automated repair, refactoring, and genetic improvement, which seem to have used simialr techniques. Or just state that the general approach is to find similar code and apply similar patches to it. In any case the intro of \cite{barr2014plastic} may show the relevant early literature}.
 
-% The most similar work to ours is BugBuilder\cite{jiang2021extracting}.
-% This tool starts from 2 consecutive versions of the code, V(n-1) and V(n). V(n) is the version containing the fix while V(n-1) is the version prior to the fix where the bug can be found. 
-% The aim of the tool is to detect which concrete changes are really the fix (leaving out refactorings and other unrelated changes). 
-% The way to detect that the change in the fix is the one that fixes the bug is to apply in V(n-1) that same change and check that the tests that previously failed now pass.
-% This proposal is based on traslating the fix code to the past to check the validity of the fix, while we transplant the regression test to the previous version to identify the commit where the test fails but it passes on a previous commit.
-% % to detect if in any version the test passes again (N) and thus find detect the N+1 commit where the bug was introduced.
-% % \as{Can you please highlight similarities and differences?}
-
-% jgb: Proposal to substitute the previous paragaph
 To determine which specific piece of code of a change in a bug fix is the part actually fixing the bug, BugBuilder~\cite{jiang2021extracting} transplants each part to the previous versions of the code. It then runs the regression test to check whether the bug is still present. This approach is similar to ours, with the difference that the authors of BugBuilder intend to find out which part of a change is the fix, while we intend to find when the bug was introduced, and for that we need to transplant not only to the previous version, but to many others in the past of the bug fix.
 
-
-
-% \as{Still, can we reuse BugBuilder in some way?}\michel{Their proposal allows to obtain, automatically, the BFC. Our tests are on the Defects4J dataset, they do not offer new results, they only validate their tool (new projects should be selected). Defects4J, in turn, contains much more useful elements that this tool would not allow us to obtain (eg. the regression tests associated with the bug).}\as{Can you integrate this explanation in the text itself?}
-%\michel{I think it is not necessary to go further in the explanation, it is clear how we differ and I do not see the need to advance our methodology here to justify that we do not use this tool.}
-
-
 \section{Bug Introduction Changes}
+\label{sec:bic:related}
 
-% The problem of bug introducing change (BIC) detection has been extensively studied in the literature. 
-% Researchers have traditionally assumed that the change that introduced the bug changes the same lines of source code that were changed when the bug was fixed. 
-% Based on this assumption, a popular algorithm was developed by Sliwerski, Zimmermann, and Zeller (SZZ)~\cite{sliwerski2005changes}.
-% This algorithm relies on the SCM to find the BIC. 
-% Specifically, it makes use of the diff between the BFC and its previous version to identify the lines that changed, the blame tool to identify the last change that modified those same lines and the dates of each change to be able to filter those changes after the bug report.
-% A recent systematic literature review~\cite{rodriguez2018reproducibility} has surveyed 187 studies related to SZZ. 
-% 40\% of the publications use their own variant of the SZZ, while only 14\% work on a variant of other authors that is not the original one. 
-% The authors of the literature review also highlight the low reproducibility of the studies, the papers collected in this study do not usually provide the implementation of their variant of the SZZ. 
-% As a result of this work, several authors have started to publish their implementations of the SZZ to facilitate its reproduction~\cite{borg2019szz, lenarduzzi2020openszz, pokropinski2022szz, rosa2021evaluating}.
-% The tool we propose in this paper has a different approach to the SZZ and tries to mitigate some of its limitations.
+The problem of detecting the change that introduced a bug (bug introducing change, BIC) given the change that fixed it (bug fixing change, BFC) has been extensively studied~\cite{sinha2010buginnings,davies2014comparing,sliwerski2005changes,kim2006automatic,williams2008szz,kamei2012large,tantithamthavorn2013mining}. The usual approach has been to assume that the change that introduced the bug touched the same lines of source code that were touched to fix it. The SZZ algorithm~\cite{sliwerski2005changes} was developed based on this assumption. Using the source control management system, it identifies the lines that were edited in the change that fixed a commit, and then which previous changes modified the same lines before the bug was reported. Many variants of SZZ have been proposed, improving the algorithm in different ways. \gema~\cite{rodriguez2018reproducibility} surveyed 187 studies related to SZZ, finding that 38\% of them used the original algorithm, while the rest used a derivative. It also found a very low reproducibility for the studies, with many of them not publishing the implementation of the algorithms they used. Fortunately, this situation is changing, and some years later we have several implementations of SZZ derivatives published~\cite{borg2019szz,lenarduzzi2020openszz,pokropinski2022szz,rosa2021evaluating}.
 
-% jgb: Proposal to substitute the previous paragaph
-The problem of detecting the change that introduced a bug (bug introducing change, BIC) given the change that fixed it (bug fixing change, BFC) has been extensively studied\cite{sinha2010buginnings,davies2014comparing,sliwerski2005changes,kim2006automatic,williams2008szz,kamei2012large,tantithamthavorn2013mining}. The usual approach has been to assume that the change that introduced the bug touched the same lines of source code that were touched to fix it. The SZZ algorithm~\cite{sliwerski2005changes} was developed based on this assumption. Using the source control management system, it identifies the lines that were edited in the change that fixed a commit, and then which previous changes modified the same lines before the bug was reported. Many variants of SZZ have been proposed, improving the algorithm in different ways. \gema \cite{rodriguez2018reproducibility} surveyed 187 studies related to SZZ, finding that 38\% of them used the original algorithm, while the rest used a derivative. It also found a very low reproducibility for the studies, with many of them not publishing the implementation of the algorithms they used. Fortunately, this situation is changing, and some years later we have several implementations of SZZ derivatives published~\cite{borg2019szz,lenarduzzi2020openszz,pokropinski2022szz,rosa2021evaluating}.
-
-% There are other proposals in the literature are based on automatic bisection, that starting from a current version containing the bug and a previous known version in which the bug does not exist, are able to offer one or several candidates to be the bug introducing change.
-% A feature of Git, a version control system, git bisect is based on this idea. 
-% The command \textit{git bisect} requires the practitioner to know a ``good'' commit before the BIC, which is usually not known in advance. 
-% Then, during the git bisect procedure, at each commit, it stops and ask the practitioner whether the current commit is good or bad, and again this is not known in advance.
-% It is common to run the code or tests to check if the bug is present or not in the commit.
-% For example, Saha et al.~\cite{saha2017selective} propose a novel technique to save the costs of doing a binary search based on performing commit selection and test selection to save computational costs. 
-% Authors do not transplant the test into the past, but they do run tests in the past.
-% We instead transplant the regression test to the past and use it to determine whether the commit is good or bad.
-% There are also proposals that avoid having to run the tests to save costs and simplify. 
-% Cohen et.\cite{cohen2015localization} al use the diff between the last version that worked and the current version where the bug is present. 
-% It does not require running tests of any kind.
-
-% jgb: Proposal to substitute the previous paragaph
-%A different approach for finding the BIC corresponding to a bug is using automatic bisection. Starting from a certain version of the code where the bug manifests, and a previous one where it does not, these approaches find one or more candidates to be the BIC. A feature of Git, \textit{git bisect}, is an implementation of this approach. During the git bisect procedure, changes are selected using binary search, and they are labeled as exhibiting the bug or not to guide further search. To determine if the bug is present, usually some tests on the code are run, which means the code has to be compiled (for compiled languages). 
-
-Another tool to consider for the same purpose is GitBisect~\footnote{\url{https://git-scm.com/docs/git-bisect}}, which through a binary search, assists the developer to locate the commit that introduced the bug. This tool explores the Git history of a project, asking the developer if the bug is in the current commit or not. 
+Another tool (already mentioned) to consider for the same purpose is GitBisect, which through a binary search, assists the developer to locate the commit that introduced the bug. This tool explores the Git history of a project, asking the developer if the bug is in the current commit or not. 
 It is therefore up to the developer to perform all the build and testing steps manually. 
 An automated bisection over git bisect was proposed, called ``\textit{git bisect run}''~\footnote{\url{https://lwn.net/Articles/317154/}}, which allows the developer to add a script or command to be executed at each step of the tool.
 As we will see later, our proposal proposes a fully automatic process that allows to obtain much more detailed results of each phase in each commit. 
 Our proposal also solves a limitation of GitBisect: this tool does not consider the graph structure that the commit history of a project may have, while our proposal navigates through the graph with an appropriate algorithm (depth-first search).
 Some improvements on this technique have been proposed~\cite{saha2017selective} by selecting commits and tests to save computational costs.
-
-% jgb: The next reference is really about detecting regression bugs. I'm not sure it is relevant. For now, I'm commenting it out
-% There are also proposals that avoid having to run the tests to save costs and simplify. 
-% Cohen et.\cite{cohen2015localization} al use the diff between the last version that worked and the current version where the bug is present. 
-% It does not require running tests of any kind.
 
 There are studies that reduce the cost for both bisection and SZZ-like blame models such as~\cite{an2021reducing}, which filters commits using the coverage of regression tests for the bug, thus reducing the search space for automated bisection.
 
@@ -87,14 +31,4 @@ None of these techniques deal with automatically transplanting tests to past ver
 Git bisect and its derivatives do not directly address transplanting code into the past and is limited to a binary search that considers only a linear history model.
 SZZ and derived techniques try to infer which changes could have introduced the bug by analyzing the history of the source code.
 
-Our proposal, as we will see, aims to go further by running regression tests on the change history of the project.
-
-
-% A dataset of e2e bugs\cite{soto2021dataset}
-
-%\as{Can you please try to draw the main lines and their relation to the current work? At the moment each paragraph looks separate and not necessarily related to the remaining ones...}
-%\michel{I have tried to link, as much as possible, our work with previous work. I try above all to link the approaches (transplant code or detecting the BIC), but since there is no direct previous work other than Gema's, it is complicated to follow a storyline.}
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "../paper"
-%%% End:
+Our proposal, as we will see in detail in Chapter~\ref{chapter:bug-hunter}, aims to go further by running regression tests on the change history of the project.
