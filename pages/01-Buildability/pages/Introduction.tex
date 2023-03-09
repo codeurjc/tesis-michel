@@ -30,31 +30,31 @@ To our knowledge, the most complete study on the compilability of all past snaps
 
 \textbf{(1)} To validate the results of the original study, by trying to build {\bf in 2020} the same snapshots it considered {\bf in 2014}, answering the original two research questions (although slightly rephrased):
 
-\textbf{RQ\textsubscript{1a}}: ``How many snapshots from the change history are compilable?''
+\textbf{RQ\textsubscript{1.1a}}: ``How many snapshots from the change history are compilable?''
 
-\textbf{RQ\textsubscript{1b}}: ``Which types of errors prevent snapshots from being built?''
+\textbf{RQ\textsubscript{1.1b}}: ``Which types of errors prevent snapshots from being built?''
 
 We reproduced the conditions and methodology of the original study as much as possible, studying compilability of the same snapshots with the Maven tool, as they did. 
 In addition, we also wanted to learn if compilability had degraded. We suspected that it could be the case because one of the main reasons for failed builds in the original study was availability of dependencies, which is known to degrade over time~\cite{bavota2015apache}. So we added the following research question:
 
-\textbf{RQ\textsubscript{1c}}: ``Has compilability degraded since the original study?''
+\textbf{RQ\textsubscript{1.1c}}: ``Has compilability degraded since the original study?''
 
 While answering the previous RQs, we stumbled upon some problems that lead us to an additional one:
 
-\textbf{RQ\textsubscript{1d}}: ``Are the data in the reproduction package of the original study enough for a replication?''
+\textbf{RQ\textsubscript{1.1d}}: ``Are the data in the reproduction package of the original study enough for a replication?''
 
 \textbf{(2)} To explore the generalizability of the results, by conducting another study with the same methodology but on a  set of Java projects with a more diverse background:
 
-\textbf{RQ\textsubscript{2a}}: ``How many snapshots from the change history are compilable?''
+\textbf{RQ\textsubscript{1.2a}}: ``How many snapshots from the change history are compilable?''
 
-\textbf{RQ\textsubscript{2b}}: ``Which types of errors prevent snapshots from being built?''
+\textbf{RQ\textsubscript{1.2b}}: ``Which types of errors prevent snapshots from being built?''
 
-\textbf{RQ\textsubscript{2c}}: ``Are there differences in compilability depending on the building tool?''
+\textbf{RQ\textsubscript{1.2c}}: ``Are there differences in compilability depending on the building tool?''
 
 With the first two questions, we check the extensibility of the results of the original paper to other Java projects. 
 The last question is aimed to find out if some building tools perform better in terms of compilability than others, for example because of the amount of information they require about the construction process and the construction context.
 
-In the rest of this chapter, we refer to the study that addresses RQ\textsubscript{1[a-d]} as \emph{replication study}, and \emph{reproduction study} to the one answering RQ\textsubscript{2[a-c]}. 
+In the rest of this chapter, we refer to the study that addresses RQ\textsubscript{1.1[a-d]} as \emph{replication study}, and \emph{reproduction study} to the one answering RQ\textsubscript{1.2[a-c]}. 
 This terminology is based on~\cite{juristo2010replication} and~\cite{cartwright1991replicability}, which distinguish between \textbf{replication} (performing the same experiment again) and \textbf{reproduction} (performing the same experiment but with other input/data). Very recently, this terminology has been reviewed,\footnote{https://www.acm.org/publications/policies/artifact-review-and-badging-current} however in this paper we use the traditional definitions for replication and reproduction studies.
 
 Our replication study analyzes 79 projects from the set of 100 in the original study, and our reproduction study will be performed on a dataset of 80 FOSS (free, open source software) Java projects. In addition, for the reproduction we will extend the build systems with Ant (very popular in the old days of long-running projects) and Gradle (a newer build tool) -- the original study only considered Maven. In both studies we used our own software for checking compilability and analyzing the resulting logs (see Section~\ref{sec:buildability:repro}).

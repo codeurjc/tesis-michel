@@ -2,7 +2,7 @@
 
 \subsection{Compilability}
 
-To answer RQ\textsubscript{2a}, we repeated the same analysis of the replication study, but now for the 80 projects of our reproduction study. Of them, 20 projects were classified as having a short history (Q1, less than 1,974 commits), 40 as medium history (Q2 and Q3), and 20 as long (Q4, more than 4,847 commits). Compilability results are shown in Table~\ref{table:results-reproduction}.
+To answer RQ\textsubscript{1.2a}, we repeated the same analysis of the replication study, but now for the 80 projects of our reproduction study. Of them, 20 projects were classified as having a short history (Q1, less than 1,974 commits), 40 as medium history (Q2 and Q3), and 20 as long (Q4, more than 4,847 commits). Compilability results are shown in Table~\ref{table:results-reproduction}.
 
 \begin{table*}[h]
 \caption{Reproduction study - Compilability results}
@@ -111,13 +111,13 @@ Nonetheless, for the sake of completeness, we offer a comparison using the same 
 
 \vspace{0.2cm}
 \fbox{\begin{minipage}{0.9\textwidth}
-\textbf{\textbf{RQ\textsubscript{2a}}: ``How many snapshots from the change history are compilable?''}
+\textbf{\textbf{RQ\textsubscript{1.2a}}: ``How many snapshots from the change history are compilable?''}
 Less than half of the snapshots with build configuration could be built. Compilability decreased with the size of the commit history of projects. For all history size categories, and all projects together, mean and median compilability was less than 51\%, although variability is high (standard deviation is over 28\% in all cases).
 \end{minipage}}
 
 \subsection{Failure analysis}
 
-To answer RQ\textsubscript{2b}, we analyzed build failures, as shown in Table~\ref{table:results-reproduction-build-systems-errors}. Most of the errors are of type \textit{Resolution}, due to missing dependencies and other external artifacts. \textit{Parsing} and \textit{Compilation} errors are almost negligible.
+To answer RQ\textsubscript{1.2b}, we analyzed build failures, as shown in Table~\ref{table:results-reproduction-build-systems-errors}. Most of the errors are of type \textit{Resolution}, due to missing dependencies and other external artifacts. \textit{Parsing} and \textit{Compilation} errors are almost negligible.
 
 % \begin{table}[h]
 % 	\caption{Causes of failed builds (Reproduction Study)}
@@ -144,14 +144,14 @@ The fact that most errors are due to missing external objects is a good indicato
 
 \vspace{0.2cm}
 \fbox{\begin{minipage}{0.9\textwidth}
-\textbf{\textbf{RQ\textsubscript{2b}}: ``What types of errors prevent snapshots from being built?''}
+\textbf{\textbf{RQ\textsubscript{1.2b}}: ``What types of errors prevent snapshots from being built?''}
 Most of the errors observed (56\%) are due to missing dependencies and other external artifacts. The impact of these errors in the overall compilability is thus very important: almost one third (36.43\%) of all snapshots with building configuration could not be built because of them. On the contrary, parsing and compilation errors are few, meaning that most snapshots were carefully checked for these errors before committing.    
 \end{minipage}}
 
 
 \subsection{Building system}
 
-To answer RQ\textsubscript{2c}, we performed an analysis by build system. When we were detecting build configuration files, we observed some projects starting to build with Ant, then switching to Maven or Gradle, and some others using Maven and Gradle for their entire history. From the total number of commits with build configuration, 68.02\% are for Maven, 22.82\% for Gradle, and 9.16\% for Ant. The results of the analysis by build system are shown in Table~\ref{table:results-reproduction-build-systems}.
+To answer RQ\textsubscript{1.2c}, we performed an analysis by build system. When we were detecting build configuration files, we observed some projects starting to build with Ant, then switching to Maven or Gradle, and some others using Maven and Gradle for their entire history. From the total number of commits with build configuration, 68.02\% are for Maven, 22.82\% for Gradle, and 9.16\% for Ant. The results of the analysis by build system are shown in Table~\ref{table:results-reproduction-build-systems}.
 
 The first interesting result is that compilability for snapshots with Maven is much higher (42.03\%) than for Ant or Gradle (17-22\%). With respect to specific kinds of errors, Maven is dominated by \textit{Resolution}, as Gradle and Ant is dominated by \textit{Other}. However, the sample of snapshots with Ant and Gradle is relatively small, which means our results for them are less reliable.
 
@@ -198,7 +198,7 @@ Although all of these snapshots could not be built automatically, they could be 
 
 \vspace{0.2cm}
 \fbox{\begin{minipage}{0.9\textwidth}
-\textbf{\textbf{RQ\textsubscript{2c}}: ``Are there differences in compilability depending on the building tool?''}
+\textbf{\textbf{RQ\textsubscript{1.2c}}: ``Are there differences in compilability depending on the building tool?''}
 The compilability observed in commits whose build system is Maven is twice as high as that obtained for Gradle and Ant. Resolution errors are dominant for Maven (68.45\%), parsing errors are very low (1,96\% for Maven and 0\% for Ant and Gradle), and compilation errors seem to be only relevant for Ant (5.06\%, 4.71\% for Gradle, 0\% for Maven). We note that both Ant and Gradle use user-written tasks or scripts that are subject to errors, mainly because they do not follow tool standards, which negatively affects their compilability.
 \end{minipage}}
 

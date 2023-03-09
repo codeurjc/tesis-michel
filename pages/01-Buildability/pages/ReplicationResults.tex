@@ -12,12 +12,12 @@ Detailed logs of the execution are also not available in the reproduction packag
 
 \vspace{0.3cm}
 \fbox{\begin{minipage}{0.9\textwidth}
-\textbf{\textbf{RQ\textsubscript{1d}}: ``Is the data in the reproduction package of the original study enough for a replication?''} There is enough data for comparing results, even at the repository level. However, there is not enough data to exactly reproduce the original study: a copy of the git repositories, as they were when the analysis was performed, is missing; some relevant software is also missing (such as the one to detect the Maven configuration in a snapshot); and the logs of their execution for all snapshots is also missing, which makes it difficult to understand the reasons of some discrepancies when replicating the study.
+\textbf{\textbf{RQ\textsubscript{1.1d}}: ``Is the data in the reproduction package of the original study enough for a replication?''} There is enough data for comparing results, even at the repository level. However, there is not enough data to exactly reproduce the original study: a copy of the git repositories, as they were when the analysis was performed, is missing; some relevant software is also missing (such as the one to detect the Maven configuration in a snapshot); and the logs of their execution for all snapshots is also missing, which makes it difficult to understand the reasons of some discrepancies when replicating the study.
 \end{minipage}}
 
 \subsection{Compilability}
 
-To answer RQ\textsubscript{1a} and RQ\textsubscript{1c} in detail, we follow the same process as the original study, classifying repositories in three categories according to their number of commits: short history (number of commits in the first quartile, Q1), medium history (Q2 and Q3) and long history (Q4). Repositories classified as short (20) have less than 203 commits, medium (39 repositories) have between 203 and 1,148 commits, and long repositories (20) have more than 1,148 commits. Then, we analyze the compilability of those snapshots for which we found configuration for Maven, assuming the rest could not be built because developers were not using automatic tools for building.
+To answer RQ\textsubscript{1.1a} and RQ\textsubscript{1.1c} in detail, we follow the same process as the original study, classifying repositories in three categories according to their number of commits: short history (number of commits in the first quartile, Q1), medium history (Q2 and Q3) and long history (Q4). Repositories classified as short (20) have less than 203 commits, medium (39 repositories) have between 203 and 1,148 commits, and long repositories (20) have more than 1,148 commits. Then, we analyze the compilability of those snapshots for which we found configuration for Maven, assuming the rest could not be built because developers were not using automatic tools for building.
 
 Tables~\ref{table:replication-compilability} and \ref{table:replication-compilability-2} shows the results for compilability in the original study, and of our replication study. For the original study we computed, thanks to the details in its reproduction package, results for the reduced list of 79 repositories that we have analyzed. However, the results for the pristine study (with all its 100 repositories) are very similar to those of the reduced one. For example, the average compilability of the reduced study is 37.19, while for the pristine study it is 38.13, according to the original paper. For completeness, we run Wilcoxon's test on the compilability results of all projects of the previous and our replication studies, obtaining a p-value of 1.9077e-6. This confirms statistical significant differences between both cases.
 
@@ -98,12 +98,12 @@ Tables~\ref{table:replication-compilability} and \ref{table:replication-compilab
 
 \vspace{0.2cm}
 \fbox{\begin{minipage}{0.9\textwidth}
-\textbf{ \textbf{RQ\textsubscript{1a}}: ``How many snapshots from the change history are compilable?''} 8.74\% or less of the commits were compilable for half of the analyzed projects. The result for the original study was 28.64\%.
-Thus, results are very different, likely affected by the time passed (as we will discuss when answering RQ$_{1c}$).
+\textbf{ \textbf{RQ\textsubscript{1.1a}}: ``How many snapshots from the change history are compilable?''} 8.74\% or less of the commits were compilable for half of the analyzed projects. The result for the original study was 28.64\%.
+Thus, results are very different, likely affected by the time passed (as we will discuss when answering RQ\textsubscript{1.1c}).
 \end{minipage}}
 
 \fbox{\begin{minipage}{0.9\textwidth}
-\textbf{\textbf{RQ\textsubscript{1c}}: ``Has compilability degraded since the original study?''}
+\textbf{\textbf{RQ\textsubscript{1.1c}}: ``Has compilability degraded since the original study?''}
 A much smaller fraction of the commits with build configuration can be built (22.33\% in the original study versus 14.66\% in our replication). When analyzing repositories by size, medium projects are more affected by this decrease in compilability, with half of them having a compilability of 1.70\% or less, while in the original study that number was 36.24\%. Short projects are also affected, and the less affected are long projects, but still they move from a median of 16.48\% to 9.44\% in our replication.
 \end{minipage}}
 \vspace{0.2cm}
@@ -138,7 +138,7 @@ It should be noted that Table~\ref{table:replication-compilability} extends the 
 
 \subsection{Failure analysis}
 
-To answer RQ\textsubscript{1b}, and provide some insight on the reasons for the answer to RQ\textsubscript{1c}, we analyzed build failures following the categorization of the original study. Table~\ref{table:allCauses} reports the classification results for the previous study and for our replication, in both cases for the 79 repositories of the reduced study.
+To answer RQ\textsubscript{1.1b}, and provide some insight on the reasons for the answer to RQ\textsubscript{1.1c}, we analyzed build failures following the categorization of the original study. Table~\ref{table:allCauses} reports the classification results for the previous study and for our replication, in both cases for the 79 repositories of the reduced study.
 
 \begin{table}[h]
 \caption{Causes of failed builds.}
@@ -215,6 +215,6 @@ We studied in some detail the \textit{Resolution} category. One of the most recu
 
 \vspace{0.2cm}
 \fbox{\begin{minipage}{0.9\textwidth}
-\textbf{\textbf{RQ\textsubscript{1b}}: ``What types of errors prevent snapshots from being built?''}
+\textbf{\textbf{RQ\textsubscript{1.1b}}: ``What types of errors prevent snapshots from being built?''}
 The proportion of the different kinds of errors is similar to the original study. Most of the errors (63.45\%) are caused by resolution of dependencies and other external artifacts (60.49\% for the original study), these being the errors that contributed the most to the degradation of compilability. Parsing errors convey 11.88\% of the failures we detected, close to the 12.13\% reported in the original study. The same can be said for Compilation errors (2.92\% in our replication \emph{vs.} 3.55\% in the original study). About 80\% of the snapshots behaved exactly like in the previous study (they built, or they failed with the same error).
 \end{minipage}}
