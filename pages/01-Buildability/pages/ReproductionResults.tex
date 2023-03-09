@@ -97,7 +97,10 @@ To answer RQ\textsubscript{2a}, we repeated the same analysis of the replication
 
 \end{table*}
 
-For all categories, and for all the projects together, median and mean are close, meaning the distribution is not very skewed: to some extent we were successful in avoiding bias when selecting projects to analyze.  The standard deviation shows a large spread in the values (compatible with the values observed for the different quartiles). The fraction of snapshots that could not be built in all categories is higher than (or very close to) 50\%, which shows that automatic compilability of past snapshots can certainly not be given for granted. Projects with a short history have in general less compilability, and compilability increases as we move to projects with a medium and large history.
+For all categories, and for all the projects together, median and mean are close, meaning the distribution is not very skewed: to some extent we were successful in avoiding bias when selecting projects to analyze.  
+The standard deviation shows a large spread in the values (compatible with the values observed for the different quartiles). 
+The fraction of snapshots that could not be built in all categories is higher than (or very close to) 50\%, which shows that automatic compilability of past snapshots can certainly not be given for granted. 
+Projects with a long history have in general less compilability, and compilability increases as we move to projects with a medium and short history.
 
 It should be noted that in the original study, we found a great diversity in the size of the projects according to their number of commits (from projects with 25 commits to 14k).
 The problem with smaller projects ($<$203 commits) is that in many cases they have not had a natural development (the initial commit imports code from another source, as can be seen for example in following commit\footnote{https://github.com/apache/maven-app-engine/commit/b77ad9e82d7cc94}).
@@ -109,7 +112,7 @@ Nonetheless, for the sake of completeness, we offer a comparison using the same 
 \vspace{0.2cm}
 \fbox{\begin{minipage}{0.9\textwidth}
 \textbf{\textbf{RQ\textsubscript{2a}}: ``How many snapshots from the change history are compilable?''}
-Less than half of the snapshots with build configuration could be built. Compilability increased with the size of the commit history of projects. For all history size categories, and all projects together, mean and median compilability was less than 51\%, although variability is high (standard deviation is over 28\% in all cases).
+Less than half of the snapshots with build configuration could be built. Compilability decreased with the size of the commit history of projects. For all history size categories, and all projects together, mean and median compilability was less than 51\%, although variability is high (standard deviation is over 28\% in all cases).
 \end{minipage}}
 
 \subsection{Failure analysis}
