@@ -1,0 +1,66 @@
+\begin{footnotesize}
+    \begin{algorithm}[t!]
+        \caption{Algorithm to detect bug-inducing commits}\label{alg:bic}
+        \SetKwInOut{Input}{Input}
+        \SetKwInOut{Output}{Output}
+        \SetKwInOut{Precondition}{Precondition~}
+        \Input{A $\mbox{\sl graph}$ (commit history) and the $\mbox{\sl bfc}$}
+        \Output{A list of candidates for BIC}
+        \Precondition {The $bfc$ status (the output of the regression test) must be success
+        % \as{I understand the intention but ``status'' does not seem to be defined. }
+        % \michel{I clarify what ``status'' is at text}
+        % \as{It might be a good idea to explain ``status'' here such that the algorithm becomes self-contained?}
+        }
+
+        $candidates \gets []$\;
+        $queue \gets [bfc]$\;
+        $visited \gets [bfc]$\;
+        $temp\_candidates \gets []$\;
+        
+        \While{$ NotEmpty(queue) $}{
+            $n \gets GetFirst(queue)$\;
+            \If{hasFailStatus(n)}{
+                $candidates \gets []$\;
+            }
+            $parents \gets GetParents(graph, n)$\;
+            $successParents \gets True$\ \Comment*[r]{Control if all parents are success} 
+            % \as{What does $successParents$ mean?}
+            % \michel{I clarify at text}
+            \If{$ isEmpty(parents) $\Comment*[r]{Reach first commit}}{
+                    \eIf{size(queue) == 0}{
+                        $break$\;
+                    }{
+                        $continue$\;
+                    }
+            }
+
+            \For{$p \in parents$}{
+                $successParents \gets successParents \And hasSuccessStatus(p)$\;
+                \If{$ \neg hasSuccessStatus(p) $}{
+                    \If{$ hasErrorStatus(p) $}{
+                        $AddItem(candidates, n)$\;
+                    }
+                    \If{$ p \notin visited $}{
+                        $AddItem(queue, p)$\;
+                        $AddItem(visited, p)$\;
+                    }
+                }
+            }
+            \If{$ successParents \And \neg hasSuccessStatus(n) $}{
+                \eIf(){$ hasFailStatus(n) $}{
+                    \Return{$[n]$}\; 
+                }{
+                    $AddItem(candidates, n)$\;
+                    
+                    \eIf(){IsEmpty(queue)}{
+                        \Return{$candidates$}\;
+                    }{
+                        $temp\_candidates \gets candidates$\;
+                    }
+                    
+                }
+            }
+        }
+        \Return{$temp\_candidates$} 
+    \end{algorithm}
+\end{footnotesize}

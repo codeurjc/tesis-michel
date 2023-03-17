@@ -1,0 +1,191 @@
+% Bugs in the code of software projects are one of the main problems that developers have to deal with. 
+% Identifying the bug and fixing it are tasks that can often be very time-consuming. 
+% Finding the change that introduced this error can also be a difficult task.
+% When a bug is fixed, there may be earlier versions of the code where that patch also needs to be applied. 
+% In these cases, it is common to try to find out what specific change to the project introduced the bug in order to know which versions may be affected. 
+
+% jgb:  Proposal for substitutng the previous para
+Bugs are one of the main sources of concern for software developers. Finding faulty code, and fixing it to remove the bug consumes a lot of effort~\cite{kim2006long,weiss2007long}. Learning about how bugs were introduced is both of academic and practical importance. Practitioners would like to know which change introduced a bug when they try to fix it, and which past versions are affected by it. Researchers want to study how bugs were introduced, to find ways of preventing them. However, finding the source code change that introduced the bug~\footnote{In this paper we will use the term ``bug", widely used by practitioners, as synonym for ``defect" or ``fault", usual in academic literature\cite{5399061,1335465,tan2014bug}} is not easy.
+
+% \grex{here we should motivate a little bit more why it is worth finding the BIC. Among others, this would help to know the type of bugs and to better understand them. A better understanding would result in better tools to find bugs earlier -- or even to avoid them in the first place.}
+
+% Many studies of the bug-introducing change (BIC) are premised on the fact that a bug was introduced by the lines of code that were modified to fix it (as the SZZ algorithm~\cite{sliwerski2005changes}). 
+% %One of the most recent works shows the limitations of this idea is that of \gema~\cite{rodriguez2020bugs}. 
+% However, this premise is not always valid limiting applicability and correctness of approaches based on it~\cite{rodriguez2020bugs}. 
+% To address these limitations \gema propose a model for defining criteria to identify the first change of an evolving software system that exhibits a bug~\cite{rodriguez2020bugs}. 
+% The authors introduce the concept of the \emph{perfect test}, a theoretical construct capable of unequivocally detecting whether a bug is present in the current or past code. 
+% The authors emphasize that it is a concept that is probably difficult to put into practice, but offer a series of guidelines how this perfect test can be approximated. 
+
+% jgb: Proposal for substitutng the previous para
+Many methods for finding the change to the source code that introduced the bug (bug-introducing change, BIC) assume that the change should touch some or all of the lines of code that were touched to fix the bug. This is the case, e.g., for all SZZ-based algorithms~\cite{sliwerski2005changes}. 
+Instead of relying on this assumption, the \emph{perfect test} method was introduced by~\gema~to find what change introduced a given bug~\cite{rodriguez2020bugs}. 
+The perfect test for a bug is a theoretical construct that fails in any snapshot of the code history affected by the bug, and succeeds in any other snapshot. 
+The BIC, therefore, can be assumed to be the change that produced the first snapshot (of a sequence of snapshots going from the last commit where the test passed to the fix commit) that causes the test to fail. 
+This method provides a clear guideline to decide whether a change introduces a bug or not, but operationalizing it requires having %those 
+perfect tests.% for real cases. 
+% \as{would ``the earliest'' be a better word choice?}
+% \michel{here I use the same term as Gema "first snapshot"}
+%\as{OK, but will the readers understand what we mean by the ``first snapshot''? }
+
+% In the current work we study to what extend the already existing tests can be used as perfect tests, 
+% %Our aim is to find out if these tests can be used
+% i.e., to search for the change that introduced the error, and under what circumstances.
+% For such an endeavor, we make use of a practice that is common in some software projects: when a bug is fixed, a test is implemented to verify that the bug does not recur. 
+% This test is known as a \emph{regression test}. 
+% We hypothesize that these regression tests could be used as the \emph{perfect test} defined by \gema
+
+% jgb: Proposal for substitutng the previous para
+In this paper we study to which extent regression tests can be used as perfect tests. 
+Regression tests~\cite{desikan2006softwareRegressionTesting,wahl1999overview} are written to avoid regressions~\footnote{In this paper, by ``regression'' we mean a change in the source code that breaks a functionality that was working properly.}, by detecting the reintroduction in future changes of an already fixed bug. 
+Both in closed-source projects from the industry~\cite{ali2019search,onoma1998regression,engstrom2010qualitative} and open source ones~\cite{schmidt2001leveraging}, 
+%\as{Minor: the previous fragment seems to oppose ``industry'' and ``open source'' somehow implying that open source is not industry. Closed source?} 
+%\as{How often? Do we have numbers?}\michel{I have removed the word "often", indicating that these tests are simply present. I have searched numerous papers for some reference to how common the tests are, but cannot find a number to give. I have added two references to the industry part, one of them is a survey where several practitioners are asked how they perform regression testing, so it is an established practice in the industry.} 
+regression tests are usually used for the bugs that are fixed~\cite{perscheid2017studying}, which means that, in theory, if these tests can be used as perfect tests, we have a way of automatically detecting when those bugs were introduced.
+%\as{Can we remove ``all or many'' since we do not have numbers? I have also asked on Twitter... \cite{perscheid2017studying}}
+% \reviewer{The first couple paragraphs give the impression that you will do something
+% to make tests into perfect tests, ie make it more likely that they will be
+% able to test old versions.  In particular, the word "transplant" suggests
+% that you will actually modify the test code, not just try to compile it as
+% is with the old version.  It's a bit disappointing that this is just an
+% empirical study, of something that intuitively doesn't seem very promising.
+% }
+% \michel{I think the word "transplant" suggests to the reviewer that we have modified or adapted the test. Clarifications have been added to the term "transplant".}
+% \reviewer{A stronger paper would provide a transplanting strategy - how to make the
+% tests compatible with older versions so that they can be effectively used
+% for finding BICs.}
+% \michel{My experience is that the tests are independent enough to be transplanted. Compilation problems arise when the functionality has not yet been created or when, for example, the parameters of the method change}
+
+% %Intuitively, the regression tests can be used to find the commit with the BIC. 
+% Intuitively, one can start with the version fixing the bug and proceed to the previous versions.
+% %running the regression test on the previous versions of the code one  
+% %\alexander{All previous versions? What if a commit has two predecessors...}\michel{This is a really interesting point, as I have come across cases. If commit is marked as BIC but has two predecessors, we should check possible cases: if in both predecessors the test passes, then we can keep commit as a candidate. If the test fails on one of these predecessors, then we should consider in more detail the changes in the previous failed commit and continue searching from there.} 
+% If a version is found in which the regression test passes, then the bug did not exist in that version and then the following version was the one that introduced the bug.
+% If no previous version is found in which the test passes, then the BIC cannot be found with this technique, because the functionality never worked correctly---or at least not exactly as verified by the test. 
+% %This could be seen as a practical approximation\alexander{The word "approximation" suggests the need to explain the difference between the theoretical test and the practical approximation. Can we argue on how often these two coincide or are sufficiently close? Or maybe not "how often" but "under what circumstances"?}\michel{This is undoubtedly an important point. I think the regression tests included in the dataset fall into what would be the perfect Gema test. In fact, in later sections we see that the requirements of the process in which the perfect test is used are fulfilled. The main problems when using this perfect test to find the BIC I have tried to list them within the limitations and in view of the results we will see if they are really perfect tests or if they have additional limitations.} of the perfect test proposed by Rodriguez-Perez et al.
+
+% -jgb: I think most of the previous paragraph is already in the text above. The rest, I'm including in the text below.
+
+% However, running the regression test on earlier versions is not a trivial task.
+% It requires that in previous versions 
+% \begin{inparaenum}
+%     \item the project dependencies can be resolved,
+%     \item both source code and test code can be compiled (in the case of compiled languages such as Java or C) and
+%     \item the transplanted regression test code must be able to compile and run. 
+% \end{inparaenum}
+% Throughout the paper we will see in more detail the implications of these requirements as well as the limitations they raise.
+
+% jgb: Proposal for substitutng the previous para
+To be useful as perfect tests, regression tests should be perfect detectors of the bug, and be ``transplantable'' to past snapshots~\footnote{A snapshot is a version of the source code of a project, represented by a commit of its git repository which is identified by the unique hash of the commit~\cite{maes2022revisiting}.}. By ``transplantable'' to a past snapshot we mean that the test should be executed in that past snapshot. Regression tests are usually assumed to be almost-perfect detectors, 
+% \as{I am not sure that I agree here: regression tests are designed to prevent reintroduction of a bug, i.e., they are expected to be able to detect the presence of the bug in the future, not necessarily in the past. The notions of an ``almost perfect detector'' and a `perfect detector'' below are not clear.}
+% \patxi{We are assuming here that regression tests are almost-perfect detectors, without specifying anything about the future or past use of those tests. The idea is to make clear that we assume these tests can be used as such, and that in the rest of the paper we will try to demonstrate this idea. Thus, we left the text as is, but feel free to propose a rephrasing.}
+which is the whole idea of spending effort in writing them. For the rest of this paper, we will assume that regression tests are perfect detectors, and we will focus on transplantability, which would be the only blocker to decide if they can be used. To transplant a test to a past snapshot, the regression test should be built (compiled, in the case of compiled languages), and run correctly (producing a ``fail'' or ``success'' output consistently).
+% \as{Do we want to add ``and consistently''?}
+% \michel{To discuss with Patxi}
+%\as{Do we expect some form of consistency across multiple test runs, to avoid flakiness?}\michel{In the methodology we specify that we run at least 3 times the regression test in the BFC.} 
+We refer to these  problems as the ``compilability problem'' and the ``runnability problem'' for transplanting tests.
+By the ``compilability problem'' we mean (a) the set of issues that prevent the source code of a snapshot of a software project from being built, and (b) the construction problems derived from compiling the transplanting code (in our case the regression test which will act as the perfect test) to previous versions. The (a) part of this problem has been addressed previously by researchers~\cite{tufano2017there,maes2022revisiting}. However, in our case we also need to study (b), i.e., the compilability of the regression test that has been transplanted into the commit under scrutiny. 
+%\as{If compilability of the previous snapshot and compilability of the test are two distinct problems maybe we should present them as such instead of putting both of them under the compilability umbrella?}\patxi{We consider them two different subproblems within the compilability problem. We could talk about source-code compilability, test code compilability, and runnability, but we decided to study the compilability as a whole, stating the difference between the source and test codes as subproblems.}
+By ``runnability problem'' we mean the set of issues that prevent the transplanted test from being executed, and to the best of our knowledge this problem has not been studied before.
+%\as{This is an important point. So far, we have introduced the notion of a transplantable test without explicitly stating how the transplantation will look like. This is the first time that a ``we'' appears, vaguely suggesting that transplantation is a manual process. Please clarify whether transplantation is automatic, and if it is not whether it is supposed to be carried out by researchers (``we'') or practitioners. } \patxi{We rephrased the sentence, and delayed the specificities of the transplantation process to a different section of the paper. We just refer to the test as "the transplanted test" without giving more details.}
+
+% To drive this idea we have propose the following research questions:
+
+% \textbf{RQ\textsubscript{0}: ``To which extent can tests be transplanted into the past?''} 
+% We want to verify whether it is possible to transfer and run the tests of the present (the regression test) in the past.\as{This suggests that ... consists from transfer and execution. This terminology is confusing.}
+
+% \textbf{RQ\textsubscript{1}: ``In which cases can the BIC be found using regression tests?''}
+% %\alexander{Maybe "How often"? We have the discussion of cases}
+% %\michel{By using "How often" we imply that we want to show a count, but I think it is more interesting to explain in which cases our tool is effective}
+% In this case we want to verify that by using the regression test as if it was the perfect test described in \gema, it is possible to find the change that introduced the bug (BIC).
+
+% jgb: Proposal for substitutng the previous para
+
+Our research questions will be, therefore:
+
+\newcommand{\rqonea}[0]{RQ\textsubscript{1A}: ``How far can a test be transplanted into the past?''}
+\textbf{\rqonea} 
+We will study the extent to which we can build and run regression tests in the past. Given that we do not know how far in the past is the BIC, the further we can transplant a test the more probably we could detect the BIC with the perfect test method.
+%\as{``far'' suggests some kind of ``distance''. Is this intended?}
+%\michel{Effectively, we intend to see how far back we can run the tests (which we measure in \# of days or \# of commits).}
+%\as{Why is it important to transplant the tests as far as possible?}
+%\michel{It is important because we do not know where the BIC may be (10 commits before the BFC, 100 commits before the BFC?). I tried to clarify this issue in the text.}
+% \as{The idea of distance/far still makes me uneasy but if everybody else is happy, then let us keep it as it is.}
+% \patxi{We don't know how to rephrase this sentence to keep the meaning of "far", therefore we leave as it is, and maybe others might come with a rephrasing}
+%\as{Maybe separate compilability and buildability?}\michel{In the literature we have more commonly found "compilability" as term. You mean separating compilability and runnability?}
+
+\newcommand{\rqoneb}[0]{RQ\textsubscript{1B}: ``How compilability and runnability problems impact the transplantation of the regression tests to the past?''}
+\textbf{\rqoneb}
+%Based on previous literature~\cite{tufano2017there,maes2022revisiting}, we expect to encounter problems in the compilation of past snapshots. 
+%\as{Does the next sentence state an expectation based on he literature or a result of this study?} 
+%\michel{The following sentence is exclusively an observation after the experiments. These are "expected" problems, but there is no previous literature on the problems when transplanting the code.}
+%In addition to these problems we will have to consider the transplanted test code, which might expose difficulties in its compilation when compiled with the old code, and might as well expose difficulties in its runnability. 
+In this RQ we study the compilability of the source code of past snapshots, the compilability of the transplanted tests code within the snapshots, and the runnability of the transplanted tests in the context of the past snapshots. 
+%\as{Strictly speaking, the answer to the ``what aspects'' question is already given: the compilability of the source code of past snapshots, the compilability of the transplanted tests code within the snapshots, and the runnability of the transplanted tests. We probably want to say something either about prevalence of the different reasons or to provide a more fine-grained taxonomy of problems.}
+%\michel{We rephrased the RQ1B to make it quantitative. The problems and their fixes are detailed in section 5.1}
+
+\newcommand{\rqtwo}[0]{RQ\textsubscript{2}: ``Can the BIC for a given bug be found using its regression test?''}
+\textbf{\rqtwo}
+We will study whether regression tests are a real and practical operationalization of the theoretical perfect test proposed by \gema ~to detect the change introduced by the bug.
+%\as{This seems to be imprecise. We might have a test that can detect the BIC but still not be perfect, e.g., if it passes on other versions of the code that are affected by the bug.}
+%\michel{A regression test, by definition, should not pass if the bug is present. In any case, I rewrite the sentence so that it is not misleading or inaccurate}
+%\as{Can we make more explicit what ``its'' means here? ``a test introduced to check whether the bug has been fixed''? Can we comment on how often such tests are being introduced?}
+%\michel{For both questions, I believe that the third paragraph of this section correctly defines what a regression test is and provides some evidence of how common they are.}
+
+
+
+% To validate the theoretical idea of the perfect test, we have created a tool that performs the process of compiling and executing the present (regression) test in the past automatically. For this we had to design a method for traversing the history of the project, as the history of the project is not necessarily linear, there might be different branches, and the BIC might be introduced in any of them. 
+% To verify the effectiveness of this tool in detecting the change that introduced the bug, we have tested it on a well-known bug dataset, 
+% Defects4J~\cite{just2014defects4j}, which does not identify the corresponding BICs, validating the results manually to check if the change that the tool detects is unequivocally the one that introduced the bug.
+% In this way we have created a new bug dataset based on Defects4J, and extending it with BICs that have been detected by our tool and manually validated. 
+% %\as{I do not understand this paragraph.}
+% %\michel{Regarding the Defects4J bug dataset, we have identified 49 BICs with our tool. We have analyzed these bugs manually and they are the ones that make up the BICs dataset that we offer and used to answer RQ2}
+
+% %Our proposal departs completely from this algorithmic approach and offers a new perspective.
+
+% jgb: Proposal for substitutng the previous para
+\newcommand{\datasetName}[0]{BIC-RT}
+To answer these questions we built a tool to implement the perfect test method, by automatically compiling and executing regression tests in past snapshots. The tool traverses the history of the code, which is usually not linear but a graph of different branches, transplanting the test to the snapshots previous to the bug fixing change (BFC). We applied the tool  on a well-known bug dataset of 835 bugs, Defects4J~\cite{just2014defects4j}. 
+Since Defects4J does not identify the BICs corresponding to the bugs in the dataset, we validated results manually, by checking whether the identified BIC was really the change that introduced the bug.
+As a result of this process, we created a new manually validated dataset, based on Defects4J, which we will denominate \datasetName~(\textbf{B}ug \textbf{I}ntroducing \textbf{C}hanges detected by \textbf{R}egression \textbf{T}ests)
+% \as{Does this new dataset have a name?}
+% \michel{I am not too original with names. BICReT (\textbf{B}ug \textbf{I}ntroducing \textbf{C}hanges detected by \textbf{Re}gression \textbf{T}ests) comes to mind.}\patxi{I'm ok with that name.}\as{Sounds good to me too. We might also spell it as BIC-RT.}
+% \as{Do we want to show the answers to the RQs in the introduction?}
+% \patxi{I'm more used to provide answers in their own section, but I don't have any preference.}
+% As mentioned above, the state-of-the-art techniques for detecting the change that introduced the bug are based on the SZZ algorithm. 
+% Since we cannot directly compare our proposal with the SZZ family of algorithms, we want to see how these algorithms perform on the proposed new dataset, whose BICs were detected with a proposal that completely departs from the SZZ algorithmic approach. 
+% This results in following RQ:
+
+% \textbf{RQ\textsubscript{2}: ``To what extent can SZZ-like algorithm detect the BIC?''}
+% To answer this question we will run the most recent and popular implementations of the SZZ algorithm on the bugs dataset that we have used to answer the previous RQs.
+
+% jgb: Proposal for substitutng the previous para
+
+% With this dataset we check some SZZ-derived algorithms, by running them on our 49 bugs, and comparing the BICs that they identified with the true BIC that we validated. Expressing it as a research question:\as{Is there a way to write this paper without focusing on the limitations of SZZ? We know them....}
+
+% \newcommand{\rqtwo}[0]{RQ\textsubscript{2}: ``How are the BICs\as{I am not sure that I understand "How are the BICs".}that SZZ derivatives are not able to detect?''}
+% \textbf{\rqtwo}
+% We will run seven SZZ-derived algorithms on our dataset, determining their performance in finding BICs and testing the limits of these proposals.
+
+% Since the structure of the paper is very common, and we're short on space, I rpopose to remove the next paragraph
+The rest of the paper is structured as follows:
+Section~\ref{sec:related} discusses previous research.
+Section~\ref{sec:methodology} presents the methodology used in the studies and defines the terminology. 
+The results of applying the methodology are reported in Section~\ref{sec:results}.
+Section~\ref{sec:discussion} discusses the results, and explores threats to their validity.
+Finally, Section~\ref{sec:conclusions} draws conclusions and presents further research.
+
+%\alexander{A new topic; it is not clear how it is connected to the previous paragraph.}
+%That bug may have had different life cycles.
+%\alexander{I am not sure that "life cycle" is an appropriate word here.}
+%\michel{I have previously used this term several times in different meetings with my supervisors. Of course, it is open to discussion, but I'm afraid I can't think of a better way of expressing it.}
+%\grex{I agree with Alexander; i would prefer to use something like ``situations''}
+%On the one hand, it is possible that the bug has always existed in the code, since the first day the functionality was implemented. 
+%On the other hand, it is also possible that the bug was a regression; in that case, at some point in the life cycle of the project, the bug did not exist and was somehow incorporated into the system, either in its source code or in some external change (such as an API).
+
+%\alexander{How do we ensure that the test is not flaky? Should this not be the first step before we even try to get back in time?}
+%\michel{This is the initial approach, in the implementation, if the test, for example, passes in both the fix commit and the previous commit (which still contains the bug), I consider the test to be no good. One way to check if it is a flaky test could be to run it in the fix commit a certain number of times. In any case, by using a dataset that has been checked multiple times, I assume that it does not contain a flaky test. If we were to perform the bug mining steps ourselves, we would definitely have to check it.}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../paper"
+%%% End:

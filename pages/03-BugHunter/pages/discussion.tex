@@ -1,0 +1,277 @@
+% After presenting the main results, and its analysis, in this section we discuss the details of our research: the difficulties of running a present test in the past, the limitations of SZZ implementations, a post-study where we compare the generated dataset with a pre-existing one, the implications of our study for a developer and the threats to validity.
+
+In this section we will discuss in detail the difficulties of transplanting a test into the past~\ref{sec:transplant-discuss} and the implications of our work for practitioners~\ref{sec:implications-practitioners} and researchers~\ref{sec:implications-practitioners}.
+We will also discuss the contribution of the generated dataset through 
+\begin{inparaenum}[\bf(1)]
+    \item an evaluation of SZZ-based tools on it~\ref{subsec:szz-tools} and
+    \item a comparison of our dataset (\datasetName) with a previous BICs dataset using Defects4J as bug dataset~\ref{sec:induce-benchmark}.
+\end{inparaenum}
+Finally, we discuss the threats to validity of this paper (Section~\ref{sec:threats}).
+
+
+\subsection{Transplanting tests to the past}
+\label{sec:transplant-discuss}
+%\as{The purpose of this section is not clear.}
+%\michel{I have rewritten part of the section, giving it more context and purpose, as well as eliminating the abuse of bullet points.}
+% \michel{My idea here is to raise the difficulties encountered in running the tests in the past}
+
+% \grex{We should point out that we depend on regression tests. How many projects do have such tests? Is the trend that more and more projects are having them?}
+
+% \michel{I am afraid we do not have an in-depth analysis of how many of these tests there are. It is true that most of the tests we use as "perfect tests" are included in the BFC commit and in other projects we have detected this dynamic of fixing a bug and adding the test that checks if the bug is present or not.}
+
+
+% The tool proposed in this work is based on the idea of using the test that detects the bug in the fix commit in past commits. 
+% To do so, the tool copies the file of this test in order to run it on every commit in the past. 
+% Each of the steps involved in this process are susceptible to failure for different reasons and during the development of the tool they have had to be mitigated. 
+% These limitations imply a research challenge by limiting the effectiveness of the proposed tool.
+
+% The first limitation we face is \textbf{building past source code}.
+% Being able to build the source code of a commit is an essential step to be able to run the tests.
+% Previous works on buildability in past commits~\cite{tufano2017there, maes2022revisiting} shows that a considerable part of a project's commits (in its master or main branch) are not compilable. 
+% One of the main reasons why a commit is not compilable is usually because of a dependency resolution problem. 
+% The main mitigation applied has been to use, as much as possible, the libraries and build files prepared by the creators of Dataset4J. 
+% Although useful, these resources were prepared for specific commits and had to be generalized for any commit. 
+% This measure has considerably increased the buildability of most projects.
+
+% Even if you compile the source code, we may encounter problems when \textbf{building past tests}.
+% Although we only run the test that reveals the bug, in Java we need to compile all test files prior to execution. 
+% This means that if there is a problem compiling one of these tests, even if it is not used, it makes it impossible to continue with the experiment.
+% A possible mitigation measure could be to delete all these tests, considering that there could be a dependency between these test classes and the one we want to test (e.g., inheritance of a parent class).
+
+% Transplant a code file from the test to previous versions (\textbf{building regression test in past commits}) is not a simple task. 
+% Assuming the test can be placed in the same directory, it is necessary to be able to properly test the functionality. 
+% If it has changed over time (e.g., a function whose parameters have changed) the test may not compile, and therefore we may no longer be able to run it in the past.
+
+% Finally, when we \textbf{run the regression test in past commits}, the result may not be as expected. 
+% We have encountered cases where it seems that it is not only necessary to carry the test code into the past, but that the test itself has artifact dependencies that must be carried over along with the test code itself. 
+% This limits the ability to fully automate the process, as a manual analysis of the possible dependencies that the test may have is necessary.
+% These cases require a semi-automatic setup so that any artefacts required by the test can also be copied to past commits to ensure that the test can run.
+
+% The mentioned problems and mitigations have been considered when building the tool proposed in this work.
+
+% It is worth mentioning that the projects that make up the Defects4J dataset are Java libraries, not end-applications for a non-developer user. 
+% The regression tests used are unit tests that are usually agnostic to the execution environment. 
+% However, some of these tests have proven to be flaky, as mentioned in Section~\ref{sec:rq1}. 
+% These tests may not even pass the fix commit, so they are not able to detect the change that introduced the bug. 
+% In any case, they represent a non-significant sample within the set of tests used in the experiment.
+
+% \patxi{We should also mention, here or anywhere else we find appropriate, that these tests are usually unit tests. Maybe by describing in more detail the Defects4J dataset, composed mainly of java libraries that do not usually have integration or e2e tests. This is also important to emphasize that when the test doesn't pass it is rare that the cause is flakiness (although some rare exceptions occur, like runtime-assertion found). Indeed, as we did a manual check of all of them, we can just say that we identified the flaky tests.}
+
+% jgb: Proposal for substituting the text above
+One of the main reasons for proposing the operationalization of the perfect test method using regression tests is that these (regression tests) are present in many modern projects. This means that the technique could be used in many of them, if those tests can be transplanted successfully to past commits. However, in Section~\ref{results:rq1b} we showed how in many cases this was not possible, and how much success we had in the different phases of the process (compilation of the snapshot, compilation of the test, and execution of the test). These problems clearly limit the effectiveness of the technique.
+
+In fact, studies on the compilability of past commits~\cite{tufano2017there,maes2022revisiting} show that it is relatively usual that a considerable fraction of past commits in a project are not automatically compilable as such. However, those studies also show that some reasons for those problems (such as the availability of dependencies or the suitability of build configurations) can be mitigated. 
+To mitigate these problems, our tool allows to include a script in which the user can define fixes to be applied to each commit in which the regression test is executed. 
+The authors of the Defects4J dataset follow a similar approach (from which we draw our inspiration). 
+They provide manually generated configuration files so that the tests can be run on the BFC and on a synthetic version of the BFC without the fix code (with the aim of providing a commit where the bug is revealed).
+These configuration files resolve some dependency issues by providing these dependencies as part of the Defects4J framework.
+For 488 bugs out of 809, we have taken advantage of these configuration files, making some modifications to them, in order to transplant them together with the regression test and ensure high compilability of past commits.
+The resolution of dependencies from external repositories is one of the main causes of failure in the build of Java projects~\cite{tufano2017there,maes2022revisiting}.
+One of the main advantages offered by these configuration files is that the project dependencies are obtained as local files (which are part of Defects4J) instead of downloading them from a remote repository, solving the above-mentioned problem.
+%\as{The word ``some'' makes the entire discussion vague. How often did we benefit from these configuration files? Can we recommend potential users of the tool to always use these files? If not, when yes and when no?}
+%\michel{The numbers are now displayed. Using these configuration files is somewhat limited to this experiment, in projects outside the dataset. The developer should ensure that the configuration files for each commit can be built, or the researcher should create his own "transplantable" configuration file.}
+
+In the following we discuss other relevant modifications and fixes included, based on the suggestions proposed in the literature~\cite{maes2022revisiting}.
+We find references to dependencies (not included in Defects4J) that include the suffix ``-SNAPSHOT'', which indicates that this is a volatile development version and is sometimes removed from the dependency repositories (causing the impossibility to compile a project that depends on them). 
+For 15 bugs we found that this dependency was included in the BFC, and the compilation of the BFC failed due to it, thus preventing our method from being able to work (the compilation and test execution at the BFC, with a success result, is a precondition for our method). 
+The removal of this suffix, forcing it to use the stable version of that dependency, has allowed us to compile the BFC of these 15 bugs, allowing our method to start finding the BIC for them.
+In 131 bugs from 6 projects we faced problems with source code parsing (due to the inclusion of unrecognized characters in strings or comments). 
+Two different types of fixes have been used to solve this problem: 
+\begin{inparaenum}[\bf(1)]
+    \item modify the encoding at configuration file that is transplanted to the past along with the regression test or
+    \item modify the snapshot configuration file to include the new encoding.
+\end{inparaenum} 
+We have also had to consider, in one project (Joda Time), that the code directories may change location (be placed in subfolders) in older commits, so it has been necessary to automate their re-structuring so that it can be compiled.
+
+Building transplanted tests was also a problem. First, the standard way of building tests in Java requires building all of them together. 
+This means that if there is a problem compiling just a single test, even if we do not have the intention to run it, because we only want to run the transplanted test, we cannot run it. 
+This effect could be mitigated by ensuring that only the transplanted test is compiled, with the risk, maybe, of having dependencies on some test classes that are not run (e.g., inheritance of a parent class). Fortunately, we also observed that once the test was compiled, it almost always runs successfully.
+In any case, for 14 bugs, we have automatically removed in the past commits some problematic tests (that did not compile) and were not related to the regression test.
+For 10 bugs, it has been necessary not only to take the regression test to past commits, but also to take a file on which the test depends (auxiliary classes created specifically for that test).
+
+\subsection{Implications for practitioners}
+\label{sec:implications-practitioners}
+
+When developers receive a bug report, in some cases along with the description there is a test that reveals the bug. 
+This practice is common in open source projects, such as those of the Apache Foundation~\cite{iida2016improving}.
+In some others, developers start by building that test before trying to fix the bug. In both cases, these regression tests are available before starting to fix the bug. The operationalization of the perfect test method with these tests allows to automatically find the BIC for that bug, assuming that the project took care of facilitating transplanting tests to the past (something that they can do by maintaining some rules on how to compile the source code as the project evolves). 
+Therefore, when starting the process to fix the bug, the developer would have a hint about how the bug was introduced, which may be invaluable for speeding up the fixing process.
+
+\subsection{Implications for researchers}
+\label{sec:implications-researchers}
+
+We have found an automatic method for producing a reliable collection of BICs, given their BFCs and their regression tests. 
+This may be quite important for producing much larger datasets with BFC and their BICs, which could be used by researchers not only to evaluate algorithms for finding BICs, but also for other research purposes, such as training models of analyzing how bugs are introduced. Maybe those datasets could be biased, because they would only include bugs for which our method worked. But by improving compilability of past commits and transplanted tests, we think that the bias can be severely reduced, at least for some projects.
+
+\subsection{Evaluation of SZZ derivatives}
+\label{subsec:szz-tools}
+
+Thanks to our subset of the Defects4J dataset with 67 bugs with verified BICs, we can evaluate the performance of the implementations of SZZ derivatives. 
+We will use this dataset as the ground truth, and will run the implementations to check to which extent they correctly identify the right BIC for each bug.
+We will analyze in detail those bugs where the implementations of SZZ derivatives are not able to find the BIC.
+
+Several implementations of the SZZ algorithm and derivatives of it have been presented in the literature. However, for many of them their implementation has not been published, which has made it difficult to reproduce their results~\cite{rodriguez2018reproducibility}. 
+Fortunately, several recent studies~\cite{borg2019szz,lenarduzzi2020openszz,pokropinski2022szz,rosa2021evaluating} provide public implementations of their algorithms. 
+We evaluate their performance in finding the BIC, considering the manually validated results of our study as the ground truth.
+
+% \as{Why have we chosen these seven implementations rather than some others?}
+% \michel{These are all the available implementations of SZZ. Gema points out in a paper (which we have cited) that despite the several publications in the area, the implementations were rarely shared.}
+% \as{I have rephrased the following sentence, please check.}
+At the moment of writing there are seven publicly available implementations of SZZ variants:
+%In this evaluation study we have considered the following seven variants of SZZ: 
+%Rosa et al. recently implemented several SZZ variants in PySZZ, while making a comparison between them~\cite{rosa2021evaluating}. 
+%The implementations compared in this study are as follows:
+\begin{itemize}
+    \item OpenSZZ~\cite{lenarduzzi2020openszz}. It is based on the original version of the SZZ~\cite{sliwerski2005changes}.
+    \item PySZZ~\cite{rosa2021evaluating}. Includes five implementations of SZZ-derived algorithms: ag, l, r, ma and ra.
+    SZZ-ag was proposed by Kim et al.~\cite{kim2006automatic} and is based on the original SZZ algorithm~\cite{sliwerski2005changes}, solving some limitations related to cosmetic changes in the code, such as moving a bracket to another line.
+    SZZ-l and SZZ-r were proposed by Davies et al.~\cite{davies2014comparing} and is based on SZZ-ag, using two different criteria to select the BIC among the candidates: SZZ-l uses the largest candidate (the commit with the highest number of changes), while SZZ-r uses the most recent candidate.
+    SZZ-ma was proposed by Costa et al.~\cite{da2016framework} and is based on SZZ-ag, excluding from the BIC candidates all commits that do not include changes to the source code, including merges between branches.
+    SZZ-ra was proposed by Neto et al.~\cite{neto2018impact} and is based on SZZ-ma, excluding from the BIC candidates those commits that include refactoring operations.
+    \item SZZ Unleashed~\cite{borg2019szz}. This variant partially implements an algorithm proposed by Williams and Spacco~\cite{williams2008szz} based on SZZ-ag, improving it by using a line-number mapping approach~\cite{williams2008branching} and DiffJ~\footnote{\url{https://github.com/jpace/diffj}} (a java syntax-aware diff tool). We emphasize that it only partially implements it since it does not use DiffJ.
+\end{itemize}
+
+
+For our work, we have selected these seven implementations of the SZZ to examine their results on the BICs detected by our tool. 
+These implementations will identify, for each bug, a list of commits that are candidates to be the BIC, starting from the BFC for that bug. For evaluating each implementation, we have computed the number of commits that they included in the list of candidates for each bug, and the number of bugs for which the correct BIC is in the list of candidates. 
+We have then aggregated the numbers for each implementation, computing the total number of bugs for which it correctly included the BIC within the list of candidates, its percentage over the total number of bugs (67), or \emph{hit rate}, and the average number of BIC candidates per bug (including those bugs for which the implementation produced zero candidates). These results are shown in Table~\ref{table:szz-results}.
+%\as{Do different implementations make the same mistakes or different ones?}
+%\as{Would it be a good idea to use some kind of ensemble predictor that combines all seven SZZ variants? }
+%\michel{Since we have moved this section to the discussion, perhaps this can be left for another paper.}
+\begin{table}[h!]
+    \caption{\label{table:szz-results}Results of SZZ algorithms on our BIC dataset}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{SZZ Implementation} & \textbf{Correct BICs} & \textbf{Hit rate} & \textbf{Candidates (avg)} \\
+                            \hline
+                            OPENSZZ        & 14 & 20.90 & 0.97  \\ \hline
+                            SZZ UNLEASHED & 4  & 5.97  & 14.30 \\ \hline
+                            PYSZZ-ag      & 34 & 50.75 & 1.30  \\ \hline
+                            PYSZZ-l       & 11 & 16.42 & 0.63  \\ \hline
+                            PYSZZ-r       & 17 & 25.37 & 0.63  \\ \hline
+                            PYSZZ-ma      & 42 & 62.69 & 2.07  \\ \hline
+                            PYSZZ-ra      & 32 & 47.76 & 1.36  \\ \hline
+        \end{tabular}
+    }
+    \vspace{-4mm}
+\end{table}
+
+% The results show a great variability of the algorithms in their ability to identify the BIC.
+% Moreover, even the combination of all algorithms fails to identify BIC for 13 bugs out of the 49. 
+% These bugs 
+% %(which will be analyzed in detail in Subsection~\ref{subsec:szz-limitations}) 
+% have in common that the BFC does not correct the same lines that were introduced in the BIC, so the premise of the SZZ fails, and the SZZ algorithms cannot find the BIC. 
+% This evidences a known limitation of SZZ-based approaches. Our tool contributes to the state of the art to correctly identify BICs for this kind of bugs.\as{Can we compare $\frac{13}{49}$ with other studies of limitations of SZZ? Is the SZZ assumption is more/less often violated in our dataset than in the previous studies?}
+
+% jgb: Below, my proposal for the text above
+The results show a great variability in the ability of the implementations we have evaluated to identify the correct BIC, for the bugs in~\datasetName. It is remarkable that the hit rate is relatively low, except for the most advanced implementations of PySZZ (ag, ma and ra), which obtain an acceptable hit rate despite not having the information on whether the bug is present or not that the perfect test method provides.
+
+There is also great variability in the number of BIC candidates produced per bug, from 0.63 to 14.30. 
+However, for most implementations (all of them but one) the number of candidates per bug is relatively low (less than 2, in average). 
+This means that they are reasonably precise, given that they only use limited information.
+
+In addition, for 19 bugs none of the SZZ implementations included the right BIC in the list of candidates. 
+% These 13 bugs are detailed below:
+% \begin{itemize}
+%     \item \textbf{Compress Bug\_45} 
+%     In the BIC of this bug, a condition is added to the source code that causes a test to fail. 
+%     This is fixed without removing the check, but by extending the source code. 
+%     The lines changed in the BFC are not the same as in the BIC, but they are from the same file.
+%     \item \textbf{JacksonCore Bug\_11} 
+%     The commit prior to the BIC was a commented-out call to a function. 
+%     In the BIC this call is implemented. 
+%     In the BFC it is checked that this function should be called with another function for specific cases.
+%     \item \textbf{JacksonCore Bug\_10}
+%     In the commit prior to the BIC there was a branch of the code which, if reached, would raise an exception warning that a feature was not available. 
+%     In the BIC this is replaced by the actual implementation, which introduces the error. 
+%     In the BFC a validation is added as to whether it is really necessary to execute that code, but the same lines of code are not touched.\as{So the BFC is not really a fix?}
+%     \item \textbf{JacksonDatabind Bug\_35}
+%     The BIC is a FIX that changes a deserializer. 
+%     The BFC changes another deserializer (different, more generic and may use the previous one) to pass the test.
+%     The changes to the source code are not even in the same file.
+%     \item \textbf{JacksonDatabind Bug\_59}
+%     A function was refactored on BIC (and the bug was introduced). 
+%     This method is fixed on BFC adding a new line that edit the return variable (but not the same lines\as{again, please be more explicit.}).
+%     \item \textbf{JacksonDatabind Bug\_72}
+%     The class "A" is used instead of "B" \as{Why would one not use the real names?} in the BIC. 
+%     The change of class introduces an error as some of its methods are not overridden. 
+%     To make the test pass in the case of an error, these methods are re-implemented in a class C that inherits from A.
+%     \item \textbf{Jsoup Bug\_43}
+%     In the BFC the equals method is changed to compare directly with ==. 
+%     In the BIC the equals method, which used to work as a == is changed to be more specific and that causes a bug.
+%     \item \textbf{Jsoup Bug\_15}
+%     In the BFC it is changed from using A.equals(B) to A == B. 
+%     In the BIC the equals method went from this == other\michel{Add previous as code} to a more complex functionality that introduces bug. 
+%     The changes are not on the same lines.
+%     \item \textbf{Jsoup Bug\_72}
+%     In the BIC a refactoring of a method takes place (and introduces the bug). 
+%     In the BFC a new conditional branch is added that solves the problem (the same lines are not touched).
+%     \item \textbf{Math Bug\_87}
+%     In the BIC, method A is refactored and uses method B internally.
+%     In the BFC, the method B is changed.
+%     \item \textbf{Closure Bug\_114}
+%     In the BIC, an else branch is modified where the method A is called. 
+%     The first parameter of the call is changed causing a regression. 
+%     The BFC fixes this else branch (which contain method A) by converting it into an else if 
+%     \item \textbf{Closure Bug\_120}
+%     In the BIC there is a rollback of some functionalities.
+%     In one method, methods A and B were called to perform checks. 
+%     In the BIC, method B (its call and implementation) is removed. 
+%     In the BFC, method A is modified to do the same checks as method B does.
+%     \item \textbf{Mockito Bug\_7}
+%     In the BIC, different changes are made to a particular functionality in various classes. 
+%     Among these changes, class A (which remains unchanged) starts to be used at different points. 
+%     In the BFC, changes are made exclusively to class A.
+% \end{itemize}
+These 19 bugs have in common that the BFC does not fix the same lines that were introduced in the BIC%
+%\as{Are there more similarities? Something less expected?}\michel{I have checked them again, but I can't find anything more than the above.}
+, so the main premise of the SZZ fails, with the result that it cannot find the BIC. 
+This evidences a known limitation of SZZ-based approaches. 
+Our tool contributes to the state of the art to correctly identify BICs for this kind of bugs. 
+
+With this evaluation we have also shown that~\datasetName~can provide ground truth for evaluating SZZ derivatives, and other algorithms for automatically finding the BIC that introduced a certain bug. Since~\datasetName~was produced following an automatic procedure (we validated it manually, but the BICs were first identified in a completely automated way), we expect that larger ground truths can be obtained in the future to better evaluate any proposed algorithm to solve the problem of finding the BIC.
+
+
+
+%\subsection{On the generalization of the bug introducing changes dataset}
+\subsection{Comparing~\datasetName~with InduceBenchmark}
+\label{sec:induce-benchmark}
+%\as{Should this not be somehow combined with the threats to validity?}
+%\michel{I believe that this small study (cheap to conduct) adds a little more validity to our tool. It is not clear to me how such a study fits into the threats to validity. I can always expand it a bit more to make it even more self-contained.}
+An important result of our study is a dataset of BICs (\datasetName), automatically found from their BFC, and manually validated, extracted from the Defects4J dataset. Based also on Defects4J, InduceBenchmark~\cite{wen2019exploring}, a dataset with 91 BICs, was created to evaluate SZZ implementations. 
+We compare the results of our technique on 82 of the bugs in InduceBenchmark (the remaining 9 bugs correspond to the project we filtered out in Section~\ref{subsec:dataset}). 
+Our technique found automatically the BIC for 25 of those 82 bugs. In 22 of these cases, we found exactly the same BIC identified in InduceBenchmark.
+For the 3 bugs where we do not get the same BICs as in Benchmark (all of them belonging to the Closure project), we have analyzed the results of both datasets.
+For Closure project bugs 90 and 114, we found that in the commits reported by InduceBenchmark as BICs, the regression test provided by Defects4J that reveals the bug gives a success result. In fact, in these commits reported as BICs there is no real change in the application code, just changes in the comments (90) and file permissions (114).
+The third bug (Closure 82), the test fails on the commit marked as BIC. Reviewing this commit we find that there is no real change in functionality that could cause the bug to be introduced. Furthermore, in the commit prior to this one (and for more than 100 commits) the regression test still fails, discarding that it was the commit that introduced the bug. 
+Summarizing this discussion,~\datasetName~adds 42 new BICs to those offered by InduceBenchmark, our tool offers a method to obtain new project BICs automatically and can also be used as an automatic method to validate BIC datasets.
+%\as{What is the main advantage of our work compared to InduceBenchmark? The fact that our dataset has been constructed (more or less) automatically?}
+%\michel{I add a sentence to the end of the paragraph to make this more clear.}
+
+\subsection{Threats to validity}
+\label{sec:threats}
+
+\textbf{Construct Validity.}
+Our work is the first attempt to operationalize the perfect test method for identifying the change that introduced a bug (BIC), using regression tests. 
+The method is based on the tests signaling the moment at which the bug was introduced, that is, we rely on regression tests as perfect detectors of the bug. 
+Therefore, our proposal is subject to construct validity threats because it depends on the quality of the regression test, so its results when transplanted to the past could be less or more conclusive. 
+To mitigate this, a bug dataset has been chosen where the regression tests have been previously checked and validated, ensuring that they are tests able to detect the existence of the reported bugs.
+% \as{How is this discussion related to construct validity? What construct are we discussing?}
+% \michel{I have clarified it, stressing in this case that the test/scale used (in our case the regression test) measures our theoretical construct (the operationalization of the perfect test method), adding the mitigation offered by using a dataset that includes this type of already validated tests.}
+%\as{Please make the constructs explicit, I am still not getting the construct validity feeling from this text.}
+%\michel{We clarify a bit more, specifying that we rely on regression test as perfect detectors of the bug.}
+
+\textbf{Internal Validity.}
+For our results, it is crucial that the reproduction of the execution of each snapshot is accurate, and exact as it would have executed at the moment the snapshot was produced. 
+The Defects4J dataset tries to provide the libraries, commands and configurations needed to compile and execute the snapshot, but the environment provided by the dataset is not exactly the original one,  which may produce differences in behavior.
+%\as{do you mean as in the projects at the time when the bugs have been fixed?}
+%\michel{As mentioned in the previous line, we refer to any snapshot of the project.}
+
+\textbf{External Validity.}
+To conduct our study, we are limited to a dataset that provides all the prerequisites needed by the method: for each bug, the BFC, a regression test, the Git repository, etc. Thus, we only experimented with 809 bugs from 16 projects, all written in Java. It could happen that any conclusion is not directly translatable to other projects, to other languages, or to projects with different characteristics.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../paper"
+%%% End:

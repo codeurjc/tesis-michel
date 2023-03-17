@@ -1,0 +1,25 @@
+% In this paper we put into practice a theoretical model proposed by \gema to detect the change introduced by a bug through testing, generating a tool that automates the process. 
+% We demonstrate that it is possible to use a regression test as a real substitute for the perfect test conceptualized by~\gema.
+% We also expose the limitations of this approach; it is only able to find the BICs when the test is able to pass back in the past and is sensitive to refactorings.
+
+% Through the results obtained by the tool and after a manual validation, we generate a golden dataset of bug introducing changes.
+% On this same dataset, we check how different implementations of the SZZ algorithm, also designed to detect the changes that introduce the bug, behave. We verify a well-known limitation of these algorithms (they can only find the BIC from the modified lines in the BFC) and how our algorithm is able to detect these cases using the tests. 
+
+% Future lines of work can extend this work by trying to apply this tool on datasets of projects using other programming languages than Java (Python, C, C++ ...), other types of projects (not only libraries) and other types of tests (not limited to unit tests).
+
+% jgb: Proposal for substituting the text above
+In this paper we operationalize the theoretical method, called \emph{perfect test}, to detect the change that introduced a bug (BIC), by using a regression test as perfect test. We show, using a well-known bugs dataset, that the method works for those bugs where we are able to transplant the regression test in the past and find a commit where this test passes again, by using our tool to automatically detect the BIC and then validating the results. 
+%We compared our results with another study that also detects BICs in the same dataset, finding that some the BICs that we identify are also identified as BIC by it. 
+%\as{Yes, but here we can also say that we are better than the competing approach?}
+However, we also find that our method is limited by the transplantability of regression tests to past snapshots, and in particular by the compilability of past snapshots.
+
+As a result of applying our method, we produce, by a completely automated procedure, a dataset of BICs (\datasetName), that can be used as ground truth for evaluating methods for detecting BICs. 
+We apply it to some SZZ derivatives, proposing a method for evaluating their relative performance, and verifying a well-known limitation of them. 
+This method could be exploited for producing, automatically, much larger collections of BICs. 
+We also propose our method for automatically providing developers fixing a bug with detailed information about the BIC that introduced it.
+
+Future lines of work can extend this study by exploring the application of the method on datasets of projects in other programming languages than Java (Python, C, C++ ...), of other types of projects (not only libraries), and in general to projects with different testing practices.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../paper"
+%%% End:

@@ -41,6 +41,37 @@
 \newcommand\clearrow{\global\let\rowmac\relax}
 \clearrow
 
+% BUG HUNTER
+
+\usepackage{pifont}
+\usepackage{paralist}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage[normalem]{ulem}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+  \SetKwComment{Comment}{/* }{ */}
+  \SetKw{And}{\textbf{ and }}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, automata,positioning}
+\tikzset{%
+	large/.style = {
+		minimum width=8cm,
+		rectangle, draw=black,
+	},
+	base/.style = {
+		rectangle, draw=black,
+		text width=2.3cm,
+		minimum width=2cm
+	}
+}
+
+\newcommand*\mean[1]{\bar{#1}}
+\newcommand*\median[1]{\tilde{#1}}
+\renewcommand{\arraystretch}{1.2}
+
 %% COMMENTS
 
 \newcommand{\nb}[2]{
