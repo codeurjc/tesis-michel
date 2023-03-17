@@ -60,7 +60,7 @@ Nevertheless, there might be commits between $n$ and the BFC where the regressio
 \subsection{\rqoneb}
 \label{results:rq1b}
 
-In Table~\ref{table:results-per-project} we show average and mean data for the three metrics defined in Section~\ref{sec:methodology}: source compilability, transplanted test compilability and transplanted test runnability.
+In Table~\ref{table:results-per-project} we show average and mean data for the three metrics defined in Section~\ref{sec:bug-hunter:methodology}: source compilability, transplanted test compilability and transplanted test runnability.
 
 \input{pages/03-BugHunter/tables/rq1b-table.tex}
 
@@ -175,7 +175,7 @@ Without more information, we cannot assess which one of them is really the BIC.
 
 %\as{We seem to assume that BIC is (at least theoretically) unique but what if the bug is introduced through interplay between several commits?}
 %\michel{As I understand Gema's model and how regression tests work, the first commit in which the test fails and its parent (or parents) have a success score on the same test should be the BIC. If there have been changes in different commits, our method will detect the first change that actually breaks the functionality as it is expected to work in the regression test.}
-Once we have detected the BIC for 67 bugs through the perfect test method, we want to ensure that the BIC found is actually the BIC, the commit that introduced that bug. Following the steps already described in Section~\ref{sec:methodology}, we checked manually all these cases, finding that all of them are true positives. This result allows for two conclusions:
+Once we have detected the BIC for 67 bugs through the perfect test method, we want to ensure that the BIC found is actually the BIC, the commit that introduced that bug. Following the steps already described in Section~\ref{sec:bug-hunter:methodology}, we checked manually all these cases, finding that all of them are true positives. This result allows for two conclusions:
 \begin{itemize}
 \item The perfect test method can be used to identify the bug introducing change, with regression tests as perfect tests, at least for those cases where a functionality no longer behaves as the regression test expects it.
 \item We have a ground truth dataset of 67 bugs for which we know the BFC and the BIC, which can be used to evaluate methods for finding the BIC.
@@ -214,7 +214,7 @@ In the BFC the method consumeLetterThenDigitSequence is added to the CharacterRe
 
 This manual validation shows one of the most important results of our study: a collection of bugs with an identification of the BIC that introduced them can be produced automatically from a collection of BFCs using the perfect test method, with regression tests as perfect tests. 
 These collections could be used to produce ground truth datasets for evaluation analysis, as we do in this study, but also for any other study where a collection of BICs is needed, such as those on how bugs are introduced.
-In this paper we provide~\datasetName~as one of these collections obtained from the Defects4J bug dataset, with a total of 67 identified BICs.
+In this chapter we provide~\datasetName~as one of these collections obtained from the Defects4J bug dataset, with a total of 67 identified BICs.
 
 %%% Local Variables:
 %%% mode: latex

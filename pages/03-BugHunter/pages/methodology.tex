@@ -182,7 +182,6 @@ For that, it finds nodes $n$ in which the test fails, and in all precedent nodes
 Since for some nodes we could not run the test (because it could not be compiled, or it could be compiled but did not run, or the source code could not be compiled), we must consider that in these nodes the tests may or may not be executed successfully.
 %Therefore, the algorithm finds all nodes in which the test fails, or cannot be run, and in all nodes preceding these nodes the test succeeds, or cannot be run. 
 %All the nodes found by the algorithm would be the candidates to be the BIC.
-
 \input{pages/03-BugHunter/algorithms/alg1DetectBICs.tex}
 
 The algorithm operates under the following assumptions: (1) all the ancestors of the BIC are success commits, until the beginning of the history of the project, or until the features on which the test is built are introduced; (2) in the case of a commit with two or more parents, which generate branches, the BIC can only be in one of these branches.

@@ -8,7 +8,7 @@
 % Future lines of work can extend this work by trying to apply this tool on datasets of projects using other programming languages than Java (Python, C, C++ ...), other types of projects (not only libraries) and other types of tests (not limited to unit tests).
 
 % jgb: Proposal for substituting the text above
-In this paper we operationalize the theoretical method, called \emph{perfect test}, to detect the change that introduced a bug (BIC), by using a regression test as perfect test. We show, using a well-known bugs dataset, that the method works for those bugs where we are able to transplant the regression test in the past and find a commit where this test passes again, by using our tool to automatically detect the BIC and then validating the results. 
+In this chapter we operationalize the theoretical method, called \emph{perfect test}, to detect the change that introduced a bug (BIC), by using a regression test as perfect test. We show, using a well-known bugs dataset, that the method works for those bugs where we are able to transplant the regression test in the past and find a commit where this test passes again, by using our tool to automatically detect the BIC and then validating the results. 
 %We compared our results with another study that also detects BICs in the same dataset, finding that some the BICs that we identify are also identified as BIC by it. 
 %\as{Yes, but here we can also say that we are better than the competing approach?}
 However, we also find that our method is limited by the transplantability of regression tests to past snapshots, and in particular by the compilability of past snapshots.
