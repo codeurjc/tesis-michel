@@ -1,23 +1,14 @@
 # Depósito de la tesis
-Estas instrucciones aplican para tesis por compendio de artículos con mención internacional. Instrucciones elaboradas a curso académico 2022-2023. Las instrucciones es posible que estén desactualizadas, validar siempre contra la normativa actual.
+Estas instrucciones aplican para tesis con mención internacional. Instrucciones elaboradas a curso académico 2022-2023. Las instrucciones es posible que estén desactualizadas, validar siempre contra la normativa actual.
 
 ## Checklist
 - [ ] Adjuntar tesis Doctoral
-- [ ] Adjuntar artículos para compendio
-  - [ ] Artículo 1
-  - [ ] Artículo 2
-  - [ ] Artículo 3
+- [ ] Adjuntar artículo
 - [ ] Formulario de depósito de tesis
 - [ ] Formulario del informe del director de tesis para la autorización de la defensa de la tesis doctoral
   - [ ] Director
   - [ ] Codirector (si procede)
 - [ ] Formulario de propuesta de miembros del tribunal de tesis doctoral
-- [ ] Documento para la evaluación de méritos de investigación
-  - [ ] Miembro externo 1 (si procede)
-  - [ ] Curriculum vitae del miembro externo 1 (si procede)
-  - [ ] Miembro externo 2 (si procede)
-  - [ ] Curriculum vitae del miembro externo 2 (si procede)
-
 - [ ] Formulario de ética de la investigación
 - [ ] Formulario de autorización de coautores en contribución
 	- [ ] 	Artículo 1: Titulo articulo
@@ -38,6 +29,11 @@ Estas instrucciones aplican para tesis por compendio de artículos con mención 
 	- [ ] Formulario de solicitud de la mención internacional del título de doctor
 	- [ ] Autorización CA (Justificante de notificación por registro en su defecto)
 	- [ ] Certificado de realización de la estancia. 
+- [ ] Documento para la evaluación de méritos de investigación
+  - [ ] Miembro externo 1 (si procede)
+  - [ ] Curriculum vitae del miembro externo 1 (si procede)
+  - [ ] Miembro externo 2 (si procede)
+  - [ ] Curriculum vitae del miembro externo 2 (si procede)
 - [ ] Formulario de informe de experto de centro extranjero para mención internacional 
 	- [ ] Experto 1: Nombre Apellidos
 	- [ ] Experto 2: Nombre Apellidos
@@ -113,3 +109,4 @@ El doctorando remitirá a los miembros del tribunal un ejemplar de la tesis doct
 ## Autores
 Sergio Cavero
 Raúl Martín
+Michel Maes
