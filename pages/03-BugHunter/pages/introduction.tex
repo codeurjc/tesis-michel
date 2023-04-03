@@ -83,7 +83,7 @@ which is the whole idea of spending effort in writing them. For the rest of this
 % \michel{To discuss with Patxi}
 %\as{Do we expect some form of consistency across multiple test runs, to avoid flakiness?}\michel{In the methodology we specify that we run at least 3 times the regression test in the BFC.} 
 We refer to these  problems as the ``compilability problem'' and the ``runnability problem'' for transplanting tests.
-By the ``compilability problem'' we mean (a) the set of issues that prevent the source code of a snapshot of a software project from being built, and (b) the construction problems derived from compiling the transplanting code (in our case the regression test which will act as the perfect test) to previous versions. The (a) part of this problem has been addressed previously by researchers~\cite{tufano2017there,maes2022revisiting}. However, in our case we also need to study (b), i.e., the compilability of the regression test that has been transplanted into the commit under scrutiny. 
+By the ``compilability problem'' we mean (a) the set of issues that prevent the source code of a snapshot of a software project from being built, and (b) the construction problems derived from compiling the transplanting code (in our case the regression test which will act as the perfect test) to previous versions. The (a) part of this problem has been addressed previously by researchers~\cite{tufano2017there} (as it has been discussed in Chapter~\ref{chapter:buildability} as well). However, in our case we also need to study (b), i.e., the compilability of the regression test that has been transplanted into the commit under scrutiny. 
 %\as{If compilability of the previous snapshot and compilability of the test are two distinct problems maybe we should present them as such instead of putting both of them under the compilability umbrella?}\patxi{We consider them two different subproblems within the compilability problem. We could talk about source-code compilability, test code compilability, and runnability, but we decided to study the compilability as a whole, stating the difference between the source and test codes as subproblems.}
 By ``runnability problem'' we mean the set of issues that prevent the transplanted test from being executed, and to the best of our knowledge this problem has not been studied before.
 %\as{This is an important point. So far, we have introduced the notion of a transplantable test without explicitly stating how the transplantation will look like. This is the first time that a ``we'' appears, vaguely suggesting that transplantation is a manual process. Please clarify whether transplantation is automatic, and if it is not whether it is supposed to be carried out by researchers (``we'') or practitioners. } \patxi{We rephrased the sentence, and delayed the specificities of the transplantation process to a different section of the paper. We just refer to the test as "the transplanted test" without giving more details.}
@@ -100,7 +100,7 @@ By ``runnability problem'' we mean the set of issues that prevent the transplant
 
 % jgb: Proposal for substitutng the previous para
 
-Our research questions will be, therefore:
+Our research questions for this chapter will be, therefore:
 
 \newcommand{\rqonea}[0]{RQ\textsubscript{3.1A}: ``How far can a test be transplanted into the past?''}
 \textbf{\rqonea} 
