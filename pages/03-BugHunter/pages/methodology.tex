@@ -6,8 +6,8 @@ Our hypothesis is that a regression test can be used as an approximation to the 
 Given a BFC and the regression test for its bug,
 %\as{Implicit assumption: the regression test is part of the bug fixing commit.}\michel{We clarify that we refer to the bug and not that we assume that the BFC contains the regression test}\as{Where is this clarification?} 
 the tool transplants the test to past changes, and tries to execute them, determining if they succeeded or failed. 
-In order to learn how far the tests can be automatically transplanted to past snapshots of the code (RQ\textsubscript{1A}) and what aspects prevent transplanting the regression test into the past(RQ\textsubscript{1B}), we run this tool on a dataset consisting of several BFCs and their corresponding regression tests. 
-To learn in which cases the BIC could be found correctly (RQ\textsubscript{2}), the tool identifies the BIC using the transplanted regression tests as the perfect test. 
+In order to learn how far the tests can be automatically transplanted to past snapshots of the code (RQ\textsubscript{3.1A}) and what aspects prevent transplanting the regression test into the past(RQ\textsubscript{3.1B}), we run this tool on a dataset consisting of several BFCs and their corresponding regression tests. 
+To learn in which cases the BIC could be found correctly (RQ\textsubscript{3.2}), the tool identifies the BIC using the transplanted regression tests as the perfect test. 
 
 \subsection{The perfect test method}
 \label{subsec:model}
@@ -35,7 +35,7 @@ In the case of intrinsic bugs, there should be a BIC, and that will correspond t
 In the case of extrinsic bugs, \gema indicates that there is a first-failing moment (FFM), not present in the version control system and the FFC is the first change to the version control system after the FFM.
 
 In the current work we focus on intrinsic bugs, and therefore for us finding the FFC will mean we found the BIC.
-We will not address the detection of FFC in extrinsic bugs since regression tests cannot help us find that change and the bug dataset chosen to test our proposal (to be described in the next section) only has intrinsic bugs.
+We will not address the detection of FFC in extrinsic bugs since regression tests cannot help us find that change and the bug dataset chosen to test our proposal (to be described in the next section) only contains intrinsic bugs.
 %\as{The decision to focus on the intrinsic bugs should have been better motivated.}
 %\michel{I have included the reasons why we do not address intrinsic bugs. Perhaps Gregorio can refine this decision a bit more. A very recent paper (2022): "ApacheJIT: A Large Dataset for Just-In-Time Defect Prediction" also points out Gema's study and says that it leaves out extrinsic bugs because of the difficulty of detecting them.}
 For describing the bug in terms of a perfect test (2), we use regression tests. Regression tests are designed to detect if bugs are introduced in future changes, and we postulate that they are also useful to detect them in past changes.
@@ -141,7 +141,7 @@ For compiling and executing we decided to use standard Maven and Ant commands, s
 When the tool finishes all actions for a given bug, it reports the results of executing the regression test (if that was possible) for all commits prior to the BFC. These results include the success or failure of the different phases: building the source code, building the transplanted test code, running the regression test, and the result (fail or success) of running the test. 
 In order to know the reasons for failures, the tool also keeps a log of the execution of each step.
 
-In order to measure how far a test can be transplanted to the past and answering \textbf{RQ\textsubscript{1A}}, it is necessary to define a metric that allows us to measure how far we can transplant a regression test. 
+In order to measure how far a test can be transplanted to the past and answering \textbf{RQ\textsubscript{3.1A}}, it is necessary to define a metric that allows us to measure how far we can transplant a regression test. 
 We propose the \textit{Transplantability} metric. 
 For a given bug for which we have a test that detects it, we consider all commits that are ancestors of the BFC, in chronological order, and from this ordering we will find a commit $n$ which is the oldest at which the test can be transplanted and executed. 
 We define \textbf{Transplantability (in days)}, $T_{days}$ as the number of days between commit $n$ and the BFC. 
@@ -151,14 +151,14 @@ In the same way, we define \textbf{Transplantability (in commits)}, $T_{commmits
 commit $n$ and the BFC.
 The two different ways of quantifying, together, are intended to give a more comprehensive view of how far we can transplant a test into past commits.
 
-The previous literature~\cite{tufano2017there,maes2022revisiting} warns us that at least in the compilation of the source code we may face problems that will prevent us from continuing with the experiment. 
+In Chapter~\ref{chapter:buildability} we had already stated that at least in the compilation of the source code we may face problems that will prevent us from continuing with the experiment. 
 We also consider the likelihood that errors may also occur in the compilation of the regression test and in the execution of the test itself (i.e., that the test does not generate a report indicating whether the test passes or fails).
 
-Problems related to compilability of source code, the compilability of the regression test code (the transplanted test), and the runnability of the regression test will be studied in order to answer \textbf{RQ\textsubscript{1B}}. 
+Problems related to compilability of source code, the compilability of the regression test code (the transplanted test), and the runnability of the regression test will be studied in order to answer \textbf{RQ\textsubscript{3.1B}}. 
 To further understand these problems, we introduce three definitions: source code compilability, transplanted test compilability, and transplanted test runnability.
 
 \textbf{Source code compilability} is defined as the percentage of snapshots in the past history of the BFC that could be successfully compiled.
-This metric was originally defined by Tufano et al.~\cite{tufano2017there}. 
+This metric was originally defined by Tufano et al.~\cite{tufano2017there} and used in Chapters~\ref{chapter:buildability} and~\ref{chapter:testability}. 
 \textbf{Transplanted test compilability} is similar, but for the transplanted test: the percentage of snapshots in the past history of the BFC in which we could compile the transplanted test. 
 These parameters let us know how often the reason for not being able of running the transplanted test was not being able to compile the test itself or compiling the source code in each of the snapshots.
 
@@ -240,7 +240,7 @@ To ensure that the results of our study can be considered as ground truth, we ve
 
 \begin{itemize}
     \item Check and understand the bug report
-    \item Check and understand the corrected functionality in the BFC.
+    \item Check and understand the fixed functionality in the BFC.
     \item Check and understand the changed functionality in the candidate BIC
     \item Check the output of the test run
 \end{itemize}
