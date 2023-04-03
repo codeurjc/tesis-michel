@@ -59,19 +59,19 @@ Finally, we discuss the threats to validity of this chapter (Section~\ref{sec:th
 
 % jgb: Proposal for substituting the text above
 One of the main reasons for proposing the operationalization of the perfect test method using regression tests is that these (regression tests) are present in many modern projects. This means that the technique could be used in many of them, if those tests can be transplanted successfully to past commits. However, in Section~\ref{results:rq1b} we showed how in many cases this was not possible, and how much success we had in the different phases of the process (compilation of the snapshot, compilation of the test, and execution of the test). These problems clearly limit the effectiveness of the technique.
-
-In fact, studies on the compilability of past commits~\cite{tufano2017there,maes2022revisiting} show that it is relatively usual that a considerable fraction of past commits in a project are not automatically compilable as such. However, those studies also show that some reasons for those problems (such as the availability of dependencies or the suitability of build configurations) can be mitigated. 
+In fact, in Chapter~\ref{chapter:buildability} (and in previous studies~\cite{tufano2017there}) we notice that it is relatively usual that a considerable fraction of past commits in a project are not automatically compilable as such. 
+However, we have also discussed that some reasons for those problems (such as the availability of dependencies or the suitability of build configurations) can be mitigated. 
 To mitigate these problems, our tool allows to include a script in which the user can define fixes to be applied to each commit in which the regression test is executed. 
 The authors of the Defects4J dataset follow a similar approach (from which we draw our inspiration). 
 They provide manually generated configuration files so that the tests can be run on the BFC and on a synthetic version of the BFC without the fix code (with the aim of providing a commit where the bug is revealed).
 These configuration files resolve some dependency issues by providing these dependencies as part of the Defects4J framework.
 For 488 bugs out of 809, we have taken advantage of these configuration files, making some modifications to them, in order to transplant them together with the regression test and ensure high compilability of past commits.
-The resolution of dependencies from external repositories is one of the main causes of failure in the build of Java projects~\cite{tufano2017there,maes2022revisiting}.
+The resolution of dependencies from external repositories is one of the main causes of failure in the build of Java projects~\cite{tufano2017there}.
 One of the main advantages offered by these configuration files is that the project dependencies are obtained as local files (which are part of Defects4J) instead of downloading them from a remote repository, solving the above-mentioned problem.
 %\as{The word ``some'' makes the entire discussion vague. How often did we benefit from these configuration files? Can we recommend potential users of the tool to always use these files? If not, when yes and when no?}
 %\michel{The numbers are now displayed. Using these configuration files is somewhat limited to this experiment, in projects outside the dataset. The developer should ensure that the configuration files for each commit can be built, or the researcher should create his own "transplantable" configuration file.}
 
-In the following we discuss other relevant modifications and fixes included, based on the suggestions proposed in the literature~\cite{maes2022revisiting}.
+In the following we discuss other relevant modifications and fixes included, based on the suggestions proposed in Section~\ref{sec:buildability:discussion}.
 We find references to dependencies (not included in Defects4J) that include the suffix ``-SNAPSHOT'', which indicates that this is a volatile development version and is sometimes removed from the dependency repositories (causing the impossibility to compile a project that depends on them). 
 For 15 bugs we found that this dependency was included in the BFC, and the compilation of the BFC failed due to it, thus preventing our method from being able to work (the compilation and test execution at the BFC, with a success result, is a precondition for our method). 
 The removal of this suffix, forcing it to use the stable version of that dependency, has allowed us to compile the BFC of these 15 bugs, allowing our method to start finding the BIC for them.
