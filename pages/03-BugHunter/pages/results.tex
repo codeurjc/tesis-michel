@@ -1,7 +1,7 @@
 % jgb: Proposal for the text above
 In this section we show the results of our study, answering the research questions presented in the introduction. 
 The following results are intended to determine the extent to which we can operationalize the theoretical model proposed by \gema~
-We have considered a total of 809 bugs in the Defects4J dataset, after filtering out bugs for the four projects we do not consider as explained in Section~\ref{subsec:dataset}. The results we found for each of those bugs are summarized in Figure~\ref{fig:experiment-overview}. 
+We have considered a total of 809 bugs in the Defects4J dataset, after filtering out bugs for the project we do not consider as explained in Section~\ref{subsec:dataset}. The results we found for each of those bugs are summarized in Figure~\ref{fig:experiment-overview}. 
 This figure differentiates the cases in which, out of the total number of bugs, the regression test was found to pass again in some commit prior to the BFC from those that did not. In turn, from this first group, we differentiate the bugs from which we have been able to obtain a single candidate to be the BIC or several of them.
 %\as{I guess that this figure should be somehow discussed?}
 %\michel{I add a little explanation}
@@ -21,7 +21,7 @@ This figure differentiates the cases in which, out of the total number of bugs, 
 \subsection{How far can a test be transplanted into the past?}
 \label{results:rq1a}
 
-In Table~\ref{table:results-per-project} we show the values for each of the interpretations of Transplantability for each bug. 
+In Table~\ref{table:rq1a} we show the values for each of the interpretations of Transplantability for each bug. 
 The values are aggregated by project, showing the mean and median for all bugs in each project. 
 %The table also provides the aggregation of all bugs from all projects to obtain the mean and median Transplantability values for the dataset.
 Additionally, we add in the table the relative position (\%) of commit $n$ (1) with respect to the total number of days elapsed between the BFC and the first commit of the project and (2) with respect to the total number of commits between the BFC and the first commit of the project. 
@@ -72,9 +72,10 @@ The reasons that prevent transplanting the regression test are directly related 
 
 \begin{itemize}
 \item \textbf{Compilability of the source code} If the source code cannot be built for the snapshot, there is no way to build the regression test. 
-Compilability of past snapshots has been studied in detail by Tufano et al.~\cite{tufano2017there},whose experiment in 2014 showed an average compilability of 100 Java projects of 37.74\%. Maes-Bermejo et al.~\cite{maes2022revisiting} replicated this experiment in 2020 and a decrease in compilability was observed due to the lapse of time, 
+Compilability of past snapshots has been studied in detail by Tufano et al.~\cite{tufano2017there},whose experiment in 2014 showed an average compilability of 100 Java projects of 37.74\%. 
+As seen in Chapter~\ref{chapter:buildability}, we replicated this experiment in 2020 and a decrease in compilability was observed due to the lapse of time, 
 %\as{Please be more explicit why the lapse of time could be expected to reduce the compilability value.} \michel{Below it is commented that one of the factors affecting compilability is the passage of time. I clarify it} 
-obtaining a value of 25.09\%. The compilability may vary largely from project to project, and it will depend among other factors on the availability of third party modules needed to build the code, on the availability of the building tools in the right version, and on the complete automation of the building process. These factors are usually affected by time, and a degradation of compilability as time passes has been observed in these two previous studies
+obtaining a value of 25.09\%. The compilability may vary largely from project to project, and it will depend among other factors on the availability of third party modules needed to build the code, on the availability of the building tools in the right version, and on the complete automation of the building process. These factors are usually affected by time, and a degradation of compilability as time passes has been observed in these two previous studies.
 In our case, the mean compilability of the snapshots previous of each bug is 53.43\% (with a median of 49.89\%). 
 The value obtained is higher than that obtained in previous studies due to a combination of good practices by the authors of the Defects4J dataset; 
 % \as{do you mean that storing dependencies and adding configuration files are the good practices? Or are there some good practices (whatever they might be) and on top of them the developers store dependencies and adapt configuration files?}
@@ -128,7 +129,7 @@ Despite all these factors, the fact that for some projects transplanted test run
 \subsection{Can the BIC for a given bug be found using its regression test?}
 \label{sec:rq2}
 
-Following on with the chart in Figure~\ref{fig:experiment-overview}, to answer $RQ_2$ we will study in which cases the test succeeded in some precedent commit, and in those cases, how many candidate BICs were found. We consider the following scenarios as defined in our methodology. 
+Following on with the chart in Figure~\ref{fig:experiment-overview}, to answer $RQ_{3.2}$ we will study in which cases the test succeeded in some precedent commit, and in those cases, how many candidate BICs were found. We consider the following scenarios as defined in our methodology. 
 
 \textbf{The test does not succeed in any previous commit.}
 
@@ -153,7 +154,7 @@ This is due to a practice known as \textit{Backtracking}~\cite{yoon2012explorato
 For the 29 remaining bugs, the algorithm finds multiple candidates. 
 If $n$ is the first commit (going backwards from the BFC) in which the test succeeds, we have several candidates if for one or more commits that are right before $n$ (again, going backwards from the BFC) the test could not be executed (we are not able to compile the code or the test).
 In those cases, since the test could not be run, we do not know if the bug is present or not, and, according to the definition provided by~\gema, any of them could be the FFC (the first failing change).
-So, all of them, including the last one that failed (again, in the same order), are possible BICs. 
+So, all of them, including the last one that failed (again, in the same order), are candidates to be the BIC. 
 Without more information, we cannot assess which one of them is really the BIC.
 
 %\as{Is it possible that none of them is the BIC? If yes, ``which'' in the previous sentence might be a wrong word choice.}
@@ -167,7 +168,7 @@ Without more information, we cannot assess which one of them is really the BIC.
     Yes, at least for those cases where a functionality no longer behaves as the regression test expects it. 
     The regression test can be transplanted to past commits, and using the perfect test method with the regression test as perfect test, the BIC can be found. 
     In our case, for the 809 bugs for which we could assess the regression test detected the bug, we could use the method to identify precisely the BIC in 67 bugs, and to provide a list of candidates for other 29 bugs. 
-    The bugs for which the method did not work were mainly due to not being able of running the test, because of compilability or runnability problems, in addition to the contemplated case in which the tested feature has always contained the bug
+    The bugs for which the method did not work were mainly due to not being able of running the test, because of compilability or runnability problems, in addition to the contemplated case in which the tested feature has always contained the bug.
     In general, when regression tests could be run, the method worked.
 \end{minipage}}
 
