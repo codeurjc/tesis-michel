@@ -1,9 +1,64 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus faucibus, nunc id accumsan ullamcorper, libero nisi sollicitudin sem, quis porta diam nisl quis nulla. Nam viverra tempor ex eu ultricies. Aliquam at felis sed sapien egestas semper a quis dolor. Maecenas at odio non nibh pulvinar bibendum. In mattis ex et est egestas, iaculis sagittis tellus varius. Cras id posuere lorem. Cras leo risus, sagittis quis ligula ac, vehicula viverra erat. Nam vel iaculis dui, eu ullamcorper felis. Vivamus bibendum purus eget metus sagittis, eu tincidunt dolor hendrerit. Ut porttitor ac lectus eu varius. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas ut blandit metus. Phasellus ut velit ut velit volutpat porttitor.
+This chapter recapitulates the initial objectives of the research and the contributions claimed in Chapter 1, in addition to presenting the conclusions (Section~\ref{sec:conclusions}) of the three studies included in this doctoral thesis. 
+In addition, Section~\ref{sec:future-work} also details future research work.
 
-Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras imperdiet turpis turpis, vitae ultrices risus viverra a. Sed lobortis at enim in venenatis. Aenean porttitor, nunc id tincidunt facilisis, lorem risus laoreet lorem, quis egestas magna mi eget metus. Integer lobortis porttitor nunc, sit amet semper ligula accumsan ut. Etiam blandit erat id tempor auctor. Sed at pulvinar ante. Vestibulum consequat facilisis neque, vel condimentum nisl sodales in. In quis fermentum eros, id dapibus sapien. Etiam hendrerit a urna vitae feugiat.
+\section{Conclusions}
+\label{sec:conclusions}
 
-Mauris condimentum mauris tellus, ut tempus risus feugiat at. Aenean eget ornare nisl, eu gravida libero. Quisque ultricies erat orci, non consectetur dolor laoreet vel. Aenean laoreet sodales turpis vel suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu placerat tellus, vel efficitur magna. Praesent ut massa ac quam tristique sollicitudin ac vitae elit. Phasellus id lorem sed est faucibus faucibus id id turpis. Nunc fringilla eros eu sapien placerat faucibus sit amet vitae enim. Etiam sollicitudin iaculis luctus. Nulla facilisi. Integer enim sapien, venenatis vitae mattis vulputate, blandit eu leo. In lobortis erat non augue viverra porttitor sed id justo. Curabitur in dictum lacus, sed malesuada lacus. Aenean sed sapien mi. Proin sit amet nibh ut lectus cursus ullamcorper.
+\subsection{Revisiting the building of past snapshots}
 
-Curabitur finibus est ac quam sagittis, quis porta magna viverra. Aenean nulla enim, sodales vel molestie in, feugiat eu lectus. Duis aliquam consequat urna et efficitur. Vivamus sollicitudin feugiat urna, ut consectetur ex finibus non. Praesent rutrum felis sit amet diam dignissim, at placerat nulla ornare. Integer eget commodo orci, cursus ultricies ante. Nullam consequat iaculis leo nec scelerisque. Etiam eu purus dapibus, hendrerit felis non, pellentesque lorem. Vestibulum in scelerisque quam, et interdum lectus. Proin tellus tortor, vulputate id iaculis sed, consequat a dui. Nulla lacus leo, lobortis vel purus eu, feugiat vestibulum metus. Praesent blandit scelerisque sapien. Fusce sit amet metus erat. Aenean sollicitudin imperdiet pellentesque. Duis volutpat bibendum lacus vel dictum. Ut elementum ullamcorper eros, quis pulvinar lacus.
+In Chapter~\ref{chapter:buildability} we have shown a replication and a reproduction study from Tufano et al. work~\cite{tufano2017there} about the compilability of the history of past commits of a project. 
+In the first one we have repeated their analysis, with those repositories for which we found all commits, and in the second one we extended its generality by using the same methodology with a different, more diverse set of Java projects, and considering also Ant and Gradle in addition to Maven.
 
-Aliquam nec viverra nisi, laoreet bibendum ligula. Mauris lorem neque, blandit eu mauris in, porttitor tristique neque. Duis eget ex est. Mauris elementum nunc id semper maximus. Vestibulum lectus diam, ultrices eu nisi et, accumsan pretium eros. Sed pharetra pellentesque nulla, vitae euismod lorem condimentum quis. Quisque non porttitor elit. Sed eleifend iaculis mauris, ac tincidunt elit placerat eget. Phasellus sodales metus a urna convallis, nec auctor sem rhoncus. Morbi egestas finibus ipsum ut scelerisque. Ut sit amet molestie tellus.
+The main contributions of this chapter are:
+
+\begin{itemize}
+\item A discussion and guidelines on reproduction packages for studies on the compilability of past snapshots. 
+\item A dataset and software, usable by other researchers, to study long-term degradation of compilability.
+\item A partial validation of the results of the original study. In particular, results about frequency of errors causing build failures have been validated and extended.
+\item Evidence on how compilability degrades over time, and how it could be mitigated by ensuring future availability of dependencies.
+\item Evidence on the compilability of a different, more diverse set of Java projects, showing some differences with the original study.
+\item Evidence on how the building tools affect future compilability.
+\end{itemize}
+
+%\grex{Lo he dejado así}
+%:\jgb{Lo he retocado un poco}
+In summary, we wanted to shed some more light on to which extent past snapshots of projects are compilable ``as such'', because that is the basis to know how much build-repair techniques are needed if past artifacts of a project need to be reproduced from source code.
+Since our study was a replication and a reproduction, a part of our results could be expected, but still they add more detail and evidence to the original study. In addition, we also found some differences, generalized evidence by analyzing a more diverse set of projects, and produced a tool to automate the analysis of any Java repository, which could be used in further studies by any researcher.
+
+\subsection{Chapter 4 conclusions}
+
+In Chapter~\ref{chapter:testability} ... \michel{TODO}
+
+\subsection{Identifying which change caused a bug through regression testing}
+
+In Chapter~\ref{chapter:bug-hunter} we operationalize the theoretical method, called \emph{perfect test}, to detect the change that introduced a bug (BIC), by using a regression test as perfect test. We show, using a well-known bugs dataset~\cite{just2014defects4j}, that the method works for those bugs where we are able to transplant the regression test in the past and find a commit where this test passes again, by using our tool to automatically detect the BIC and then validating the results. 
+
+However, we also find that our method is limited by the transplantability of regression tests to past snapshots, and in particular by the compilability of past snapshots.
+
+As a result of applying our method, we produce, by a completely automated procedure, a dataset of BICs (\datasetName), that can be used as ground truth for evaluating methods for detecting BICs. 
+We apply it to some SZZ derivatives, proposing a method for evaluating their relative performance, and verifying a well-known limitation of them. 
+This method could be exploited for producing, automatically, much larger collections of BICs. 
+We also propose our method for automatically providing developers fixing a bug with detailed information about the BIC that introduced it.
+
+\section{Future Work}
+\label{sec:future-work}
+
+The studies presented in this doctoral thesis are limited to projects written in the Java programming language. Moreover, these projects are mostly programming libraries, which usually have only unit tests and sometimes integration tests.
+Therefore, further research is still needed to draw general conclusions on the compilability of past snapshots, testability of the past snapshots and to identify the change that introduced the bug, especially for languages other than Java (C, C++, Python, JavaScript, Go, Rust and other popular programming languages), and in general to projects with different testing practices (e.g., including load testing or end-to-end testing).
+
+In Chapter~\ref{chapter:testability}, one of the main limitations we have encountered when running the tests is to reproduce in context the test execution. Despite having the tests collected in the commit history, we do not have the information of whether these tests could be compiled and subsequently executed, as well as the absence of the result of the execution. 
+This information could be obtained from the Continuous Integration (CI) system (if used), where the build of projects and the execution of their tests is done automatically, and their results are recorded.
+It has been a very common practice for open-source projects to use continuous integration systems that are not publicly accessible (such as Jenkins) and therefore it is not possible to retrieve test construction and execution information. 
+Even so, numerous projects have used Travis~\footnote{\url{https://www.travis-ci.com/}} as a continuous integration system. This CI system has allowed projects such as TravisTorrent~\cite{msr17challenge} to offer build and test execution datasets for over 1,000 projects. 
+Within the open-source world, this CI system is gradually being replaced by GitHub Actions, another CI system integrated into the GitHub platform (the most widely used Git repository platform). 
+Therefore, a possible future work would be to create a new dataset of builds and test executions to help us understand how the tests behaved at the time they were executed and in the right context. 
+This future work would have to deal with problems such as the fact that such executions (together with their results and logs) usually have a maximum lifetime of 90 days, so we would have to "record" such executions over a period of time.
+
+In Chapter~\ref{chapter:bug-hunter}, we propose a tool that exhaustively searches for the change that introduced an error. 
+However, this tool is limited by the problems in reproducing the test context and the time required to compute the regression test run results in the change history.
+It would be interesting to continue the proposed work by trying to combine our tool with the most recent implementations of SZZ. 
+Our tool would refine and extend the candidates proposed by this algorithm, while the SZZ algorithm could sensibly reduce the execution time of our tool by filtering out irrelevant changes.
+
+% The replication and reproduction study in Chapter~\ref{chapter:buildability} continues the work of Tufano et al.~\cite{tufano2017there}, validating and extending its conclusions. 
+% However, both studies and remain very limited to the Java programming language, but also to projects that are basically programming libraries. 
+% Future lines of work can extend this study by exploring the application of the method on datasets of projects in other programming languages than Java (Python, C, C++ ...), of other types of projects (not only libraries), and in general to projects with different testing practices.
