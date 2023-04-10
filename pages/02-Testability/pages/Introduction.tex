@@ -1,0 +1,74 @@
+%\jgb{There was \cn both for the importance of building past snapshots, and for the importance of tests. I assume both things are evident enough, and don't need a citation. However, if you feel you can include a illustrating citation, please do.}
+
+Reproducing (building) executable programs from the source code of past snapshots\patxi{Ojo, usa consistentemente snapshot o commit o change en la tesis. No recuerdo cómo está en el capítulo del emse al final}\michel{En este paper, el uso es consistente. En intro y related work se habla de snapshot. En la sección de definiciones, se introduce el commit como una snapshot del código fuente} of a project is fundamental for practitioners, to maintain old versions still in production, and for researchers, to study those old versions. 
+To our knowledge, Tufano et al~\cite{tufano2017there} presented the most complete study on the buildability of past snapshots.\michel{Desde este punto exacto, ¿deberíamos utilizar el término "Compilable" en lugar de "Buildable" (junto a sus "-ilities")? De cara a la tésis o de cara al artículo puede haber distintas opciones. La más robusta seria usar compilable "seguir a Tufano", pero "Buildable" parece más agnóstico de si el lenguaje es compilable o no}
+It analyzes all past snapshots for 100 Java projects of one organization (the Apache Software Foundation), determining how many of them could be built, and the main causes of failure in building. In this study, only 38\% of snapshots could be built, and almost all projects contained snapshots that could not be built (96\%).
+
+However, not only the main executable program is of interest: both for maintenance and research reasons, building and executing tests of past snapshots is also important. 
+For maintenance, because that allows developers to fix bugs/vulnerabilities~\cite{bartelsoftware} and backport functionality to some old version with some confidence~\cite{tian2017mining}, if all tests can be run and the result is succeeded, meaning the test did not find any misbehavior in the exercised part of the system. 
+For researchers, because that allows for a more complete understanding of the project at those points in the past~\cite{santos2019mind}.
+
+%Reproducing the state of every source code snapshot of a software project in the past has shown to be of interest, both for research and from a practical point of view \cn. 
+%Although tests are an important part of software projects \cn, previous studies on reproducing the past have focused only on the buildability of the source code along project history. 
+
+%\jgb{We could remove the next para, if we are short in space, and ensure we talk about it later, when discussing methods}
+
+Nowadays, tests are so important to projects whose code is used in production, that they are usually an integral part of the process for accepting changes to the code base. In compiled languages such as Java, it is usual to run any new source code snapshot through a process which involves, in this order: compiling the main source code, compiling tests, running tests, and finally, building the package (e.g., a \texttt{jar} file) suitable for distribution. Only if all those steps succeed, the source code is deemed for production.
+
+%In many projects, the Usually, building any snapshot involves several stages. For instance, when using the popular Maven tool for building Java projects, producing a package from a snapshot of a project requires following steps: i) compiling source code, ii) compiling tests, iii) running tests, and finally, iv) building the package (most commonly, a \texttt{jar} file) suitable for distribution. 
+
+%In the same way that buildability is the ability of a project to make its snapshots buildable, testability is the ability of a project to ensure that the tests of each snapshot can be executed and pass successfully.
+
+However, we are not aware of studies that systematically analyzed to which extent tests present in past snapshots can be built, and run with a result of success. Leveraging on the previous research on buildability of past snapshots, in this paper we present an study that extends it having into account if testing of those past snapshots is still possible. 
+Since there is no precedent on software testability in the past, we will start this paper with a case study of project history testability to understand in depth how to measure it.
+%\michel{Def: "A technique for detailed exploratory investigations, both prospectively and retrospectively, that attempt to understand and explain phenomenon or test theories, using primarily qualitative analysis"}
+Our main aims are to study, for past snapshots of a project:
+
+%Tufano et al. focused specifically on compiling source code. However, we argue that running the test suite is not only desirable, but mandatory for some use cases, like backporting bug fixes to previous versions or reproducing the past state of a system. That is why we decided to extend Tufano et al.'s paper, and focus on studying testability of past snapshots, with two main aims:
+
+\textbf{(a)} The \textit{buildability} of tests: to which extent tests are still buildable from source code. 
+This leads to the following research question:
+
+\def \RQI{On how many snapshots of the change history can we build tests?}
+\def \RQII{On how many snapshots from the change history we can run all tests with a `success' result?}
+% \def \RQIII{Is there any correlation between testability and other project characteristics such as size of the source code, length of the history of changes, or age?}
+
+\textbf{RQ\textsubscript{1}}: ``\RQI''
+
+\textbf{(b)} The \textit{testability} of the code: to which extent running tests of a snapshot result in success. 
+This leads to the following research question:
+
+\textbf{RQ\textsubscript{2}}: ``\RQII''
+
+% \textbf{RQ\textsubscript{3}}: ``\RQIII''
+
+We wanted to answer these questions in a manner that recognizes the diversity of software projects. For practical reasons, we considered only Java projects, which is already a reduction of scope. 
+The projects have been selected from the ManySStuBs4J~\cite{karampatsis2020often} dataset.
+% To avoid as much as possible further reduction, we decided to run three studies, all of them with the same method, but with different samples of projects. 
+% We selected each sample so that its projects fulfill some common conditions (so that it is internally homogeneous, to some extent), but for each sample those conditions are different, trying to capture different kinds of projects. In all cases, we have focused on relatively large, mature projects used in production.
+
+% The three samples of projects are based on (1) Apache projects studied by~\cite{tufano2017there} (buildability of past snapshots) (2) projects obtained through a search using the GitHub API by~\cite{maes2022revisiting} (a study extending the previous one), and (3) projects from ManySStuBs4J~\cite{karampatsis2020often}, a well-known dataset of Java projects used in mining software repositories.
+The method we followed is in summary as follows: for each snapshot of each project, we automatically build its main code, its tests, and then we run tests whenever possible. 
+We have performed this process for a total 86 different projects.
+
+%For each project of each dataset, source and test code is built as preliminary steps for the execution of the tests, in order to adequately respond to the RQs.
+
+%To define the testability of a snapshot, we will use the \textit{testable rate} of the test suite. 
+%If a snapshot has a 100\% testable rate (all tests should build and result in \textit{success} when run) we will call it \textit{fully testable}.
+To define the testability of a snapshot, we will verify if all its tests pass or fail, categorizing it as fully testable or not.
+A fully testable snapshot would allow a developer to modify the code, and run all the tests again to check if the change breaks something.
+% After running our studies, we can conclude that testability of past snapshots is relatively low: for 40.65\%\michel{Comprobar este valor} of all snapshots for which tests could be built, we obtained a \textit{success} result when running all the tests of each snapshot. 
+The main result is that there is a large variation from project to project, with a few cases showing a high testability with all test succeeding in almost all their snapshots. 
+% For analyzing the results, we also provide a framework that permits to summarize in three metrics the main characteristics of a project with respect to testability of past snapshots. 
+
+%In this paper we show in real projects how complicated it is to reproduce the building and test execution of a project in the past, extending the previous work of Tufano et.al.
+
+%We have found projects where it is possible to reproduce these steps correctly. The tests are essential to ensure the correct functioning of the project. The execution of tests on past commits is crucial when we want to make changes on an old version of the project, ensuring that the code works as it did when it was written. 
+
+The rest of the paper is structured as follows:
+Section~\ref{sec:related} discusses previous research.
+Section~\ref{sec:methodology} presents the methodology used in the studies and defines the terminology. 
+Section~\ref{sec:case-study} shows the case study performed.
+The results of applying the methodology are reported in Section~\ref{sec:results}, while Section~\ref{sec:analysis} offers a more detailed analysis of these results.
+Section~\ref{sec:discussion} discusses the results, and explores threats to their validity.
+Finally, Section~\ref{sec:conclusions} draws conclusions and presents further research.

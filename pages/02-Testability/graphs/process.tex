@@ -1,0 +1,13 @@
+\begin{tikzpicture}[node distance=1cm,every node/.style={fill=white, font=\sffamily}, align=center]
+    \footnotesize
+    % Specification of nodes (position, etc.)
+    \node (total)             [large]                                         { 407,579 Commits};
+    \node (buildable)         [large, below of=total]                         { 103,097 Source buildables commmits};
+    \node (testBuildable)     [large, below of=buildable]                     { 93,925 Test buildables commits};
+    \node (success)           [large, below of=testBuildable]                 { 40,540 Testable commits};
+
+    \draw[-Latex]             (total) -- (buildable);
+    \draw[-Latex]             (buildable) -- (testBuildable);
+    \draw[-Latex]             (testBuildable) -- (success);
+
+\end{tikzpicture}
