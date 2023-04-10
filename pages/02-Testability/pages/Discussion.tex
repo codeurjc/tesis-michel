@@ -8,7 +8,7 @@ After presenting the main results, and its analysis, in this section we discuss 
 
 % \michel{Es posible que esta sub-sección, con el nuevo Case Study, no tenga mucho sentido}
 
-% For the studies presented in this paper, we designed a framework based on extending buildability to consider also buildability of tests, and introducing four \textit{Testability} metrics. 
+% For the studies presented in this paper, we designed a framework based on extending compilability to consider also compilability of tests, and introducing four \textit{Testability} metrics. 
 % Each of these metrics shows a different aspect of testability.
 
 % In continuous integration systems it is common that all tests must pass, being the result of their execution a binary value: either all tests pass or all tests fail. 
@@ -20,18 +20,18 @@ After presenting the main results, and its analysis, in this section we discuss 
 % However, there are constraints, not related to the tests themselves, that put limits to testability.
 % For example, a test that cannot be built, cannot be run. 
 % Therefore, we defined \textit{Fully Testability\textsubscript{T}} to capture these constraints, and define testability related to them. 
-% They inform on the quality of the tests only for snapshots that are buildable (either source- and tests-buildable). 
+% They inform on the quality of the tests only for snapshots that are compilable (either source- and tests-compilable). 
 % In more detail:
 
 % \begin{itemize}
-%     \item \textbf{A high \textit{Fully Testability\textsubscript{A}}} signals a \textbf{highly reproducible project}: most of its snapshots are buildable, and the execution of their tests is successful.
+%     \item \textbf{A high \textit{Fully Testability\textsubscript{A}}} signals a \textbf{highly reproducible project}: most of its snapshots are compilable, and the execution of their tests is successful.
 %     The project in our dataset with the highest value in this metric is \textit{jsoup}, with a value of 93.55\%. 
 %     This project, and others with high \textit{Fully Testability\textsubscript{A}}, are analyzed in the section~\ref{sec:high}.
 %     \item \textbf{A high \textit{Fully Testability\textsubscript{T}}} hints to a project with \textbf{highly reproducible execution of tests}: most tests that can be built can also be executed successfully. 
 %     A good example is \textit{JFinal}, with a value of 100\%. 
-%     Its low \textit{Test Buildability} (22\%) considerably affects its \textit{Fully Testability\textsubscript{B}} (22\%). 
+%     Its low \textit{Test Compilability} (22\%) considerably affects its \textit{Fully Testability\textsubscript{B}} (22\%). 
 %     In this case, \textit{Fully Testability\textsubscript{T}} shows that as long as the tests are built correctly, they can be executed successfully. 
-%     In projects with high \textit{Fully Testability\textsubscript{T}} and low \textit{Test Buildability} it is reasonable to think that improving \textit{Test Buildability} could increase also \textit{Fully Testability\textsubscript{A}}.
+%     In projects with high \textit{Fully Testability\textsubscript{T}} and low \textit{Test Compilability} it is reasonable to think that improving \textit{Test Compilability} could increase also \textit{Fully Testability\textsubscript{A}}.
 % \end{itemize}
 
 % There are some projects as well with a high percentage of tests executed successfully, but low \textit{Fully Testability}. 
@@ -60,7 +60,7 @@ After presenting the main results, and its analysis, in this section we discuss 
 % To illustrate it in an example, in Figure~\ref{fig:closure} we see the result of the tests in the history of the Closure project. 
 % Several commits on its commit history cannot be built. 
 % The mean TestableRate of all its commits is 59\%, while the median reaches 100\%.
-% As in Fully Testability, in order to deal with the limitations of project buildability, Testability Rate C, B and T, considering all commits, source-buildable and test-buildable commits respectively, are defined in an analogous way.
+% As in Fully Testability, in order to deal with the limitations of project compilability, Testability Rate C, B and T, considering all commits, source-compilable and test-compilable commits respectively, are defined in an analogous way.
 
 % \begin{figure}[h]
 %     \centering    
@@ -79,8 +79,8 @@ After presenting the main results, and its analysis, in this section we discuss 
 % After analyzing the Testability Rate of the projects, we wanted to check which projects offer the highest results. Of the 86 projects:
 % \begin{itemize}
 %     \item We found 11 where the Testability Rate\textsubscript{A} is 100\% (i.e. in at least 50\% of their commits all the tests pass).
-%     \item We found 39 where the Testability Rate\textsubscript{B} is 100\% (i.e. in at least 50\% of their source-buildable commits all the tests pass).
-%     \item We found 44 where the Testability Rate\textsubscript{T} is 100\% (i.e. in at least 50\% of their test-buildable commits all the tests pass).
+%     \item We found 39 where the Testability Rate\textsubscript{B} is 100\% (i.e. in at least 50\% of their source-compilable commits all the tests pass).
+%     \item We found 44 where the Testability Rate\textsubscript{T} is 100\% (i.e. in at least 50\% of their test-compilable commits all the tests pass).
 % \end{itemize}
 
 % These values give us a very high number of projects, making an in-depth analysis difficult. 
@@ -102,10 +102,10 @@ After presenting the main results, and its analysis, in this section we discuss 
 %         \textbf{Age}                      & 11.12          & 9.54           & 10.47         \\ \hline
 %         \textbf{LoC}                      & 17,831         & 8,655          & 22,003           \\ \hline
 %         \textbf{Total Commits}            & 1,442          & 1,062          & 1,865              \\ \hline
-%         \textbf{Source buildable commits} & 1,410          & 1,051          & 1,431              \\ \hline
-%         \textbf{Source buildability}      & 0.97           & 0.98           & 0.76          \\ \hline
-%         \textbf{Test buildable commits}   & 1,403          & 986            & 1,431              \\ \hline
-%         \textbf{Test buildability}        & 0.99           & 0.93           & 1.0               \\ \hline
+%         \textbf{Source compilable commits} & 1,410          & 1,051          & 1,431              \\ \hline
+%         \textbf{Source compilability}      & 0.97           & 0.98           & 0.76          \\ \hline
+%         \textbf{Test compilable commits}   & 1,403          & 986            & 1,431              \\ \hline
+%         \textbf{Test compilability}        & 0.99           & 0.93           & 1.0               \\ \hline
 %         \textbf{FullyTestable commits}    & 1349           & 921            & 1,411              \\ \hline
 %         \textbf{Fully Testability\textsubscript{A}}      & \textbf{0.93} & \textbf{0.86} & \textbf{0.75} \\ \hline
 %         \textbf{Fully Testability\textsubscript{B}}      & 0.95           & 0.87           & 0.98          \\ \hline
@@ -134,10 +134,10 @@ After presenting the main results, and its analysis, in this section we discuss 
 %         \textbf{Age}                      & 5.85          & 8.88              & 14.28          \\ \hline
 %         \textbf{LoC}                      & 1,344        & 8,306            & 1,146,447      \\ \hline
 %         \textbf{Total Commits}            & 205           & 846               & 53,286          \\ \hline
-%         \textbf{Source buildable commits} & 18            & 398               & 21             \\ \hline
-%         \textbf{Source buildability}      & 0.09          & 0.47              & 0.0            \\ \hline
-%         \textbf{Test buildable commits}   & 18            & 396               & 20             \\ \hline
-%         \textbf{Test buildability}        & 1.0           & 0.99              & 0.95           \\ \hline
+%         \textbf{Source compilable commits} & 18            & 398               & 21             \\ \hline
+%         \textbf{Source compilability}      & 0.09          & 0.47              & 0.0            \\ \hline
+%         \textbf{Test compilable commits}   & 18            & 396               & 20             \\ \hline
+%         \textbf{Test compilability}        & 1.0           & 0.99              & 0.95           \\ \hline
 %         \textbf{Fully Testable commits}   & 18            & 396               & 20             \\ \hline
 %         \textbf{Fully Testability\textsubscript{A}}      & 0.09          & 0.47              & 0.0            \\ \hline
 %         \textbf{Fully Testability\textsubscript{B}}      & 1.0           & 0.99              & 0.95           \\ \hline
@@ -148,7 +148,7 @@ After presenting the main results, and its analysis, in this section we discuss 
 %     \end{tabular}
 % \end{table}
 
-% The three projects selected for the table with the highest \textit{Fully Testability\textsubscript{T}} are particularly interesting: whenever their tests could be constructed, they could be executed successfully. Two of them appeared in previous tables (\textit{otto} and \textit{javapoet}). The \textit{camel} project (a service integration library) offers a high \textit{Fully Testability\textsubscript{T}}, but this result must be considered in view of the fact that its buildability is only 0.03\%. For projects like this it is important to consider all \textit{Fully Testability} variants. 
+% The three projects selected for the table with the highest \textit{Fully Testability\textsubscript{T}} are particularly interesting: whenever their tests could be constructed, they could be executed successfully. Two of them appeared in previous tables (\textit{otto} and \textit{javapoet}). The \textit{camel} project (a service integration library) offers a high \textit{Fully Testability\textsubscript{T}}, but this result must be considered in view of the fact that its compilability is only 0.03\%. For projects like this it is important to consider all \textit{Fully Testability} variants. 
 
 \subsection{Why do projects have low testability?}
 \label{sec:low-testability}
@@ -156,13 +156,13 @@ After presenting the main results, and its analysis, in this section we discuss 
 We have performed a preliminary study to identify the main reasons for some projects having low Fully Testability\textsubscript{A}. 
 These reasons can be organized in three types:
 
-\subsubsection{Low buildability.} 
+\subsubsection{Low compilability.} 
 
-\textit{Fully Testability\textsubscript{A}} of a project depends on the steps prior to the execution of the tests: building the main source code and the tests.
-In projects with low buildability, testability is constrained by it.
-Tufano et al. showed how one of the main reasons why a commit is no longer buildable is because of an error in obtaining the project dependencies~\cite{tufano2017there}. 
+\textit{Fully Testability\textsubscript{A}} of a project depends on the steps prior to the execution of the tests: compiling the main source code and the tests.
+In projects with low compilability, testability is constrained by it.
+Tufano et al. showed how one of the main reasons why a commit is no longer compilable is because of an error in obtaining the project dependencies~\cite{tufano2017there}. 
 Therefore, it is possible that if those dependencies were available, the project not only built correctly, but also its tests could be executed successfully. 
-We found several projects where the \textit{Fully Testability\textsubscript{A}} is low due to low buildability, but \textit{Fully Testability\textsubscript{B}} and \textit{Fully Testability\textsubscript{T}} are high.
+We found several projects where the \textit{Fully Testability\textsubscript{A}} is low due to low compilability, but \textit{Fully Testability\textsubscript{T}} is high.
 
 \subsubsection{Snapshots were never testable.} When the project was being developed, not all of its commits were testable:
 
@@ -171,8 +171,8 @@ We found several projects where the \textit{Fully Testability\textsubscript{A}} 
     In some projects we have found no tests. 
     We consider these commits without test as non-testable, resulting in low values if many snapshots are like that.
     In these cases, maybe the project has tests, but they are not in the Maven project.
-    \item \textbf{Snapshots with tests failing}: 
-    When building and running tests on snapshots, we decided to try all of them in the master branch, since a recent study by Kovalenko et al.~\cite{kovalenko:2018:miningfilehistories} has shown that considering additional branches does not seem to have a significant impact compared to using only the master branch. 
+    \item \textbf{Snapshots with failing tests}: 
+    When compiling and running tests on snapshots, we decided to try all of them in the master branch, since a recent study by Kovalenko et al.~\cite{kovalenko:2018:miningfilehistories} has shown that considering additional branches does not seem to have a significant impact compared to using only the master branch. 
     But depending on the strategy used by the developers to merge changes into master, we may find commits with tests failing even when they were merged. 
     For example, a commit includes a new feature which breaks some tests, but it is still merged, maybe because the next commit will fix the tests or the cause of the error.
     We found this case in \textit{elastic-job} by taking advantage of commit comments to understand the development workflow. 
@@ -216,12 +216,12 @@ For example, we have no chance when working with remote resources over which we 
 Even so, the CI configuration files can provide information about how to reproduce the test execution context.
 It remains as future work to explore this line to improve project testability when the test context is not properly reproduced. 
 
-%We consider that the way of building and executing the tests carried out follows the standards of the technology used (Maven), which allows us to carry out an automatic analysis of buildability and testability.
+%We consider that the way of building and executing the tests carried out follows the standards of the technology used (Maven), which allows us to carry out an automatic analysis of compilability and testability.
 
 \subsection{Threats to validity}
 
 Our results are subject to construct validity issues, mostly due to how we define testability of a project: as the median percentage of test success with respect to the total and as percent of snapshots in which tests could be successfully executed). 
-As we have shown, testability can have different values depending on which sample of snapshots is selected to define 100\% (all, source-buildable or test-buildable). 
+As we have shown, testability can have different values depending on which sample of snapshots is selected to define 100\% (all, source-compilable or test-compilable). 
 It could be possible that in some cases our testability metrics hide the real behavior of the project in this respect.
 
 Results are also subject to internal validity issues. 
