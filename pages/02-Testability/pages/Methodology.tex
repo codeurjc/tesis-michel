@@ -3,25 +3,18 @@
 %If either of the previous steps fail, no test execution study can be performed.
 %Projects from three different datasets have been selected to carry out the same study on each of them.
 
-Let us define some terminology used through the paper, the collection of projects that we analyze, and the methods used for the analysis.
+Let us define some terminology used through this chapter, the collection of projects that we analyze, and the methods used for the analysis.
 %In this section we define the terminology used, the datasets studied, the methodology applied and the metrics to be collected.
 
 \subsection{Definitions}
 \label{subsec:definitions}
 %We derive the terminology used in this paper from Sulir et al.'s work~\cite{Sulir:2016:QSJ:3001878.3001882}. According to it, the build process of projects programmed with compilable languages consists of following steps:
 
-Following the approach by Sulir and Poruban~\cite{Sulir:2016:QSJ:3001878.3001882}, the building process of software written with compiled languages follow these steps: 
-\begin{inparaenum}[\bf(1)]
-    \item \textbf{read} the project build (configuration) file,
-    \item \textbf{download} third party components defined in the build file,
-    \item \textbf{execute} the compiler to generate binary files from source code, and
-    \item \textbf{package} the program in a suitable format for deployment.
-\end{inparaenum}
-
-A specific snapshot is {\bf buildable} if these steps can be executed to generate a valid executable. We extend this terminology to distinguish between main source code (code that is used to compile and build the executable) and testing code (code that verifies the correct behavior of the main source code, and will not be included in the package). We will also consider a further step consisting on running the tests, and collecting their results. 
+In this subsection, we extend the terminology defined in Section~\ref{sec:buildability:definitions} to distinguish between main source code (code that is used to compile and build the executable) and testing code (code that verifies the correct behavior of the main source code, and will not be included in the package). 
+We will also consider a further step consisting on running the tests, and collecting their results. 
 The possible outcomes of a test execution are: \textbf{success}, if all test assertions are met, \textbf{failure}, if at least one of the assertions is not met, or \textbf{error}, if there is a problem in the test execution.
-In this way, step 3 defined above would have 3 sub-steps:
-\begin{inparaenum}[\bf(3.1)]
+Therefore, considering the steps defined in Section~\ref{sec:buildability:definitions}, we would extend step 3 (\textit{execute the compiler to generate binary files from source code}) with 3 sub-steps:
+\begin{inparaenum}[\bf(1)]
     \item \textit{compile the source code}
     \item \textit{compile the test code}, and
     \item \textit{execute the tests}.
@@ -31,12 +24,12 @@ With this in mind, we define:
 %In particular, we define following concepts as follows:
 
 \begin{itemize}
-\item \textbf{Commit}: a snapshot of the source code of a project, obtained by checking out a commit hash from git. Only commits on a given branch (usually \texttt{main} or \texttt{master}) will be considered, to keep history linear.
+% \item \textbf{Commit}: a snapshot of the source code of a project, obtained by checking out a commit hash from git. Only commits on a given branch (usually \texttt{main} or \texttt{master}) will be considered, to keep history linear.
 %    \item \textbf{Buildable source}: 
       %the ability of a version (commit) to be built successfully. We will consider the version as its source code and configuration files.
-\item \textbf{Source-buildable}: a commit (snapshot) whose main source code can be successfully built. 
+\item \textbf{Source-compilable}: a commit (snapshot) whose main source code can be successfully compiled. 
       % \item \textbf{Buildable test}: property of a version (commit) when its test code can be built successfully.
-\item \textbf{Test-buildable}: a commit (snapshot) for which all tests can be successfully built (and has at least one test).
+\item \textbf{Test-compilable}: a commit (snapshot) for which all tests can be successfully compiled (and has at least one test).
 %\item \textbf{Testable Rate (for a given commit)}: ratio of success tests with respect to the total number of tests intended to run for that commit
 \item \textbf{Fully Testable}: a commit (snapshot) for which all tests run with a success result.
       % property of a version (commit) when its tests can be executed with a successful result.
@@ -45,28 +38,28 @@ With this in mind, we define:
 
 Based on this, we define the following metrics, that will characterize a project (for the considered git branch):
 \begin{itemize}
-    \item \textbf{Source Buildability}: ratio of \textit{source-buildable commits} with respect to the total number of commits.
-    \item \textbf{Test Buildability}: ratio of \textit{test-buildable commits} with respect to the total number of commits.
+    \item \textbf{Source Compilability}: ratio of \textit{source-compilable commits} with respect to the total number of commits.
+    \item \textbf{Test Compilability}: ratio of \textit{test-compilable commits} with respect to the total number of commits.
     \item \textbf{FullyTestability}: ratio of \textit{fully testable commits} with respect to the total number of commits.
     % \item \textbf{TestabilityRate\textsubscript{A}}: median of \textit{testable rate} for all commits in the project.
-    % \item \textbf{TestabilityRate\textsubscript{B}}: median of \textit{testable rate} for \textit{source-buildable commits} in the project.
-    % \item \textbf{TestabilityRate\textsubscript{T}}: median of \textit{testable rate} for \textit{test-buildable commits} in the project.
+    % \item \textbf{TestabilityRate\textsubscript{B}}: median of \textit{testable rate} for \textit{source-compilable commits} in the project.
+    % \item \textbf{TestabilityRate\textsubscript{T}}: median of \textit{testable rate} for \textit{test-compilable commits} in the project.
     % \item \textbf{FullyTestability\textsubscript{A}}: ratio of \textit{fully testable commits} with respect to the total number of commits.
-    % \item \textbf{FullyTestability\textsubscript{B}}: ratio of \textit{fully testable commits} with respect to the number of \textit{source-buildable commits} of the project.
-    % \item \textbf{FullyTestability\textsubscript{T}}: ratio of \textit{fully testable commits} with respect to the number of \textit{test-buildable commits} of the project.
+    % \item \textbf{FullyTestability\textsubscript{B}}: ratio of \textit{fully testable commits} with respect to the number of \textit{source-compilable commits} of the project.
+    % \item \textbf{FullyTestability\textsubscript{T}}: ratio of \textit{fully testable commits} with respect to the number of \textit{test-compilable commits} of the project.
 \end{itemize}
 
-% It should be noted that Sulir et al.~\cite{Sulir:2016:QSJ:3001878.3001882} use the term \textit{buildability} as the metric that measures how often the last commit of a project can be source buildable. In this paper, we will distinguish between \textit{Source Buildability} and \textit{Test Buildability}. We define \textbf{Source Buildability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source buildable.
-%Comparing with~\cite{Sulir:2016:QSJ:3001878.3001882}, it uses \textit{buildability} as the metric that measures how often the last commit of a project can be source buildable. In this paper, we will distinguish between \textit{Source Buildability} and \textit{Test Buildability}. We define \textbf{Source Buildability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source buildable.
-%On the other hand, we define \textbf{Test Buildability} as a metric with respect to the total number of source buildable commits of the project that measures how often these commits can be test buildable.
+% It should be noted that Sulir et al.~\cite{Sulir:2016:QSJ:3001878.3001882} use the term \textit{compilability} as the metric that measures how often the last commit of a project can be source compilable. In this paper, we will distinguish between \textit{Source Compilability} and \textit{Test Compilability}. We define \textbf{Source Compilability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source compilable.
+%Comparing with~\cite{Sulir:2016:QSJ:3001878.3001882}, it uses \textit{compilability} as the metric that measures how often the last commit of a project can be source compilable. In this paper, we will distinguish between \textit{Source Compilability} and \textit{Test Compilability}. We define \textbf{Source Compilability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source compilable.
+%On the other hand, we define \textbf{Test Compilability} as a metric with respect to the total number of source compilable commits of the project that measures how often these commits can be test compilable.
 
-Each of these metrics tries to capture a \textit{ratio of progress} when we advance in the process towards running the tests. \textit{Source Buildability} informs on the ratio of snapshots that passed the first blocker: it only makes sense to test a snapshots if its main source could be built. This metric is quite similar to the one provided in~\cite{tufano2017there}, when studying buildability. From this point on, we introduce \textit{Test Buildability}, to determine the ratio that pass the next blocker: tests can be built.
+Each of these metrics tries to capture a \textit{ratio of progress} when we advance in the process towards running the tests. \textit{Source Compilability} informs on the ratio of snapshots that passed the first blocker: it only makes sense to test a snapshot if its main source could be built. This metric is quite similar to the one provided in previous chapter and by Tufano et.al~\cite{tufano2017there}, when studying compilability. From this point on, we introduce \textit{Test Compilability}, to determine the ratio that pass the next blocker: tests can be built.
 
-%In this paper we define \textit{FullyTestability} at the project level (like with \textit{buildability}), although others have done it at the class or module level of an application~\cite{bruntink2006empirical}.
+%In this paper we define \textit{FullyTestability} at the project level (like with \textit{compilability}), although others have done it at the class or module level of an application~\cite{bruntink2006empirical}.
 %Now, definitions for \textit{Testability} of a project are a bit trickier. 
 % First, we consider as \textit{golden rule} for deciding if a snapshot is testable what developers would consider as ideal: that all tests run, and they all result in \textit{success}. 
 % That would allow them to modify the code, and then run tests again to be sure that they are not having regressions. 
-Thus, we define \textit{Testability} at the project level (as we did with \textit{buildability}), different from others who define it at the class or module level~\cite{bruntink2006empirical}.
+Thus, we define \textit{Testability} at the project level (as we did with \textit{compilability}), different from others who define it at the class or module level~\cite{bruntink2006empirical}.
 % The \textbf{TestabilityRate} of a project tells us what percentage of the tests we can run in the past, considering all the commits (\textbf{TestabilityRate\textsubscript{A}}), all the commits where it is possible to build the source code (\textbf{TestabilityRate\textsubscript{B}}) and all the commits commmits where we can build the tests (\textbf{TestabilityRate\textsubscript{T}})
 
 % In addition, processing the result of \textit{all} tests in binary form gives us information on whether a change in that commit would be supported by the tests. 
@@ -77,25 +70,29 @@ We define \textbf{FullyTestability} as a metric with respect to the total number
 
 % As for the TestabilityRate, we compute several ratios of testable commits, which provide different information about the \textbf{FullyTestability} of a project. 
 % \textbf{FullyTestability\textsubscript{A}} gives the raw fraction of all commits that are testable, useful to determine if there are many snapshots where the \textit{all} tests pass. 
-% \textbf{FullyTestability\textsubscript{B}} is the fraction of source-buildable commits where the \textit{all} tests pass, and \textbf{FullyTestability\textsubscript{T}} is the fraction of test-buildable commits where the \textit{all} tests pass. 
+% \textbf{FullyTestability\textsubscript{B}} is the fraction of source-compilable commits where the \textit{all} tests pass, and \textbf{FullyTestability\textsubscript{T}} is the fraction of test-compilable commits where the \textit{all} tests pass. 
 % Both provide information about how likely it is that tests pass if the main source code, or the tests, could be built.
 
 %We have defined as \textit{"Golden Rule"} what a developer would consider a \textit{healthy} project: \textit{the source code must compile, the test code must compile and the tests must run successfully}.Tests are a fundamental part of a software project, they are necessary to check its proper performance. In previous versions of a project, they are especially useful to check how the project behaved. Under this definition, \textbf{FullyTestability\textsubscript{A}} is proposed, considering all the commits of a project.
 
-%The results of the work of Tufano et al. show that one of the pre-requisites (source code buildability) is quite likely not to be fulfilled for a considerable number of commits. This has led us to propose \textbf{FullyTestability\textsubscript{B}}, which considers only those commits in which the source code can be built.
+%The results of the work of Tufano et al. show that one of the pre-requisites (source code compilability) is quite likely not to be fulfilled for a considerable number of commits. This has led us to propose \textbf{FullyTestability\textsubscript{B}}, which considers only those commits in which the source code can be built.
 
-%Like source buildability, test buildability can prevent the completion of all the steps up to the execution of the test. Thus, we propose the \textbf{FullyTestability\textsubscript{T}}, as it is interesting to know how about the tests in those commits where it is possible to build \textit{both} the source code and the test code.
+%Like source compilability, test compilability can prevent the completion of all the steps up to the execution of the test. Thus, we propose the \textbf{FullyTestability\textsubscript{T}}, as it is interesting to know how about the tests in those commits where it is possible to build \textit{both} the source code and the test code.
 
-
-% We understand testability as a metric that conveys information about how often commits of a project are testable. We have considered the testabilitycwith respect to the total number of commits of the project~\textbf{FullyTestability\textsubscript{A}}, with respect to the source buildable commits~\textbf{FullyTestability\textsubscript{B}}, or with respect to the test buildable commits~\textbf{FullyTestability\textsubscript{T}}.
+% We understand testability as a metric that conveys information about how often commits of a project are testable. We have considered the testabilitycwith respect to the total number of commits of the project~\textbf{FullyTestability\textsubscript{A}}, with respect to the source compilable commits~\textbf{FullyTestability\textsubscript{B}}, or with respect to the test compilable commits~\textbf{FullyTestability\textsubscript{T}}.
 
 \subsection{Dataset}
 
 %The selected dataset projects have been obtained from different sources, but all of them are Java projects whose build system is Maven. Maven is recognized as the most widely used system for project building and test execution in Java, and has been declared as a standard for Java projects \cn. 
 
-We decided, mainly for practical reasons, to work with Java projects that are built with Maven. Even when this focus our study on a fraction of all software, still Java is a very popular language, with many mature projects used in production. Maven is recognized as the most widely used system for project building and test execution in Java.
+We decided, mainly for practical reasons, to work with Java projects that are built with Maven. 
+Even when this focus our study on a fraction of all software, still Java is a very popular language, with many mature projects used in production. 
+Maven is recognized as the most widely used system for project building and test execution in Java, and as we have seen in the previous chapter, projects that use this technology are more likely to have a high Source Compilability.
 
-However, we did not consider all Java-Maven projects. Android applications written in Java require dependencies on the Android~SDK, and have some peculiarities that make those projects different from \textit{regular} Maven projects. So, we discarded Android projects, following~\cite{Sulir:2016:QSJ:3001878.3001882} in this respect. We also discarded projects for which tests lasted too much to run until completion: we set a per-project limit of 60 real-time days for running tests for all snapshots (only one project was discarded due to this constraint).
+However, we did not consider all Java-Maven projects. 
+Android applications written in Java require dependencies on the Android~SDK, and have some peculiarities that make those projects different from \textit{regular} Maven projects. 
+So, we discarded Android projects, following~\cite{Sulir:2016:QSJ:3001878.3001882} in this respect. 
+We also discarded projects for which tests lasted too much to run until completion: we set a per-project limit of 60 real-time days for running tests for all snapshots.
 
 %In addition, Android projects have been discarded due to the dependencies on the Android SDK. The building and execution of tests are especially delicate when it comes to Android projects and are very different from the experiment we want to carry out. Other authors~\cite{Sulir:2016:QSJ:3001878.3001882} also consider leaving out such projects when mining and building Java projects.
 
@@ -111,20 +108,20 @@ After cloning the git repository of a project (from GitHub), we perform the foll
 
 \begin{enumerate}
     \item Checkout the commit.
-    \item Build the main source code by executing \textit{mvn clean compile -X}. If the command fails (the source build fails) the process stops. Otherwise, the commit is tagged as \textit{source buildable}.
+    \item Compile the main source code by executing \textit{mvn clean compile -X}. If the command fails (the source build fails) the process stops. Otherwise, the commit is tagged as \textit{source compilable}.
     %In any case, the log of the command execution is saved.
-    \item Build the test code by executing \textit{mvn test-compile}. If the command fails (the test build fails), or we detect there is no test in the snapshot, the process stops. Otherwise, the commit is tagged as \textit{test buildable}.
+    \item Build the test code by executing \textit{mvn test-compile}. If the command fails (the test build fails), or we detect there is no test in the snapshot, the process stops. Otherwise, the commit is tagged as \textit{test compilable}.
     %In any case, the log of the command execution is saved.
-    \item Run the project tests by executing \textit{mvn test}, checking if all tests passed (labeling the commit as \textit{testable}).
+    \item Run the project tests by executing \textit{mvn test}, checking if all tests passed (labeling the commit as \textit{fully testable}).
       %Otherwise, it means that at least one test has failed or has had some kind of error. 
     %In any case, we will save the results of each test as Maven Surefire Reports~\footnote{https://maven.apache.org/surefire/maven-surefire-plugin/} in XML and TXT for each test case.
 \end{enumerate}
 
-%There are commits in some projects that do not have tests, and where executing the mentioned build and test execution commands does not result in a failure. Thus, only those commits that have at least one test will be considered as buildable/testable.
+%There are commits in some projects that do not have tests, and where executing the mentioned build and test execution commands does not result in a failure. Thus, only those commits that have at least one test will be considered as compilable/testable.
 
 \begin{figure}[h!]
     \centering    
-    \include{pages/02-Testability/graphs/process.tex}
+    \include{pages/02-Testability/graphs/process}
     \caption{Study overview}
     \label{fig:methodology-process}
 \end{figure}
@@ -138,26 +135,26 @@ For each project, the following metrics are generated:
     \item \textbf{Age:} Number of years since the first commit
     \item \textbf{LoC:} Number of lines of code of the project in its last commit
     \item \textbf{Total Commits:} Number of commits in the master branch
-    \item \textbf{Source Buildable commits:} Number of commits that were source-buildable
-    \item \textbf{Test buildable commits:} Number of commits that were test-buildable
+    \item \textbf{Source Buildable commits:} Number of commits that were source-compilable
+    \item \textbf{Test compilable commits:} Number of commits that were test-compilable
     \item \textbf{Testable commits:} Number of testable commits
     %\item \textbf{\# commits w/ failed tests:} Number of commits where at least one of the tests failed without any error occurring.
     %\item \textbf{\# commits w/ errors tests:} Number of commits where at least one of the tests produced an error. \michel{Añadir las definiciones de eror y failed test} \mica{¿Omitir estas dos últimas métricas?}
 \end{itemize}
 
 
-As described in ~\ref{subsec:definitions}, based on the last four of them we also generate for each project the metrics already defined at the beginning of this section: \textbf{Source Buildability}, \textbf{Test Buildability} and \textbf{FullyTestability}.
-We include as well metrics such as project age, lines of code (LoC) and total commits because these are widely used when analyzing software projects~\cite{yamashita2015revisiting,mannan2016understanding,rosen2015commit}, and can bring an idea of the size of the project. 
+As described in~\ref{subsec:definitions}, based on the last four of them we also generate for each project the metrics already defined at the beginning of this section: \textbf{Source Compilability}, \textbf{Test Compilability} and \textbf{FullyTestability}.
+We include as well metrics such as project age, lines of code (LoC) and total commits because these are widely used when analyzing software projects~\cite{yamashita2015revisiting,mannan2016understanding,rosen2015commit}, and can bring an idea of the size of the projects. 
 
 % \textbf{Testability Rate\textsubscript{A}}, \textbf{Testability Rate\textsubscript{B}}, \textbf{Testability Rate\textsubscript{T}},
 % \textbf{FullyTestability\textsubscript{A}}, \textbf{FullyTestability\textsubscript{B}}, \textbf{FullyTestability\textsubscript{T}}.
-%     \item \textbf{Source Buildability:} ratio of \textit{Buildable Commits} over \textit{Total commits}.
-%     \item \textbf{Test Buildability:} ratio of \textit{Test buildable Commits} over \textit{Buildable Commits}.
+%     \item \textbf{Source Compilability:} ratio of \textit{Buildable Commits} over \textit{Total commits}.
+%     \item \textbf{Test Compilability:} ratio of \textit{Test compilable Commits} over \textit{Buildable Commits}.
 %     \item \textbf{FullyTestability:} We consider three forms of testability, depending on the value on which it is calculated
 %     \begin{itemize}
 %         \item \textbf{FullyTestability\textsubscript{A}} percentage of \textit{Testable commits} over \textit{Total commits}.
 %         \item \textbf{FullyTestability\textsubscript{B}} percentage of \textit{Testable commits} over \textit{Buildable Commits}.
-%         \item \textbf{FullyTestability\textsubscript{T}} percentage of \textit{Testable commits} over \textit{Test buildable Commits}.
+%         \item \textbf{FullyTestability\textsubscript{T}} percentage of \textit{Testable commits} over \textit{Test compilable Commits}.
 %     \end{itemize}
 % \end{itemize}
 

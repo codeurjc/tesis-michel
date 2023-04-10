@@ -41,6 +41,23 @@
 \newcommand\clearrow{\global\let\rowmac\relax}
 \clearrow
 
+% TESTABILITY 
+\usepackage{svg}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, automata,positioning}
+\tikzset{%
+	large/.style = {
+		minimum width=8cm,
+		rectangle, draw=black,
+	},
+	base/.style = {
+		rectangle, draw=black,
+		text width=2.3cm,
+		minimum width=2cm
+	}
+}
+
 % BUG HUNTER
 
 \usepackage{pifont}
