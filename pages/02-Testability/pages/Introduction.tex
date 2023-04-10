@@ -16,7 +16,8 @@ For researchers, because that allows for a more complete understanding of the pr
 
 %\jgb{We could remove the next para, if we are short in space, and ensure we talk about it later, when discussing methods}
 
-Nowadays, tests are so important to projects whose code is used in production, that they are usually an integral part of the process for accepting changes to the code base. In compiled languages such as Java, it is usual to run any new source code snapshot through a process which involves, in this order: compiling the main source code, compiling tests, running tests, and finally, building the package (e.g., a \texttt{jar} file) suitable for distribution. 
+Nowadays, tests are so important to projects whose code is used in production, that they are usually an integral part of the process for accepting changes to the code base. 
+In compiled languages such as Java, it is usual to run any new source code snapshot through a process which involves, in this order: compiling the main source code, compiling tests, running tests, and finally, building the package (e.g., a \texttt{jar} file) suitable for distribution. 
 Only if all those steps succeed, the source code is deemed for production.
 
 %In many projects, the Usually, building any snapshot involves several stages. For instance, when using the popular Maven tool for building Java projects, producing a package from a snapshot of a project requires following steps: i) compiling source code, ii) compiling tests, iii) running tests, and finally, iv) building the package (most commonly, a \texttt{jar} file) suitable for distribution. 
@@ -25,8 +26,7 @@ Only if all those steps succeed, the source code is deemed for production.
 
 However, we are not aware of studies that systematically analyzed to which extent tests present in past snapshots can be built, and run with a result of success. Leveraging on the previous research on compilability of past snapshots, in this chapter we present a study that extends it having into account if testing of those past snapshots is still possible. 
 Since there is no precedent on software testability in the past, we will start this chapter with a case study of project history testability to understand in depth how to measure it.
-From this point on the term "compile" will be used instead of "build", for consistency with the previous section and because we will limit ourselves to using  projects written in Java (a compiled language), as we will see later on.
-\michel{Yo aquí tengo muchas dudas, construir "build" y compilar "compile" no son  exactamente lo mismo. Yo entiendo que "build" es construir el paquete, y "compile" es compilar el código fuente. He cambiado la nomenclatura en la intro, pero por el momento no lo haré en el resto del paper.}
+From this point on, we will use the term "compile" instead of "build", for consistency with the previous section and because we will limit ourselves to the phase of compiling the source code and the tests (since, as we will see later, we will use projects written in Java, a compiled language) together with the execution of the tests, without actually generating the final software artifact.
 %\michel{Def: "A technique for detailed exploratory investigations, both prospectively and retrospectively, that attempt to understand and explain phenomenon or test theories, using primarily qualitative analysis"}
 Our main aims are to study, for past snapshots of a project:
 
@@ -36,19 +36,22 @@ Our main aims are to study, for past snapshots of a project:
 This leads to the following research question:
 
 \def \RQI{On how many snapshots of the change history can we compile tests?}
-\def \RQII{On how many snapshots from the change history we can run all tests with a `success' result?}
 % \def \RQIII{Is there any correlation between testability and other project characteristics such as size of the source code, length of the history of changes, or age?}
 
-\textbf{RQ\textsubscript{1}}: ``\RQI''
+\textbf{RQ\textsubscript{2.1}}: ``\RQI''
 
 \textbf{(b)} The \textit{testability} of the code: to which extent running tests of a snapshot result in success. 
 This leads to the following research question:
 
-\textbf{RQ\textsubscript{2}}: ``\RQII''
+
+\def \RQII{On how many snapshots from the change history we can run all tests with a `success' result?}
+
+\textbf{RQ\textsubscript{2.2}}: ``\RQII''
 
 % \textbf{RQ\textsubscript{3}}: ``\RQIII''
 
-We wanted to answer these questions in a manner that recognizes the diversity of software projects. For practical reasons, we considered only Java projects, which is already a reduction of scope. 
+We wanted to answer these questions in a manner that recognizes the diversity of software projects. 
+For practical reasons, we considered only Java projects, which is already a reduction of scope. 
 The projects have been selected from the ManySStuBs4J~\cite{karampatsis2020often} dataset.
 % To avoid as much as possible further reduction, we decided to run three studies, all of them with the same method, but with different samples of projects. 
 % We selected each sample so that its projects fulfill some common conditions (so that it is internally homogeneous, to some extent), but for each sample those conditions are different, trying to capture different kinds of projects. In all cases, we have focused on relatively large, mature projects used in production.
@@ -72,7 +75,7 @@ The main result is that there is a large variation from project to project, with
 
 %We have found projects where it is possible to reproduce these steps correctly. The tests are essential to ensure the correct functioning of the project. The execution of tests on past commits is crucial when we want to make changes on an old version of the project, ensuring that the code works as it did when it was written. 
 
-The rest of the paper is structured as follows:
+The rest of the chapter is structured as follows:
 Section~\ref{sec:testability:methodology} presents the methodology used in the studies and defines the terminology. 
 Section~\ref{sec:testability:case-study} shows the case study performed.
 The results of applying the methodology are reported in Section~\ref{sec:testability:results}, while Section~\ref{sec:testability:analysis} offers a more detailed analysis of these results.
