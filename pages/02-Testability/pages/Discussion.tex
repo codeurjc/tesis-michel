@@ -13,32 +13,32 @@ After presenting the main results, and its analysis, in this section we discuss 
 
 % In continuous integration systems it is common that all tests must pass, being the result of their execution a binary value: either all tests pass or all tests fail. 
 % In this context, we define that a commit is FullyTestable if all tests are success. 
-% At the project level, we can identify how many commits are FullyTestable and provide a metric representing their percentage (FullyTestability). 
+% At the project level, we can identify how many commits are FullyTestable and provide a metric representing their percentage (Fully Testability). 
 % It is common to consider all the commits of a project to calculate this type of metric.
-% \textit{FullyTestability\textsubscript{A}} could be considered the ``absolute'' testability, since it considers all commits.
-% In a project with 100\% \textit{FullyTestability\textsubscript{A}} all past snapshots are testable. 
+% \textit{Fully Testability\textsubscript{A}} could be considered the ``absolute'' testability, since it considers all commits.
+% In a project with 100\% \textit{Fully Testability\textsubscript{A}} all past snapshots are testable. 
 % However, there are constraints, not related to the tests themselves, that put limits to testability.
 % For example, a test that cannot be built, cannot be run. 
-% Therefore, we defined \textit{FullyTestability\textsubscript{T}} to capture these constraints, and define testability related to them. 
+% Therefore, we defined \textit{Fully Testability\textsubscript{T}} to capture these constraints, and define testability related to them. 
 % They inform on the quality of the tests only for snapshots that are buildable (either source- and tests-buildable). 
 % In more detail:
 
 % \begin{itemize}
-%     \item \textbf{A high \textit{FullyTestability\textsubscript{A}}} signals a \textbf{highly reproducible project}: most of its snapshots are buildable, and the execution of their tests is successful.
+%     \item \textbf{A high \textit{Fully Testability\textsubscript{A}}} signals a \textbf{highly reproducible project}: most of its snapshots are buildable, and the execution of their tests is successful.
 %     The project in our dataset with the highest value in this metric is \textit{jsoup}, with a value of 93.55\%. 
-%     This project, and others with high \textit{FullyTestability\textsubscript{A}}, are analyzed in the section~\ref{sec:high}.
-%     \item \textbf{A high \textit{FullyTestability\textsubscript{T}}} hints to a project with \textbf{highly reproducible execution of tests}: most tests that can be built can also be executed successfully. 
+%     This project, and others with high \textit{Fully Testability\textsubscript{A}}, are analyzed in the section~\ref{sec:high}.
+%     \item \textbf{A high \textit{Fully Testability\textsubscript{T}}} hints to a project with \textbf{highly reproducible execution of tests}: most tests that can be built can also be executed successfully. 
 %     A good example is \textit{JFinal}, with a value of 100\%. 
-%     Its low \textit{Test Buildability} (22\%) considerably affects its \textit{FullyTestability\textsubscript{B}} (22\%). 
-%     In this case, \textit{FullyTestability\textsubscript{T}} shows that as long as the tests are built correctly, they can be executed successfully. 
-%     In projects with high \textit{FullyTestability\textsubscript{T}} and low \textit{Test Buildability} it is reasonable to think that improving \textit{Test Buildability} could increase also \textit{FullyTestability\textsubscript{A}}.
+%     Its low \textit{Test Buildability} (22\%) considerably affects its \textit{Fully Testability\textsubscript{B}} (22\%). 
+%     In this case, \textit{Fully Testability\textsubscript{T}} shows that as long as the tests are built correctly, they can be executed successfully. 
+%     In projects with high \textit{Fully Testability\textsubscript{T}} and low \textit{Test Buildability} it is reasonable to think that improving \textit{Test Buildability} could increase also \textit{Fully Testability\textsubscript{A}}.
 % \end{itemize}
 
-% There are some projects as well with a high percentage of tests executed successfully, but low \textit{FullyTestability}. 
+% There are some projects as well with a high percentage of tests executed successfully, but low \textit{Fully Testability}. 
 % This is possible when many tests in a snapshot are executed successfully, but a few do not. 
 % For example, Figure~\ref{fig:checkstyle} shows a stacked area chart of the test results for all snapshots of \textit{Checkstyle}: snapshots are in the X axis, and the number of tests for each of them in the Y axis. Most of the tests for each snapshot are green (test success), but there is a small orange area close to the X axis corresponding to tests executed with error. 
-% Due to these errors, most of the commits are not testable, and the project has a very low \textit{FullyTestability\textsubscript{A}} (1\%). 
-% The reason for this is binary definition for FullyTestability, based on the rule of ``all tests should pass''. 
+% Due to these errors, most of the commits are not testable, and the project has a very low \textit{Fully Testability\textsubscript{A}} (1\%). 
+% The reason for this is binary definition for Fully Testability, based on the rule of ``all tests should pass''. 
 % Even when it is useful to compare with the ideal situation, there is room for defining additional metrics that reflect the high reproducibility of the tests in projects like this.
 
 % \begin{figure}[t]
@@ -60,7 +60,7 @@ After presenting the main results, and its analysis, in this section we discuss 
 % To illustrate it in an example, in Figure~\ref{fig:closure} we see the result of the tests in the history of the Closure project. 
 % Several commits on its commit history cannot be built. 
 % The mean TestableRate of all its commits is 59\%, while the median reaches 100\%.
-% As in FullyTestability, in order to deal with the limitations of project buildability, TestabilityRate C, B and T, considering all commits, source-buildable and test-buildable commits respectively, are defined in an analogous way.
+% As in Fully Testability, in order to deal with the limitations of project buildability, Testability Rate C, B and T, considering all commits, source-buildable and test-buildable commits respectively, are defined in an analogous way.
 
 % \begin{figure}[h]
 %     \centering    
@@ -74,26 +74,26 @@ After presenting the main results, and its analysis, in this section we discuss 
 % \label{sec:high}
 
 % We have identified some projects with high testability, which deserve a separate analysis. 
-% To show these cases, we have searched for projects with the highest \textit{TestabilitRate} and the highest \textit{FullyTestability}.
+% To show these cases, we have searched for projects with the highest \textit{TestabilitRate} and the highest \textit{Fully Testability}.
 
-% After analyzing the TestabilityRate of the projects, we wanted to check which projects offer the highest results. Of the 86 projects:
+% After analyzing the Testability Rate of the projects, we wanted to check which projects offer the highest results. Of the 86 projects:
 % \begin{itemize}
-%     \item We found 11 where the TestabilityRate\textsubscript{A} is 100\% (i.e. in at least 50\% of their commits all the tests pass).
-%     \item We found 39 where the TestabilityRate\textsubscript{B} is 100\% (i.e. in at least 50\% of their source-buildable commits all the tests pass).
-%     \item We found 44 where the TestabilityRate\textsubscript{T} is 100\% (i.e. in at least 50\% of their test-buildable commits all the tests pass).
+%     \item We found 11 where the Testability Rate\textsubscript{A} is 100\% (i.e. in at least 50\% of their commits all the tests pass).
+%     \item We found 39 where the Testability Rate\textsubscript{B} is 100\% (i.e. in at least 50\% of their source-buildable commits all the tests pass).
+%     \item We found 44 where the Testability Rate\textsubscript{T} is 100\% (i.e. in at least 50\% of their test-buildable commits all the tests pass).
 % \end{itemize}
 
 % These values give us a very high number of projects, making an in-depth analysis difficult. 
-% Therefore, in order to study projects with high testability, we have limited to those with high FullyTestability. 
-% Specifically, we have selected the 3 projects that offer the best results for the different variants of FullyTestability (C, B and T).
+% Therefore, in order to study projects with high testability, we have limited to those with high Fully Testability. 
+% Specifically, we have selected the 3 projects that offer the best results for the different variants of Fully Testability (C, B and T).
 
-% Tables~\ref{table:high-testability-A} and~\ref{table:high-testability-T} show metrics of the three projects with the highest FullyTestability of each flavor (A and T). 
+% Tables~\ref{table:high-testability-A} and~\ref{table:high-testability-T} show metrics of the three projects with the highest Fully Testability of each flavor (A and T). 
 % % La siguiente frase necesitaria más desarrollo
 % %They could be good for identifying good practices that may help to increase testability of other projects.
 
 % \begin{table}[h]
 %     \centering
-%     \caption{Top three projects with the highest \textit{FullyTestability\textsubscript{A}}}
+%     \caption{Top three projects with the highest \textit{Fully Testability\textsubscript{A}}}
 %     \label{table:high-testability-A}
     
 %     \begin{tabular}{|r|r|r|r|}
@@ -107,18 +107,18 @@ After presenting the main results, and its analysis, in this section we discuss 
 %         \textbf{Test buildable commits}   & 1,403          & 986            & 1,431              \\ \hline
 %         \textbf{Test buildability}        & 0.99           & 0.93           & 1.0               \\ \hline
 %         \textbf{FullyTestable commits}    & 1349           & 921            & 1,411              \\ \hline
-%         \textbf{FullyTestability\textsubscript{A}}      & \textbf{0.93} & \textbf{0.86} & \textbf{0.75} \\ \hline
-%         \textbf{FullyTestability\textsubscript{B}}      & 0.95           & 0.87           & 0.98          \\ \hline
-%         \textbf{FullyTestability\textsubscript{T}}      & 0.96           & 0.93           & 0.98          \\ \hline
-%         \textbf{TestabilityRate\textsubscript{A}}       & 1.0            & 1.0            & 1.0               \\ \hline
-%         \textbf{TestabilityRate\textsubscript{B}}       & 1.0            & 1.0            & 1.0               \\ \hline
-%         \textbf{TestabilityRate\textsubscript{T}}       & 1.0            & 1.0            & 1.0               \\ \hline
+%         \textbf{Fully Testability\textsubscript{A}}      & \textbf{0.93} & \textbf{0.86} & \textbf{0.75} \\ \hline
+%         \textbf{Fully Testability\textsubscript{B}}      & 0.95           & 0.87           & 0.98          \\ \hline
+%         \textbf{Fully Testability\textsubscript{T}}      & 0.96           & 0.93           & 0.98          \\ \hline
+%         \textbf{Testability Rate\textsubscript{A}}       & 1.0            & 1.0            & 1.0               \\ \hline
+%         \textbf{Testability Rate\textsubscript{B}}       & 1.0            & 1.0            & 1.0               \\ \hline
+%         \textbf{Testability Rate\textsubscript{T}}       & 1.0            & 1.0            & 1.0               \\ \hline
 %     \end{tabular}
 % \end{table}
 
-% Among the projects with a high \textit{FullyTestability\textsubscript{A}} is \textit{jsoup}, a popular programming library for manipulating HTML code, which has only unit and integration tests.
+% Among the projects with a high \textit{Fully Testability\textsubscript{A}} is \textit{jsoup}, a popular programming library for manipulating HTML code, which has only unit and integration tests.
 % The second project, \textit{retrofit}, is a simple HTTP client, with the particularity that it is a multi-module project. 
-% A high t\textit{FullyTestability\textsubscript{A}} C indicates that the tests of all its modules pass completely in most of the commits.
+% A high t\textit{Fully Testability\textsubscript{A}} C indicates that the tests of all its modules pass completely in most of the commits.
 % All its tests use mocks, defined in its own module. 
 % The robustness of testing functionality with mocks rather than with real endpoints (subject to change over time) may be one of the reasons for the good results of this project in this metric.
 % The third project, \textit{spark}, is a lightweight web development framework. 
@@ -126,7 +126,7 @@ After presenting the main results, and its analysis, in this section we discuss 
 
 % \begin{table}[h]
 %     \centering
-%     \caption{Top three projects with the highest \textit{FullyTestability\textsubscript{T}}}
+%     \caption{Top three projects with the highest \textit{Fully Testability\textsubscript{T}}}
 %     \label{table:high-testability-T}
 %     \begin{tabular}{|r|r|r|r|}
 %         \hline
@@ -139,30 +139,30 @@ After presenting the main results, and its analysis, in this section we discuss 
 %         \textbf{Test buildable commits}   & 18            & 396               & 20             \\ \hline
 %         \textbf{Test buildability}        & 1.0           & 0.99              & 0.95           \\ \hline
 %         \textbf{Fully Testable commits}   & 18            & 396               & 20             \\ \hline
-%         \textbf{FullyTestability\textsubscript{A}}      & 0.09          & 0.47              & 0.0            \\ \hline
-%         \textbf{FullyTestability\textsubscript{B}}      & 1.0           & 0.99              & 0.95           \\ \hline
-%         \textbf{FullyTestability\textsubscript{T}}      & \textbf{1.0}  & \textbf{1.0}      & \textbf{1.0}   \\ \hline
-%         \textbf{TestabilityRate\textsubscript{A}}       & 0.0           & 0.0               & 0.0            \\ \hline
-%         \textbf{TestabilityRate\textsubscript{B}}       & 1.0           & 1.0               & 1.0            \\ \hline
-%         \textbf{TestabilityRate\textsubscript{T}}       & 1.0           & 1.0               & 1.0            \\ \hline
+%         \textbf{Fully Testability\textsubscript{A}}      & 0.09          & 0.47              & 0.0            \\ \hline
+%         \textbf{Fully Testability\textsubscript{B}}      & 1.0           & 0.99              & 0.95           \\ \hline
+%         \textbf{Fully Testability\textsubscript{T}}      & \textbf{1.0}  & \textbf{1.0}      & \textbf{1.0}   \\ \hline
+%         \textbf{Testability Rate\textsubscript{A}}       & 0.0           & 0.0               & 0.0            \\ \hline
+%         \textbf{Testability Rate\textsubscript{B}}       & 1.0           & 1.0               & 1.0            \\ \hline
+%         \textbf{Testability Rate\textsubscript{T}}       & 1.0           & 1.0               & 1.0            \\ \hline
 %     \end{tabular}
 % \end{table}
 
-% The three projects selected for the table with the highest \textit{FullyTestability\textsubscript{T}} are particularly interesting: whenever their tests could be constructed, they could be executed successfully. Two of them appeared in previous tables (\textit{otto} and \textit{javapoet}). The \textit{camel} project (a service integration library) offers a high \textit{FullyTestability\textsubscript{T}}, but this result must be considered in view of the fact that its buildability is only 0.03\%. For projects like this it is important to consider all \textit{FullyTestability} variants. 
+% The three projects selected for the table with the highest \textit{Fully Testability\textsubscript{T}} are particularly interesting: whenever their tests could be constructed, they could be executed successfully. Two of them appeared in previous tables (\textit{otto} and \textit{javapoet}). The \textit{camel} project (a service integration library) offers a high \textit{Fully Testability\textsubscript{T}}, but this result must be considered in view of the fact that its buildability is only 0.03\%. For projects like this it is important to consider all \textit{Fully Testability} variants. 
 
 \subsection{Why do projects have low testability?}
 \label{sec:low-testability}
 
-We have performed a preliminary study to identify the main reasons for some projects having low FullyTestability\textsubscript{A}. 
+We have performed a preliminary study to identify the main reasons for some projects having low Fully Testability\textsubscript{A}. 
 These reasons can be organized in three types:
 
 \subsubsection{Low buildability.} 
 
-\textit{FullyTestability\textsubscript{A}} of a project depends on the steps prior to the execution of the tests: building the main source code and the tests.
+\textit{Fully Testability\textsubscript{A}} of a project depends on the steps prior to the execution of the tests: building the main source code and the tests.
 In projects with low buildability, testability is constrained by it.
 Tufano et al. showed how one of the main reasons why a commit is no longer buildable is because of an error in obtaining the project dependencies~\cite{tufano2017there}. 
 Therefore, it is possible that if those dependencies were available, the project not only built correctly, but also its tests could be executed successfully. 
-We found several projects where the \textit{FullyTestability\textsubscript{A}} is low due to low buildability, but \textit{FullyTestability\textsubscript{B}} and \textit{FullyTestability\textsubscript{T}} are high.
+We found several projects where the \textit{Fully Testability\textsubscript{A}} is low due to low buildability, but \textit{Fully Testability\textsubscript{B}} and \textit{Fully Testability\textsubscript{T}} are high.
 
 \subsubsection{Snapshots were never testable.} When the project was being developed, not all of its commits were testable:
 
