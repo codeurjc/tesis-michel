@@ -10,7 +10,7 @@ Let us define some terminology used through this chapter, the collection of proj
 \label{subsec:definitions}
 %We derive the terminology used in this paper from Sulir et al.'s work~\cite{Sulir:2016:QSJ:3001878.3001882}. According to it, the build process of projects programmed with compilable languages consists of following steps:
 
-In this subsection, we extend the terminology defined in Section~\ref{sec:buildability:definitions} to distinguish between main source code (code that is used to compile and build the executable) and testing code (code that verifies the correct behavior of the main source code, and will not be included in the package). 
+In this subsection, we extend the terminology defined in Section~\ref{sec:buildability:definitions} to distinguish between main source code (code that is used to compile and build the executable\patxi{Yo diría package mejor que executable, porque anteriormente te has referido a package}) and testing code (code that verifies the correct behavior of the main source code, and will not be included in the package). 
 We will also consider a further step consisting on running the tests, and collecting their results. 
 The possible outcomes of a test execution are: \textbf{success}, if all test assertions are met, \textbf{failure}, if at least one of the assertions is not met, or \textbf{error}, if there is a problem in the test execution.
 Therefore, considering the steps defined in Section~\ref{sec:buildability:definitions}, we would extend step 3 (\textit{execute the compiler to generate binary files from source code}) with 3 sub-steps:
@@ -36,7 +36,7 @@ With this in mind, we define:
 
 \end{itemize}
 
-Based on this, we define the following metrics, that will characterize a project (for the considered git branch):
+Based on this, we define the following metrics, that will characterize a project (for the considered git branch\patxi{¿Qué git branch? No se ha mencionado nada aún de si solo vamos a mirar main o todas las ramas}):
 \begin{itemize}
     \item \textbf{Source Compilability}: ratio of \textit{source-compilable commits} with respect to the total number of commits.
     \item \textbf{Test Compilability}: ratio of \textit{test-compilable commits} with respect to the total number of commits.
@@ -53,13 +53,13 @@ Based on this, we define the following metrics, that will characterize a project
 %Comparing with~\cite{Sulir:2016:QSJ:3001878.3001882}, it uses \textit{compilability} as the metric that measures how often the last commit of a project can be source compilable. In this paper, we will distinguish between \textit{Source Compilability} and \textit{Test Compilability}. We define \textbf{Source Compilability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source compilable.
 %On the other hand, we define \textbf{Test Compilability} as a metric with respect to the total number of source compilable commits of the project that measures how often these commits can be test compilable.
 
-Each of these metrics tries to capture a \textit{ratio of progress} when we advance in the process towards running the tests. \textit{Source Compilability} informs on the ratio of snapshots that passed the first blocker: it only makes sense to test a snapshot if its main source could be built. This metric is quite similar to the one provided in previous chapter and by Tufano et.al~\cite{tufano2017there}, when studying compilability. From this point on, we introduce \textit{Test Compilability}, to determine the ratio that pass the next blocker: tests can be built.
+Each of these metrics tries to capture a \textit{ratio of progress} when we advance in the process towards running the tests. \textit{Source Compilability} informs on the ratio of snapshots that passed the first blocker: it only makes sense to test a snapshot if its main source could be built. This metric is quite similar to the one provided in the previous chapter and by Tufano et al.~\cite{tufano2017there}, when studying compilability. From this point on, we introduce \textit{Test Compilability}, to determine the ratio that pass the next blocker: tests can be built.
 
 %In this paper we define \textit{Fully Testability} at the project level (like with \textit{compilability}), although others have done it at the class or module level of an application~\cite{bruntink2006empirical}.
 %Now, definitions for \textit{Testability} of a project are a bit trickier. 
 % First, we consider as \textit{golden rule} for deciding if a snapshot is testable what developers would consider as ideal: that all tests run, and they all result in \textit{success}. 
 % That would allow them to modify the code, and then run tests again to be sure that they are not having regressions. 
-Thus, we define \textit{Testability} at the project level (as we did with \textit{compilability}), different from others who define it at the class or module level~\cite{bruntink2006empirical}.
+Thus, we define \textit{Testability} at the project level (as we did with \textit{compilability}), different from others who define it at the class or module level~\cite{bruntink2006empirical}.\patxi{¿Por qué este párrafo está separado del anterior? Va junto con Test Compiulability o con Fully Testability?}
 % The \textbf{Testability Rate} of a project tells us what percentage of the tests we can run in the past, considering all the commits (\textbf{Testability Rate\textsubscript{A}}), all the commits where it is possible to build the source code (\textbf{Testability Rate\textsubscript{B}}) and all the commits commmits where we can build the tests (\textbf{Testability Rate\textsubscript{T}})
 
 % In addition, processing the result of \textit{all} tests in binary form gives us information on whether a change in that commit would be supported by the tests. 
@@ -104,15 +104,15 @@ Therefore, 86 projects have been selected.
 \subsection{Methods}
 \label{subsec:methods}
 
-After cloning the git repository of a project (from GitHub), we perform the following steps for each commit in their \textit{master/main} branch (the number of commits analyzed in each step can be seen in Figure~\ref{fig:methodology-process}):
+For each of the 86 projects we proceed as follows. First, we clone the git repository of the project (from GitHub\patxi{¿Los repos no están en el dataset? Aclarar esto porque hablamos del dataset pero luego se clonan de github}), and we perform the following steps for each commit in its \textit{master/main} branch (the number of commits analyzed in each step can be seen in Figure~\ref{fig:methodology-process}):
 
 \begin{enumerate}
     \item Checkout the commit.
-    \item Compile the main source code by executing \textit{mvn clean compile -X}. If the command fails (the source build fails) the process stops. Otherwise, the commit is tagged as \textit{source compilable}.
+    \item Compile the main source code by executing \textit{mvn clean compile -X}. If the command fails (the source build\patxi{compilation?} fails) the process stops. Otherwise, the commit is tagged as \textit{source compilable}.
     %In any case, the log of the command execution is saved.
-    \item Build the test code by executing \textit{mvn test-compile}. If the command fails (the test build fails), or we detect there is no test in the snapshot, the process stops. Otherwise, the commit is tagged as \textit{test compilable}.
+    \item Build\patxi{Compile?} the test code by executing \textit{mvn test-compile}. If the command fails (the test build\patxi{compilation?} fails), or we detect there is no test in the snapshot, the process stops. Otherwise, the commit is tagged as \textit{test compilable}.
     %In any case, the log of the command execution is saved.
-    \item Run the project tests by executing \textit{mvn test}, checking if all tests passed (labeling the commit as \textit{fully testable}).
+    \item Run the project tests by executing \textit{mvn test}, checking if all tests passed (labeling the commit as \textit{fully testable}).\patxi{No sé si deberíamos indicar la info que guardas. Porque luego, para construir las otras métricas que van surgiendo hacen falta más datos que sólo si todos los tests han pasado. Problema, te pueden pedir (en el paper, no en la tesis) que en base a esos datos hagas más cosas.}
       %Otherwise, it means that at least one test has failed or has had some kind of error. 
     %In any case, we will save the results of each test as Maven Surefire Reports~\footnote{https://maven.apache.org/surefire/maven-surefire-plugin/} in XML and TXT for each test case.
 \end{enumerate}
@@ -122,7 +122,7 @@ After cloning the git repository of a project (from GitHub), we perform the foll
 \begin{figure}[h!]
     \centering    
     \include{pages/02-Testability/graphs/process}
-    \caption{Study overview}
+    \caption{Study overview \patxi{over all projects?}}
     \label{fig:methodology-process}
 \end{figure}
 
@@ -134,7 +134,7 @@ For each project, the following metrics are generated:
 \begin{itemize}
     \item \textbf{Age:} Number of years since the first commit
     \item \textbf{LoC:} Number of lines of code of the project in its last commit
-    \item \textbf{Total Commits:} Number of commits in the master branch
+    \item \textbf{Total Commits:} Number of commits in the master or main branch
     \item \textbf{Source Buildable commits:} Number of commits that were source-compilable
     \item \textbf{Test compilable commits:} Number of commits that were test-compilable
     \item \textbf{Testable commits:} Number of testable commits
