@@ -8,14 +8,14 @@ Studying the compilability of past snapshots has been a topic of several publica
 % Their work also included a categorization of the build failures, with missing dependencies ranking first among the different reasons collected. 
 % This work has been validated~\cite{sulir2020large} and extended~\cite{maes2022revisiting} by other authors, confirming the degradation of compilability over time.
 
-% Rausch et.al~\cite{Rausch:2017:EAB:3104188.3104231} specifically addressed the reasons why builds fail in the context of CI environments. 
+% Rausch et al.~\cite{Rausch:2017:EAB:3104188.3104231} specifically addressed the reasons why builds fail in the context of CI environments. 
 % They analyzed Travis logs from 14 open-source projects, finding that a significant fraction of errors corresponded to tests that failed because of a failure in a previous build. 
 % The study analyzed the build logs from the point of view of continuous integration systems (snapshot build and test execution), but it did not include a reproduction of the builds. 
 % Furthermore, due to the nature of CI systems, where data is removed after some time, not all past snapshots of the analyzed projects were considered. 
 %Similarly, in~\cite{gallaba2018noise}, the authors analyze
 % Noise and heterogeneity in historical build data: an empirical study of Travis CI\cite{gallaba2018noise}
 
-% The study of past snapshots to detect bug-introducing commits is tackled by Querel et.al~\cite{querel:2021:warning}. 
+% The study of past snapshots to detect bug-introducing commits is tackled by Querel et al.~\cite{querel:2021:warning}. 
 % The authors partially replicate the work by Tufano et al., by trying to improve the compilability of eight of the Maven-based projects. 
 % They do so by solving the \textit{missing dependency} problem, selecting a dependency close to the commit date. 
 % Through this technique a compilability of 78.4\% is reported -- doubling in compilability compared to prior work. For those commits whose build fail, they run the \texttt{findbugs} tool~\cite{ayewah2007using} in an attempt to understand if the failure could be caused by a bug. 

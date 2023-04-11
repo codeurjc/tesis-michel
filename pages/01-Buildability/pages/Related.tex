@@ -34,7 +34,7 @@ The most complete study on the compilability of all past snapshots is presented 
 This work will be the direct precedent of the studies we present on Chapter~\ref{chapter:buildability}. 
 Thus, its methodology and results will be discussed in detail later in this chapter.
 
-A study of past snapshots to detect bug-introducing commits is tackled by Querel et.al~\cite{querel:2021:warning}. 
+A study of past snapshots to detect bug-introducing commits is tackled by Querel et al.~\cite{querel:2021:warning}. 
 The authors partially replicate the work by Tufano et al., by trying to improve the compilability of eight of the Maven-based projects. 
 They do so by solving the \textit{missing dependency} problem, selecting a dependency close to the commit date. 
 Through this technique a compilability of 78.4\% is reported -- doubling in compilability compared to prior work. For those commits whose build fail, they run the \texttt{findbugs} tool~\cite{ayewah2007using} in an attempt to understand if the failure could be caused by a bug. 
