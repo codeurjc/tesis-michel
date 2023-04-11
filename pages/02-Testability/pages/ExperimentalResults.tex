@@ -3,9 +3,9 @@ Once we performed our case study and determined the metrics that might better re
 After running the experiment, we detected 20 projects in which not a single test was run on any commit in the history. 
 The learning-spark project does not contain any tests in any commit of its history. 
 The Mycat-Server project has a dependency on software that must be installed on the machine for it to be compiled (therefore its SourceBuildability is 0\%). 
-The Clojure project is a programming language as such, its tests require a different execution method. 
-The remaining 17 projects correspond to projects that contain multiple modules and cannot be built and tested with the proposed methodology. 
-Despite the interest and the percentage of the total that these projects represent, we consider that they should be studied in a separate study. 
+The Clojure project is a programming language and as such, its tests require a different execution method. 
+The remaining 17 projects correspond to projects that contain multiple maven modules and cannot be built and tested with the proposed methodology. \patxi{Ojo con esto que nos pueden decir que lo arreglemos, que un proyecto maven multimodulo no es nada raro}
+Despite the interest and the percentage of the total that these projects represent, we consider that they should be studied in a separate study. \patxi{Yo quitaba esta frase.}
 Since we cannot execute any of the tests on any of these projects, we have decided to leave them out of our study, and from this point on we will only consider the remaining 66 projects.
 
 Table~\ref{table:results-1} shows a summary of the experiment for the 66 projects. 
@@ -46,14 +46,14 @@ Table~\ref{table:results-3} shows information on the buildability and testabilit
             \textbf{TestBuildability\textsubscript{S}}          & 88.26\%                              & 97.35\%                                \\ \hline
             \textbf{Testability Rate\textsubscript{A}}           & 38.63\%                              & 34.88\%                                \\ \hline
             \textbf{Testability Rate\textsubscript{T}}           & 94.14\%                              & 99.53\%                                \\ \hline
-            \textbf{Fully Testability\textsubscript{T}}          & 22.12\%                              & 14.88\%                                \\ \hline
+            \textbf{Fully Testability\textsubscript{T}\patxi{Este es A, no?}}          & 22.12\%                              & 14.88\%                                \\ \hline
             \textbf{Fully Testability\textsubscript{T}}          & 52.53\%                              & 59.32\%                                \\ \hline
     \end{tabular}
 \end{table}
 
 
-To illustrate this diversity of the projects, we have represented the different categories of commits per project in overlapped bars in Figures~\ref{fig:many4j-1-bar-chart} (large projects), \ref{fig:many4j-2-bar-chart} (medium projects) and \ref{fig:many4j-3-bar-chart} (short projects).
-The division of projects into the three categories (long, medium and short) is based on the number of commits.
+To illustrate the diversity of results across the projects, we have represented the different categories of commits per project in overlapped bars in Figures~\ref{fig:many4j-1-bar-chart} (large projects), \ref{fig:many4j-2-bar-chart} (medium projects) and \ref{fig:many4j-3-bar-chart} (short projects).
+The division of projects into the three categories (long, medium and short) is based on the number of commits.\patxi{Primero di que los agrupas por número de commits, y luego explicas lo de las barras. SI no queda raro}
 It is easy to appreciate, just by checking colors, how each project tells a very different story. 
 
 \begin{figure}[h!]
