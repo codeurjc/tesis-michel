@@ -2,8 +2,8 @@
     \footnotesize
     % Specification of nodes (position, etc.)
     \node (total)             [large]                                         { 407,579 Commits};
-    \node (buildable)         [large, below of=total]                         { 103,097 Source buildables commmits};
-    \node (testBuildable)     [large, below of=buildable]                     { 93,925 Test buildables commits};
+    \node (buildable)         [large, below of=total]                         { 103,097 Source-compilables commmits};
+    \node (testBuildable)     [large, below of=buildable]                     { 93,925 Test-compilables commits};
     \node (success)           [large, below of=testBuildable]                 { 40,540 Testable commits};
 
     \draw[-Latex]             (total) -- (buildable);

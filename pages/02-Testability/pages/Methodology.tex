@@ -49,9 +49,9 @@ Based on this, we define the following metrics, that will characterize a project
     % \item \textbf{Fully Testability\textsubscript{T}}: ratio of \textit{fully testable commits} with respect to the number of \textit{test-compilable commits} of the project.
 \end{itemize}
 
-% It should be noted that Sulir et al.~\cite{Sulir:2016:QSJ:3001878.3001882} use the term \textit{compilability} as the metric that measures how often the last commit of a project can be source compilable. In this paper, we will distinguish between \textit{Source Compilability} and \textit{Test Compilability}. We define \textbf{Source Compilability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source compilable.
-%Comparing with~\cite{Sulir:2016:QSJ:3001878.3001882}, it uses \textit{compilability} as the metric that measures how often the last commit of a project can be source compilable. In this paper, we will distinguish between \textit{Source Compilability} and \textit{Test Compilability}. We define \textbf{Source Compilability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source compilable.
-%On the other hand, we define \textbf{Test Compilability} as a metric with respect to the total number of source compilable commits of the project that measures how often these commits can be test compilable.
+% It should be noted that Sulir et al.~\cite{Sulir:2016:QSJ:3001878.3001882} use the term \textit{compilability} as the metric that measures how often the last commit of a project can be source-compilable. In this paper, we will distinguish between \textit{Source Compilability} and \textit{Test Compilability}. We define \textbf{Source Compilability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source-compilable.
+%Comparing with~\cite{Sulir:2016:QSJ:3001878.3001882}, it uses \textit{compilability} as the metric that measures how often the last commit of a project can be source-compilable. In this paper, we will distinguish between \textit{Source Compilability} and \textit{Test Compilability}. We define \textbf{Source Compilability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be source-compilable.
+%On the other hand, we define \textbf{Test Compilability} as a metric with respect to the total number of source-compilable commits of the project that measures how often these commits can be test-compilable.
 
 Each of these metrics tries to capture a \textit{ratio of progress} when we advance in the process towards running the tests. \textit{Source Compilability} informs on the ratio of snapshots that passed the first blocker: it only makes sense to test a snapshot if its main source could be built. This metric is quite similar to the one provided in the previous chapter and by Tufano et al.~\cite{tufano2017there}, when studying compilability. 
 From this point on, we introduce \textit{Test Compilability}, to determine the ratio that pass the next blocker: tests can be built.
@@ -73,7 +73,7 @@ We define \textbf{Fully Testability} as a metric with respect to the total numbe
 
 %Like source compilability, test compilability can prevent the completion of all the steps up to the execution of the test. Thus, we propose the \textbf{Fully Testability\textsubscript{T}}, as it is interesting to know how about the tests in those commits where it is possible to build \textit{both} the source code and the test code.
 
-% We understand testability as a metric that conveys information about how often commits of a project are testable. We have considered the testabilitycwith respect to the total number of commits of the project~\textbf{Fully Testability\textsubscript{A}}, with respect to the source compilable commits~\textbf{Fully Testability\textsubscript{B}}, or with respect to the test compilable commits~\textbf{Fully Testability\textsubscript{T}}.
+% We understand testability as a metric that conveys information about how often commits of a project are testable. We have considered the testabilitycwith respect to the total number of commits of the project~\textbf{Fully Testability\textsubscript{A}}, with respect to the source-compilable commits~\textbf{Fully Testability\textsubscript{B}}, or with respect to the test-compilable commits~\textbf{Fully Testability\textsubscript{T}}.
 
 \subsection{Dataset}
 
@@ -104,9 +104,9 @@ For each of the 86 projects we proceed as follows. First, we clone the git repos
 
 \begin{enumerate}
     \item Checkout the commit.
-    \item Compile the main source code by executing \textit{mvn clean compile -X}. If the command fails (the source compilation fails) the process stops. Otherwise, the commit is tagged as \textit{source compilable}.
+    \item Compile the main source code by executing \textit{mvn clean compile -X}. If the command fails (the source compilation fails) the process stops. Otherwise, the commit is tagged as \textit{source-compilable}.
     %In any case, the log of the command execution is saved.
-    \item Compile the test code by executing \textit{mvn test-compile}. If the command fails (the test compilation fails), or we detect there is no test in the snapshot, the process stops. Otherwise, the commit is tagged as \textit{test compilable}.
+    \item Compile the test code by executing \textit{mvn test-compile}. If the command fails (the test compilation fails), or we detect there is no test in the snapshot, the process stops. Otherwise, the commit is tagged as \textit{test-compilable}.
     %In any case, the log of the command execution is saved.
     \item Run the project tests by executing \textit{mvn test}, checking if all tests passed (labeling the commit as \textit{fully testable}).
     In addition, we save the individual reports for each test class in XML format.
@@ -135,7 +135,7 @@ For each project, the following metrics are generated:
     \item \textbf{LoC:} Number of lines of code of the project in its last commit
     \item \textbf{Total Commits:} Number of commits in the master or main branch
     \item \textbf{Source Buildable commits:} Number of commits that were source-compilable
-    \item \textbf{Test compilable commits:} Number of commits that were test-compilable
+    \item \textbf{Test-compilable commits:} Number of commits that were test-compilable
     \item \textbf{Testable commits:} Number of testable commits
     %\item \textbf{\# commits w/ failed tests:} Number of commits where at least one of the tests failed without any error occurring.
     %\item \textbf{\# commits w/ errors tests:} Number of commits where at least one of the tests produced an error. \michel{Añadir las definiciones de eror y failed test} \mica{¿Omitir estas dos últimas métricas?}
@@ -148,12 +148,12 @@ We include as well metrics such as project age, lines of code (LoC) and total co
 % \textbf{Testability Rate\textsubscript{A}}, \textbf{Testability Rate\textsubscript{B}}, \textbf{Testability Rate\textsubscript{T}},
 % \textbf{Fully Testability\textsubscript{A}}, \textbf{Fully Testability\textsubscript{B}}, \textbf{Fully Testability\textsubscript{T}}.
 %     \item \textbf{Source Compilability:} ratio of \textit{Buildable Commits} over \textit{Total commits}.
-%     \item \textbf{Test Compilability:} ratio of \textit{Test compilable Commits} over \textit{Buildable Commits}.
+%     \item \textbf{Test Compilability:} ratio of \textit{Test-compilable Commits} over \textit{Buildable Commits}.
 %     \item \textbf{Fully Testability:} We consider three forms of testability, depending on the value on which it is calculated
 %     \begin{itemize}
 %         \item \textbf{Fully Testability\textsubscript{A}} percentage of \textit{Testable commits} over \textit{Total commits}.
 %         \item \textbf{Fully Testability\textsubscript{B}} percentage of \textit{Testable commits} over \textit{Buildable Commits}.
-%         \item \textbf{Fully Testability\textsubscript{T}} percentage of \textit{Testable commits} over \textit{Test compilable Commits}.
+%         \item \textbf{Fully Testability\textsubscript{T}} percentage of \textit{Testable commits} over \textit{Test-compilable Commits}.
 %     \end{itemize}
 % \end{itemize}
 
