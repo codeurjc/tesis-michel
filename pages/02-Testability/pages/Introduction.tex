@@ -3,7 +3,7 @@
 Reproducing (building) executable programs from the source code of past snapshots
 %\patxi{Ojo, usa consistentemente snapshot o commit o change en la tesis. No recuerdo cómo está en el capítulo del emse al final}\michel{En este paper, el uso es consistente. En intro y related work se habla de snapshot. En la sección de definiciones, se introduce el commit como una snapshot del código fuente}
  of a project is fundamental for practitioners, to maintain old versions still in production, and for researchers, to study those old versions. 
-\patxi{Yo aquí intentaría ligarlo con el capítulo anterior: As discussed in Chapter 3, to our knowledge...}To our knowledge, Tufano et al.~\cite{tufano2017there} presented the most complete study on the compilability of past snapshots.
+As discussed in Chapter~\ref{chapter:buildability}, to our knowledge, Tufano et al.~\cite{tufano2017there} presented the most complete study on the compilability of past snapshots.
 It analyzes all past snapshots for 100 Java projects of one organization (the Apache Software Foundation), determining how many of them could be built, and the main causes of failure in building. 
 In this study, only 38\% of snapshots could be built, and almost all projects contained snapshots that could not be built (96\%).
 
@@ -24,7 +24,7 @@ Only if all those steps succeed, the source code is deemed for production.
 
 %In the same way that compilability is the ability of a project to make its snapshots buildable, testability is the ability of a project to ensure that the tests of each snapshot can be executed and pass successfully.
 
-However, we are not aware of studies that systematically analyzed to which extent tests present in past snapshots can be built, and run with a result of success\patxi{Aquí podríamos reforzar esto con algo como: thus leaving practitioners without a clue of whether the tests will still compile and pass, or which practices they should follow to guarantee that tests will still work in the future. Pero ojo: no damos esas mejores prácticas en el paper!!}. Leveraging on the previous research on compilability of past snapshots\patxi{Yo aquí diría, basándonos en el capítulo 3, indicando que extendemos la investigación para cubrir los tests}, in this chapter we present a study that extends it having into account if testing of those past snapshots is still possible. 
+However, we are not aware of studies that systematically analyzed to which extent tests present in past snapshots can be built, and run with a result of success, thus leaving practitioners without a clue of whether the tests will still compile and pass, or which practices they should follow to guarantee that tests will still work in the future.\patxi{Pero ojo: no damos esas mejores prácticas en el paper!!}\michel{El cambio me parece bien. Hay una sección que quitamos de la discussion dónde vemos algunos proyectos de alta testability, para ver que hacen "bien". Pero en la sección que si tenemos "Why projects have low testability?" se dan algunas pautas a partir de los errores encontrados.}. Leveraging on previous research by other authors and the research developed in Chapter~\ref{chapter:buildability} on the compilability of past snapshots, in this chapter we present a study that extends it having into account if testing of those past snapshots is still possible. 
 Since there is no precedent on software testability in the past, we will start this chapter with a case study of project history testability to understand in depth how to measure it.
 From this point on, we will use the term "compile" instead of "build", for consistency with the previous section and because we will limit ourselves to the phase of compiling the source code and the tests (since, as we will see later, we will use projects written in Java, a compiled language) together with the execution of the tests, without actually generating the final software artifact.
 %\michel{Def: "A technique for detailed exploratory investigations, both prospectively and retrospectively, that attempt to understand and explain phenomenon or test theories, using primarily qualitative analysis"}
@@ -57,7 +57,7 @@ The projects have been selected from the ManySStuBs4J~\cite{karampatsis2020often
 % We selected each sample so that its projects fulfill some common conditions (so that it is internally homogeneous, to some extent), but for each sample those conditions are different, trying to capture different kinds of projects. In all cases, we have focused on relatively large, mature projects used in production.
 
 % The three samples of projects are based on (1) Apache projects studied by~\cite{tufano2017there} (compilability of past snapshots) (2) projects obtained through a search using the GitHub API by~\cite{maes2022revisiting} (a study extending the previous one), and (3) projects from ManySStuBs4J~\cite{karampatsis2020often}, a well-known dataset of Java projects used in mining software repositories.
-The method we followed is in summary as follows: for each snapshot of each project, we automatically build \patxi{¿debería ser compile? Porque has dicho que vas a usar compile en lugar de build.}its main code, its tests, and then we run tests whenever possible. 
+The method we followed is in summary as follows: for each snapshot of each project, we automatically compile its main code, its tests, and then we run tests whenever possible. 
 We have performed this process for a total of 86 different projects.
 
 %For each project of each dataset, source and test code is built as preliminary steps for the execution of the tests, in order to adequately respond to the RQs.
@@ -80,4 +80,4 @@ Section~\ref{sec:testability:methodology} presents the methodology used in the s
 Section~\ref{sec:testability:case-study} shows the case study performed.
 The results of applying the methodology are reported in Section~\ref{sec:testability:results}, while Section~\ref{sec:testability:analysis} offers a more detailed analysis of these results.
 Section~\ref{sec:testability:discussion} discusses the results, and explores threats to their validity.
-Finally, Section~\ref{sec:testability:conclusions} draws conclusions and presents further research.
+% Finally, Section~\ref{sec:testability:conclusions} draws conclusions and presents further research.
