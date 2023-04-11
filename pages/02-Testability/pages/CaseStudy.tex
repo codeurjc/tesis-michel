@@ -10,7 +10,8 @@ As can be seen in Figure~\ref{fig:projects-1}, each sub-figure represents the co
 
 The first set of projects that we are going to study (Figure~\ref{fig:projects-1}) have been selected as a representative set of projects that, taking a look at their visual representation, it seems that it is possible to run the tests in the past in almost all their history.
 Attending to the Test Compilability and Fully Testability metrics of these projects (shown in Table~\ref{table:projects-1}), we observe that the results are in line with the charts.
-For instance, in the sub-figure of the \textit{DiskLruCache} project there are commits with failures or errors in their tests, which affects to some extent its Fully Testability. Specifically, this metric drops to 70.58\%, which means that in almost 30\% of the commits, at least one test results in a failure or error.
+For instance, in the sub-figure of the \textit{DiskLruCache} project there are commits with failures or errors in their tests, which affects to some extent its Fully Testability. 
+Specifically, this metric drops to 70.58\%, which means that in almost 30\% of the commits, at least one test results in a failure or error.
 
 \begin{figure}[!htb]
     \centering
@@ -50,12 +51,12 @@ For instance, in the sub-figure of the \textit{DiskLruCache} project there are c
 %                           SECOND SET                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The second set of project that we are going to study (Figure~\ref{fig:projects-2}) have been selected as a representative set of projects that, taking a look at their visual representation, it seems that it is possible to run the tests in the past in almost all their history, although in some of them we find multiple commits where failures or bugs\patxi{bugs? No sabemos si son bugs} are located.
+The second set of project that we are going to study (Figure~\ref{fig:projects-2}) have been selected as a representative set of projects that, taking a look at their visual representation, it seems that it is possible to run the tests in the past in almost all their history, although in some of them we find multiple commits where failures or errors are located.
 However, if we look again at the Fully Testability values (Table~\ref{table:projects-2}), we find that their values are surprisingly low. 
 For example, the \textit{Checkstyle} project, despite the fact that a portion of its commits at the beginning of the project are not compilable, the figure seems to indicate that almost all of its tests pass. 
-Its low Fully Testability value is due to a few tests fail\patxi{failing consistently (in the order of 10 out of 1000)?} along the project history.
+Its low Fully Testability value is due to a few tests fail\patxi{failing consistently (in the order of 10 out of 1000)?}\michel{Como en la figura se muestra la cantidad de test verdes/rojos que hay, se puede apreciar que en la mayoria de commits el \% es muy bajo, menos de 10 por cada 1000} along the project history.
 % \michel{He vuelto a mirar muy en detalle, parece que al re-ejecutarlo han cambiado un poco los resultados. En un párrafo no puedo comentarte exacatemente lo que he encontrado. Tengo que enseñarte las tablas y comentarte. Rápidamente puedo decir que en este proyecto solo pasan los test en el 0.01\% de los commtis (81). En la mayoria de commits, un porcentaje muy bajo de test fallan. En un commit en concreto fallan 17 test, pero en los demás es menos de 10 (con +1000 test). Hay test que fallan en todos los commits, pero no son muchos (17 test únicos). Hay un par de test más que fallan en muy pocos commits. Para ver los logs de porqué fallan esos test tengo que bajarme los resultados de Minio y descomprimirlos, por lo que me gustaría comentarlo antes}
-The other two projects are similar\patxi{expose a similar behavior}, in the case of \textit{HikariCP} the failures are more visible in the graph (there are more tests per commit resulting in failures or errors) despite having the highest Fully Testability value of this set.
+The other two projects expose a similar behavior, in the case of \textit{HikariCP} the failures are more visible in the graph (there are more tests per commit resulting in failures or errors) despite having the highest Fully Testability value of this set.
 
 \begin{figure}[!htb]
     \centering
@@ -93,11 +94,14 @@ The other two projects are similar\patxi{expose a similar behavior}, in the case
 
 Considering the above-mentioned results, Fully Testability is a very restrictive metric, as soon as a single test does not pass consistently in several commits, it drastically reduces the value of the metric. 
 We can consider that we are missing information about the real testability of the project.
-From the point of view of a practitioner or a researcher who needs to add a change to a past version and has to evaluate if the tests allow him to be sure not to introduce any regression in the code, knowing that in a commit 99.99\% of the tests pass (as happened in the case of the \textit{Checkstyle} project, where there are commits with 3506 tests but only 1 fails) may be enough.\patxi{Esta frase es muy larga pero no sé cómo partirla.}
+From the point of view of a practitioner or a researcher who needs to add a change to a past version and has to evaluate if the tests allow him to be sure not to introduce any regression in the code, knowing that in a commit 99.99\% of the tests pass may be enough.
+This happened in the case of the \textit{Checkstyle} project, where there are commits with 3506 tests but only 1 fails.
+\patxi{Esta frase es muy larga pero no sé cómo partirla.}
+\michel{He sacado el texto del parentesis (el ejemplo) como una nueva frase para aligerlo un poco.}
 
 Following this discussion, we propose a new and less restrictive way of measuring testability, which allows us to capture the information in a non-binary way. 
 Instead of using a binary value (a commit is either FullyTestable or not) we will use a ratio. 
-Hence, a commit has a \textbf{TestableRate}, defined as the ratio of success tests with respect to the total number of tests intended\patxi{intended? Por qué no simplemente: with respect to the total number of tests run for that commit?} to run for that commit.
+Hence, a commit has a \textbf{TestableRate}, defined as the ratio of success tests with respect to the total number of tests run for that commit.
 For a project, we would obtain the \textbf{Testability Rate} as the mean of the TestableRate value of all commits in the history.
 
 Table~\ref{table:projects-2-with-testability-rate} shows the Testability Rate results for the second set of projects.
@@ -164,6 +168,7 @@ The Test Compilability metric is greatly affected by Source Compilability; if th
 The reasons why source code cannot be compiled have been studied in previous chapter and in previous work~\cite{tufano2017there,Sulir:2016:QSJ:3001878.3001882}, and are caused mainly because of the impossibility to reproduce the context and retrieve the dependencies of a particular commit. 
 For the okio, closure and zxing projects, the Source Compilability values are 36.65, 60.18 and 25.47 respectively, very close to Test Compilability values.
 \michel{No estoy muy seguro de si deberia meter estos datos en la tabla \ref{table:projects-3}}\patxi{Sí. De hecho quizá en todas, porque es una métrica que has mencionado en la metodología.}
+\michel{TO DO}
 So, we can state that in these projects, if the source code compiles, in most cases the test code compiles as well. 
 We can reflect this in a new metric: Test Compilability\textsubscript{S}, the ratio of test-compilable commits with respect to the source-compilable commits.
 The Test Compilability metric, when calculated considering all commits in the project history, is renamed to Test Compilability\textsubscript{A}.
@@ -212,7 +217,7 @@ The Fully Testability\textsubscript{T} shows us that for those commits where we 
             zxing                                  & 25.47\%                                                                                        & 25.39\%                                                                                       & 99.67\%                                                                                       & 24.80\%                                                                                      & 97.69\%                                                                                      & 25.39\%                                                                                     & 99.99\%                                                                                    \\ \hline
         \end{tabular}
     }
-    \caption{Extended metrics of set of projects 3: Zxing, Okio and Closure (including the new Testability Rate\textsubscript{T} and Fully Testability\textsubscript{T} metrics)}\patxi{Los datos de esta tabla quedan muy pequeños. Se pueden poner las cabeceras en diagonal para ahorrar espacio y que los números puedan ser más grandes}
+    \caption{Extended metrics of set of projects 3: Zxing, Okio and Closure (including the new Testability Rate\textsubscript{T} and Fully Testability\textsubscript{T} metrics)}\patxi{Los datos de esta tabla quedan muy pequeños. Se pueden poner las cabeceras en diagonal para ahorrar espacio y que los números puedan ser más grandes}\michel{TODO}
     \label{table:projects-3-with-flavor-testability-rate}
 \end{table*}
 
@@ -224,4 +229,6 @@ The Fully Testability\textsubscript{T} shows us that for those commits where we 
 This case study helped us to define metrics that better describe a project's stability. These new metrics lead to a new research question: 
 
 \textbf{RQ\textsubscript{3}}: ``\RQIII''
-\michel{Habría quedar una vuelta a la pregunta}\patxi{Yo diría: For those commits of a project on which tests compile, how many of them can be run with a success result?}
+\michel{Habría quedar una vuelta a la pregunta}
+\patxi{Yo diría: For those commits of a project on which tests compile, how many of them can be run with a success result?}
+\michel{To discuss: Ojo cuidado, que la pregunta deberia ser para todos los commits, no solo para los compilables. (No lo digo yo, este comentario lo ha generado Copilot :D). Solo los compilables es la TestabilityRate_T}
