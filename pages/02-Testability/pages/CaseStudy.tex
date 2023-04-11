@@ -9,14 +9,12 @@ As can be seen in Figure~\ref{fig:projects-1}, each sub-figure represents the co
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The first set of projects that we are going to study (Figure~\ref{fig:projects-1}) have been selected as a representative set of projects that, taking a look at their visual representation, it seems that it is possible to run the tests in the past in almost all their history.
-Attending to the Test Compilability and Fully Testability metrics of these projects (shown in Table~\ref{table:projects-1}), we observe that the results are in line with the charts.
+Attending to the Source (Src) Compilability, Test Compilability and Fully Testability metrics of these projects (shown in Table~\ref{table:projects-1}), we observe that the results are in line with the charts.
 For instance, in the sub-figure of the \textit{DiskLruCache} project there are commits with failures or errors in their tests, which affects to some extent its Fully Testability. 
 Specifically, this metric drops to 70.58\%, which means that in almost 30\% of the commits, at least one test results in a failure or error.
 
 \begin{figure}[!htb]
     \centering
-    \caption{Set of projects 1: DiskLRUCache, Spark and JSoup}
-    \label{fig:projects-1}
     \begin{minipage}{.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pages/02-Testability/images/projects/jsoup.png}
@@ -32,17 +30,21 @@ Specifically, this metric drops to 70.58\%, which means that in almost 30\% of t
         \includegraphics[width=\textwidth]{pages/02-Testability/images/projects/disklrucache.png}
         \label{fig:disklrucache}
     \end{minipage}%
+    \caption{Set of projects 1: DiskLRUCache, Spark and JSoup}
+    \label{fig:projects-1}
 \end{figure}
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|r|r|r|}
-    \hline
-    \textbf{Project} & \textbf{Test Compilability} & \textbf{Fully Testability} \\ \hline
-    jsoup            & 97.29\%                      & 93.55\%                      \\ \hline
-    spark            & 92.84\%                      & 86.72\%                      \\ \hline
-    DiskLruCache     & 97.79\%                      & 70.58\%                      \\ \hline
-    \end{tabular}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|r|r|r|r|}
+        \hline
+        \textbf{Project} & \textbf{Src Compilability}  & \textbf{Test Compilability} & \textbf{Fully Testability} \\ \hline
+        jsoup            &  97.87\%                       & 97.29\%                      & 93.55\%                      \\ \hline
+        spark            &  98.96\%                       & 92.84\%                      & 86.72\%                      \\ \hline
+        DiskLruCache     &  100.00\%                      & 97.79\%                      & 70.58\%                      \\ \hline
+        \end{tabular}
+    }
     \caption{Metrics of set of projects 1: JSoup, Spark and DiskLRUCache}
     \label{table:projects-1}
 \end{table}
@@ -60,8 +62,6 @@ The other two projects expose a similar behavior, in the case of \textit{HikariC
 
 \begin{figure}[!htb]
     \centering
-    \caption{Set of projects 2: Fastjson, Checkstyle and HikariCP}
-    \label{fig:projects-2}
     \begin{minipage}{.5\linewidth}
         \centering
         \includegraphics[width=\textwidth]{pages/02-Testability/images/projects/fastjson.png}
@@ -77,17 +77,21 @@ The other two projects expose a similar behavior, in the case of \textit{HikariC
         \includegraphics[width=\textwidth]{pages/02-Testability/images/projects/hikari.png}
         \label{fig:hikari}
     \end{minipage}%
+    \caption{Set of projects 2: Fastjson, Checkstyle and HikariCP}
+    \label{fig:projects-2}
 \end{figure}
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|r|r|r|}
-    \hline
-    \textbf{Project} & \textbf{Test Compilability} & \textbf{Fully Testability} \\ \hline
-    HikariCP         & 95.22\%                      & 16.92\%                      \\ \hline
-    Checkstyle       & 74.35\%                      & 0.78\%                      \\ \hline
-    Fastjson         & 88.35\%                      & 0.00\%                      \\ \hline
-    \end{tabular}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|r|r|r|r|}
+        \hline
+        \textbf{Project} & \textbf{Src Compilability} & \textbf{Test Compilability} & \textbf{Fully Testability} \\ \hline
+        HikariCP         &  96.02\%                      & 95.22\%                      & 16.92\%                      \\ \hline
+        Checkstyle       &  77.72\%                      & 74.35\%                      & 0.78\%                      \\ \hline
+        Fastjson         &  94.25\%                      & 88.35\%                      & 0.00\%                      \\ \hline
+        \end{tabular}
+        }
     \caption{Metrics of set of projects 1: Fastjson, Checkstyle and HikariCP}
     \label{table:projects-2}
 \end{table}
@@ -109,13 +113,15 @@ This new metric reflects a higher testability value for this set of projects, wh
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|r|r|r|r|}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|r|r|r|r|r|}
         \hline
-        \textbf{Project} & \textbf{Test Compilability} & \textbf{Fully Testability} & \textbf{Testability Rate} \\ \hline
-        HikariCP         & 95.22\%                      & 16.92\%                      & 88.76\%                     \\ \hline
-        checkstyle       & 74.35\%                      & 0.78\%                       & 74.22\%                     \\ \hline
-        fastjson         & 88.35\%                      & 0.00\%                       & 87.80\%                     \\ \hline
+        \textbf{Project} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Src \\ Compilability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Fully\\ Testability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Testability\\ Rate\end{tabular}}} \\ \hline
+        HikariCP         &  96.02\%                      & 95.22\%                      & 16.92\%                      & 88.76\%                     \\ \hline
+        checkstyle       &  77.72\%                      & 74.35\%                      & 0.78\%                       & 74.22\%                     \\ \hline
+        fastjson         &  94.25\%                      & 88.35\%                      & 0.00\%                       & 87.80\%                     \\ \hline
         \end{tabular}
+    }
     \caption{Metrics of set of projects 1: Fastjson, Checkstyle and HikariCP (including the new Testability Rate metric)}
     \label{table:projects-2-with-testability-rate}
 \end{table}
@@ -130,8 +136,6 @@ Table~\ref{table:projects-3} shows the testability values for these projects.
 
 \begin{figure}[!htb]
     \centering
-    \caption{Set of projects 3: Zxing, Okio and Closure}
-    \label{fig:projects-3}
     \begin{minipage}{.5\linewidth}
         \centering
         \includegraphics[width=\textwidth]{pages/02-Testability/images/projects/zxing.png}
@@ -147,17 +151,21 @@ Table~\ref{table:projects-3} shows the testability values for these projects.
         \includegraphics[width=\textwidth]{pages/02-Testability/images/projects/closure.png}
         \label{fig:closure-compiler}
     \end{minipage}%
+    \caption{Set of projects 3: Zxing, Okio and Closure}
+    \label{fig:projects-3}
 \end{figure}
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|r|r|r|r|}
-        \hline
-        \textbf{Project} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Fully\\ Testability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Testability\\ Rate\end{tabular}}} \\ \hline
-        okio             & 36.06\%                      & 26.27\%                       & 36.01\%                     \\ \hline
-        closure          & 59.84\%                      & 55.81\%                       & 59.84\%                     \\ \hline
-        zxing            & 25.39\%                      & 24.80\%                       & 25.38\%                     \\ \hline
-    \end{tabular}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|r|r|r|r|r|}
+            \hline
+            \textbf{Project} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Src \\ Compilability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Fully\\ Testability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Testability\\ Rate\end{tabular}}} \\ \hline
+            okio             & 36.65 & 36.06\%                      & 26.27\%                       & 36.01\%                     \\ \hline
+            closure          & 60.18 & 59.84\%                      & 55.81\%                       & 59.84\%                     \\ \hline
+            zxing            & 25.47 & 25.39\%                      & 24.80\%                       & 25.38\%                     \\ \hline
+        \end{tabular}
+    }
     \vspace*{0.5cm}
     \captionof{table}{Metrics of set of projects 3: Zxing, Okio and Closure}
     \label{table:projects-3}
@@ -166,9 +174,7 @@ Table~\ref{table:projects-3} shows the testability values for these projects.
 These projects are characterized by a low Test Compilability. 
 The Test Compilability metric is greatly affected by Source Compilability; if the code does not compile, the tests cannot be compiled. 
 The reasons why source code cannot be compiled have been studied in previous chapter and in previous work~\cite{tufano2017there,Sulir:2016:QSJ:3001878.3001882}, and are caused mainly because of the impossibility to reproduce the context and retrieve the dependencies of a particular commit. 
-For the okio, closure and zxing projects, the Source Compilability values are 36.65, 60.18 and 25.47 respectively, very close to Test Compilability values.
-\michel{No estoy muy seguro de si deberia meter estos datos en la tabla \ref{table:projects-3}}\patxi{Sí. De hecho quizá en todas, porque es una métrica que has mencionado en la metodología.}
-\michel{TO DO}
+For the okio, closure and zxing projects, the Source Compilability values are very close to Test Compilability values.
 So, we can state that in these projects, if the source code compiles, in most cases the test code compiles as well. 
 We can reflect this in a new metric: Test Compilability\textsubscript{S}, the ratio of test-compilable commits with respect to the source-compilable commits.
 The Test Compilability metric, when calculated considering all commits in the project history, is renamed to Test Compilability\textsubscript{A}.
@@ -180,7 +186,7 @@ Table~\ref{table:projects-3-B} shows the values of these two variants of Test Co
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{|r|r|r|r|r|r|}
         \hline
-        \multicolumn{1}{|c|}{\textbf{Project}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Source \\ Compilability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\textsubscript{A}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\textsubscript{S}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Fully\\ Testability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Testability\\ Rate\end{tabular}}} \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Project}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Src \\ Compilability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\textsubscript{A}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\textsubscript{S}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Fully\\ Testability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Testability\\ Rate\end{tabular}}} \\ \hline
         okio                                   & 36.65\%                                                                                        & 36.07\%                                                                                         & 98.40\%                                                                                         & 26.28\%                                                                                     & 36.02\%                                         \\ \hline
         closure                                & 60.18\%                                                                                        & 59.84\%                                                                                         & 99.43\%                                                                                         & 55.82\%                                                                                     & 59.84\%                                         \\ \hline
         zxing                                  & 25.47\%                                                                                        & 25.39\%                                                                                         & 99.67\%                                                                                         & 24.80\%                                                                                     & 25.39\%                                         \\ \hline
@@ -211,13 +217,13 @@ The Fully Testability\textsubscript{T} shows us that for those commits where we 
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{|r|r|r|r|r|r|r|r|}
             \hline
-            \multicolumn{1}{|c|}{\textbf{Project}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Source \\ Compilability\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\textsubscript{A}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ Compilability\textsubscript{S}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Fully\\ Testability\textsubscript{A}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Fully\\ Testability\textsubscript{T}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Testability\\ Rate\textsubscript{A}\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Testability\\ Rate\textsubscript{T}\end{tabular}}} \\ \hline
-            okio                                   & 36.65\%                                                                                        & 36.07\%                                                                                       & 98.40\%                                                                                       & 26.28\%                                                                                      & 72.85\%                                                                                      & 36.02\%                                                                                     & 99.86\%                                                                                     \\ \hline
-            closure                                & 60.18\%                                                                                        & 59.84\%                                                                                       & 99.43\%                                                                                       & 55.82\%                                                                                      & 93.27\%                                                                                      & 59.84\%                                                                                     & 99.99\%                                                                                     \\ \hline
-            zxing                                  & 25.47\%                                                                                        & 25.39\%                                                                                       & 99.67\%                                                                                       & 24.80\%                                                                                      & 97.69\%                                                                                      & 25.39\%                                                                                     & 99.99\%                                                                                    \\ \hline
+            \rH{Project} & \rH{Src\\ Buildability} & \rH{Test\\ Buildability\textsubscript{A}} & \rH{Test\\ Buildability\textsubscript{S}} & \rH{Fully\\Testability\textsubscript{A}} & \rH{Fully\\Testability\textsubscript{T}} & \rH{Testability\\Rate\textsubscript{A}} & \rH{Testability\\Rate\textsubscript{T}} \\ \hline
+            okio             & 36.65\%                        & 36.07\%                         & 98.40\%                         & 26.28\%                        & 72.85\%                        & 36.02\%                       & 99.86\%                       \\ \hline
+            closure          & 60.18\%                        & 59.84\%                         & 99.43\%                         & 55.82\%                        & 93.27\%                        & 59.84\%                       & 99.99\%                       \\ \hline
+            zxing            & 25.47\%                        & 25.39\%                         & 99.67\%                         & 24.80\%                        & 97.69\%                        & 25.39\%                       & 100.00\%                      \\ \hline
         \end{tabular}
     }
-    \caption{Extended metrics of set of projects 3: Zxing, Okio and Closure (including the new Testability Rate\textsubscript{T} and Fully Testability\textsubscript{T} metrics)}\patxi{Los datos de esta tabla quedan muy pequeños. Se pueden poner las cabeceras en diagonal para ahorrar espacio y que los números puedan ser más grandes}\michel{TODO}
+    \caption{Extended metrics of set of projects 3: Zxing, Okio and Closure (including the new Testability Rate\textsubscript{T} and Fully Testability\textsubscript{T} metrics)}
     \label{table:projects-3-with-flavor-testability-rate}
 \end{table*}
 

@@ -45,6 +45,7 @@
 \usepackage{svg}
 \usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{rotating}
 \usetikzlibrary{arrows.meta, automata,positioning}
 \tikzset{%
 	large/.style = {
@@ -57,6 +58,22 @@
 		minimum width=2cm
 	}
 }
+
+\newcommand{\mcrot}[4]{\multicolumn{#1}{#2}{\rlap{\rotatebox{#3}{#4}~}}} 
+
+\newcommand*{\twoelementtable}[3][l]%
+{%  
+    \renewcommand{\arraystretch}{0.8}%
+    \begin{tabular}[t]{@{}#1@{}}%
+        #2\tabularnewline
+        #3%
+    \end{tabular}%
+}
+
+% ROTATE HEADER
+%\newcommand*{\rH}[1]{\begin{sideways}\textbf{#1}\end{sideways}}
+%\newcommand*{\rH}[1]{\begin{sideways}\textbf{\begin{tabular}[l]{@{}l@{}}#1\end{tabular}}\end{sideways}}
+\newcommand*{\rH}[1]{\rotatebox{90}{\textbf{\begin{tabular}[c]{@{}l@{}}#1\end{tabular}}}}
 
 % BUG HUNTER
 
