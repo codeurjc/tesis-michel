@@ -162,7 +162,7 @@ These reasons can be organized in three types:
 In projects with low compilability, testability is constrained by it.
 Tufano et al. showed how one of the main reasons why a commit is no longer compilable is because of an error in obtaining the project dependencies~\cite{tufano2017there}. 
 Therefore, it is possible that if those dependencies were available, the project not only built correctly, but also its tests could be executed successfully. 
-We found several projects where the \textit{Fully Testability\textsubscript{A}} is low due to low compilability, but \textit{Fully Testability\textsubscript{T}} is high.
+We found several projects where the \textit{Fully Testability\textsubscript{A}} is low due to low compilability, but \textit{Fully Testability\textsubscript{T}} is high.\patxi{, which is in line with this hypothesis.}
 
 \subsubsection{Snapshots were never testable.} When the project was being developed, not all of its commits were testable:
 
@@ -170,14 +170,14 @@ We found several projects where the \textit{Fully Testability\textsubscript{A}} 
     \item  \textbf{No tests in the snapshot}: 
     In some projects we have found no tests. 
     We consider these commits without test as non-testable, resulting in low values if many snapshots are like that.
-    In these cases, maybe the project has tests, but they are not in the Maven project.
+    In these cases, maybe the project has tests, but they are not in the Maven project.\patxi{Ojo, los proyectos sin tests se habían quitado, no?}
     \item \textbf{Snapshots with failing tests}: 
     When compiling and running tests on snapshots, we decided to try all of them in the master branch, since a recent study by Kovalenko et al.~\cite{kovalenko:2018:miningfilehistories} has shown that considering additional branches does not seem to have a significant impact compared to using only the master branch. 
     But depending on the strategy used by the developers to merge changes into master, we may find commits with tests failing even when they were merged. 
     For example, a commit includes a new feature which breaks some tests, but it is still merged, maybe because the next commit will fix the tests or the cause of the error.
     We found this case in \textit{elastic-job} by taking advantage of commit comments to understand the development workflow. 
     When refactoring, tests stop passing in some commits, being fixed in later commits (for example see commits 860, 929, 965, 1053 and 1120, where 0 is the last commit in the history).
-    So, if some tests of a project were never testable, it is not possible to make the snapshot testable when reproducing the past.
+    So, if some tests of a project were never testable, it is not possible to make the snapshot testable when reproducing the past.\patxi{Esta última frase no me casa con el resto del punto}
 \end{itemize}
 
 \subsubsection{Context is not reproduced.} 
@@ -185,10 +185,10 @@ Without the right context, some tests cannot perform exactly as they did in the 
 
 \begin{itemize}
     \item \textbf{Network services}: 
-    In most of the integration test, the tests check how the software integrates with other network services. If these services need to be launched prior to running the tests, we will find connection-related exceptions when running the tests without the network services.
+    Most integration tests check how the software integrates with other network services. If these services need to be started prior to running the tests, we will find connection-related exceptions when running the tests without the network services.
     A good example is the \textit{Jedis} project: it is a library for managing a Redis database. 
-    If this database has not been launched when running the tests, the tests throw exceptions such as ``ConnectException'' or ``ConnectionRefused''.
-    To address this type of problem, a good practice would be for the test itself to be able to launch the necessary context to be able to be executed.
+    If this database has not been started before running the tests, the tests throw exceptions such as ``ConnectException'' or ``ConnectionRefused''.
+    To address this type of problem, a good practice would be for the test itself to start the necessary services.
     \item \textbf{Command line tools}: 
     There are tests that require command line tools like Python, Perl or G++ to be executed successfully. 
     The \textit{antlr4} project has failed tests in the absence of these services. 
@@ -196,12 +196,12 @@ Without the right context, some tests cannot perform exactly as they did in the 
     \item \textbf{System resources}: 
     Some projects require access to certain system resources for their tests. 
     For example, the \textit{Activiti} and \textit{FastJSON} projects require access to font-related resources (through the \texttt{SunFontManager} and \texttt{X11FontManager} classes respectively). 
-    The experiments have been run on machines that do not have a GUI and therefore these resources are not part of the system.
+    The experiments have been run on machines that do not have a GUI and therefore these resources are not part of the system.\patxi{were not available}
     \item \textbf{Remote resources}: 
     There are tests that require accessing remote services and making requests on them. 
     If these resources have changed or are no longer accessible, they compromise the test results. 
-    We found an example in the \textit{checkstyle} project, where an attempt is made to download an XML file and parse it, failing in this last step, probably because it has been modified over time.
-    This type of bugs has been characterized as \textit{extrinsic}~\cite{rodriguez2020bugs,rodriguezperez2020watch,rodriguez2018if}, since the problem is not in the source code, but in an external service.
+    We found an example in the \textit{checkstyle} project, where an attempt is made to download an XML file and parse it, failing in this last step, probably because it has been modified over time.\patxi{or moved to a different location}
+    This type of bugs has been characterized as \textit{extrinsic}~\cite{rodriguez2020bugs,rodriguezperez2020watch,rodriguez2018if}, since the problem is not in the source code, but in an external service.\patxi{Propón solución: In general, all tests should include all the necessary assets they need. }
     \item \textbf{Reflection}: 
     In Java it is possible to load classes through reflection. 
     These classes have not been checked by the compiler in the construction phase of the tests, so in case of error or absence of the class, the error appears at test runtime. 
@@ -209,7 +209,7 @@ Without the right context, some tests cannot perform exactly as they did in the 
     In detail, the class is not available because although a supported version of Java is used, the JDK distribution used does not have such a class.
 \end{itemize}
 
-So, when we find a non-testable snapshot, a question arises: Is it non-testable because it was originally non-testable, or because we cannot reproduce the test execution context properly?
+So, when we find a non-testable snapshot, a question arises: Is it non-testable because it was originally non-testable, or because we cannot reproduce the test execution context properly? \patxi{Mójate, y di cuál de los puntos anteriores parece pertenecer a una categoría u otra.}
 If a project had a continuous integration (CI) system where tests are executed on every snapshot, we could answer the question by analyzing the test results in CI logs. Unfortunately, it is usual to remove CI logs frequently to save storage space. 
 However, although having this information could be useful, not all of the cases above could be solved by improving the context of test execution. 
 For example, we have no chance when working with remote resources over which we have no control.
@@ -220,9 +220,9 @@ It remains as future work to explore this line to improve project testability wh
 
 \subsection{Threats to validity}
 
-Our results are subject to construct validity issues, mostly due to how we define testability of a project: as the median percentage of test success with respect to the total and as percent of snapshots in which tests could be successfully executed). 
-As we have shown, testability can have different values depending on which sample of snapshots is selected to define 100\% (all, source-compilable or test-compilable). 
-It could be possible that in some cases our testability metrics hide the real behavior of the project in this respect.
+Our results are subject to construct validity issues, mostly due to how we define testability of a project: as the median\patxi{Median? En el resto del capítulo hablas de mean} percentage of test success with respect to the total and as percent of snapshots in which tests could be successfully executed). 
+As we have shown, testability can have different values depending on which sample of snapshots is selected to define 100\% \patxi{Esto está raro: depending on the set of snapshots selected}(all, source-compilable or test-compilable). 
+It could be possible that in some cases our testability metrics hide the real behavior of the project in this respect.\patxi{Di que esto se mitiga con el case study que nos permite añadir algunas métricas más precisamente porque vemos que las iniciales no parecen representar todos los casos de manera adecuada.}
 
 Results are also subject to internal validity issues. 
 For example, without the environment where the tests were originally run, they may give a different result (lack of libraries, binaries or specific configurations). 
@@ -230,5 +230,5 @@ They are also subject to any possible bug in our extraction and analysis tool.
 Therefore, all results together with the tools used are available in the reproduction package for inspection.
 
 Finally, we can also have external validity issues. 
-The dataset is composed only projects written in Java and most of their test are unit test, so the conclusions drawn may not be transferable to other programming languages or types of tests. 
+The dataset contains exclusively projects written in the Java programming language and most of their tests are unit tests, so the conclusions drawn may not be transferable to other programming languages or types of tests. 
 Extension to other languages is still a matter of further research.
