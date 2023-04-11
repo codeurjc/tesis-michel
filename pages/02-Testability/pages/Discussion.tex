@@ -12,8 +12,8 @@ After presenting the main results, and its analysis, in this section we discuss 
 % Each of these metrics shows a different aspect of testability.
 
 % In continuous integration systems it is common that all tests must pass, being the result of their execution a binary value: either all tests pass or all tests fail. 
-% In this context, we define that a commit is FullyTestable if all tests are success. 
-% At the project level, we can identify how many commits are FullyTestable and provide a metric representing their percentage (Fully Testability). 
+% In this context, we define that a commit is Fully Testable if all tests are success. 
+% At the project level, we can identify how many commits are Fully Testable and provide a metric representing their percentage (Fully Testability). 
 % It is common to consider all the commits of a project to calculate this type of metric.
 % \textit{Fully Testability\textsubscript{A}} could be considered the ``absolute'' testability, since it considers all commits.
 % In a project with 100\% \textit{Fully Testability\textsubscript{A}} all past snapshots are testable. 
@@ -49,17 +49,17 @@ After presenting the main results, and its analysis, in this section we discuss 
 %     \label{fig:checkstyle}
 % \end{figure}
 
-% For this purpose, for each project commit, we define \textit{TestableRate}. 
+% For this purpose, for each project commit, we define \textit{Testable Rate}. 
 % This value will show us the ratio of tests with a success result against the total number of tests of that commit. 
-% In this way, \textit{TestableRate} gives us a more complete view of how the tests have behaved in a commit.
-% Thus, a commit being \textit{FullyTestable} would only be a particular case where the value of \textit{TestableRate} is 100\%.
+% In this way, \textit{Testable Rate} gives us a more complete view of how the tests have behaved in a commit.
+% Thus, a commit being \textit{Fully Testable} would only be a particular case where the value of \textit{Testable Rate} is 100\%.
 
 % In order to study the percentage of tests that pass at the project level, we find that it is difficult to capture in a metric that clearly reflects how the tests behave in the commit history. 
-% The main limitation is when we consider all commits, since in those where the source code or test code cannot be built, we assume a TestableRate of 0\% because we do not know the real TestableRate.
+% The main limitation is when we consider all commits, since in those where the source code or test code cannot be built, we assume a Testable Rate of 0\% because we do not know the real Testable Rate.
 
 % To illustrate it in an example, in Figure~\ref{fig:closure} we see the result of the tests in the history of the Closure project. 
 % Several commits on its commit history cannot be built. 
-% The mean TestableRate of all its commits is 59\%, while the median reaches 100\%.
+% The mean Testable Rate of all its commits is 59\%, while the median reaches 100\%.
 % As in Fully Testability, in order to deal with the limitations of project compilability, Testability Rate C, B and T, considering all commits, source-compilable and test-compilable commits respectively, are defined in an analogous way.
 
 % \begin{figure}[h]
@@ -106,7 +106,7 @@ After presenting the main results, and its analysis, in this section we discuss 
 %         \textbf{Source compilability}      & 0.97           & 0.98           & 0.76          \\ \hline
 %         \textbf{Test compilable commits}   & 1,403          & 986            & 1,431              \\ \hline
 %         \textbf{Test compilability}        & 0.99           & 0.93           & 1.0               \\ \hline
-%         \textbf{FullyTestable commits}    & 1349           & 921            & 1,411              \\ \hline
+%         \textbf{Fully Testable commits}    & 1349           & 921            & 1,411              \\ \hline
 %         \textbf{Fully Testability\textsubscript{A}}      & \textbf{0.93} & \textbf{0.86} & \textbf{0.75} \\ \hline
 %         \textbf{Fully Testability\textsubscript{B}}      & 0.95           & 0.87           & 0.98          \\ \hline
 %         \textbf{Fully Testability\textsubscript{T}}      & 0.96           & 0.93           & 0.98          \\ \hline
