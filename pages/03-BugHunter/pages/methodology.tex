@@ -172,7 +172,7 @@ At this point, we can revisit what ``all previous commits'' from Step 4 mean.
 In Figure~\ref{fig:process} we present the history of commits as linear. 
 However, in a real git repository the commit history might not be linear: there are development models (as GitFlow~\footnote{\url{https://nvie.com/posts/a-successful-git-branching-model/}}) with git in which development is done in parallel branches, which are merged when convenient. 
 Therefore, the history of a project can be considered as a directed graph. 
-Each node represents a commit that will point to the commits that precede it (its parents), which can be one or more.
+Each node represents a commit that will point to the commits that precede it (its parents), which can be one or more.\patxi{Ojo, decir aquí que esto es una aportación de la tesis y que en el trabajo original del perfect test no estaba}
 
 With this in mind, we developed Algorithm~\ref{alg:bic} to detect the BIC in this graph. 
 This algorithm receives as parameters the graph, annotated with the result of running the tests (its status, which can be success, fail or error), and the identification of the BFC in that graph, \patxi{and the algorithm returns ...}returning the list of candidates to be the BIC. 
