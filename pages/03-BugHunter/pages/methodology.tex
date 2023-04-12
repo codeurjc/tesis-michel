@@ -44,7 +44,7 @@ Therefore, for (3) we run those tests in snapshots of the source code after chan
 %We call running the tests on past snapshots ``transplanting the test'' to that past snapshot. 
 Figure~\ref{fig:process} illustrates the transplantation process, by showing a simplified version of it: we will later discuss on this section how the transplantation process should be adjusted considering the git history is a graph rather than a line.
 \patxi{En algún punto, por hacer la tesis más cohesiva, hay que indicar que esto es diferente a lo que hemos considerado en los dos capítulos anteriores, y se debe a que el BIC puede estar en cualquier commit de cualquier rama, por tanto no podemos centrarnos solo en la rama main, como hacíamos basándonos en el paper que indicabas en el primer capítulo.}
-\michel{To do}
+\michel{To discuss: Seguimos considerando una única rama (master). La cuestión es que al recorrer máster, enconramos que los commits que llegan a esta rama vienen de otra.}
 
 \begin{figure}[h!]
   \centering    
@@ -187,9 +187,10 @@ Each node represents a commit that will point to the commits that precede it (it
 \michel{Añadido}
 
 With this in mind, we developed Algorithm~\ref{alg:bic} to detect the BIC in this graph. 
-This algorithm receives as parameters the graph, annotated with the result of running the tests (its status, which can be success, fail or error), and the identification of the BFC in that graph, \patxi{and the algorithm returns ...}\michel{Quedan varios "and" seguidos}returning the list of candidates to be the BIC. 
+This algorithm receives as parameters the graph, annotated with the result of running the tests (its status, which can be success, fail or error) and the identification of the BFC in that graph. 
+%This algorithm returns the list of candidates to be the BIC. 
 This algorithm traverses the graph using a depth-first search~\cite{cormen2022depthfirstsearch}, starting with an empty list of candidates, and trying to find the list of candidates to be the BIC, according to the perfect test method. 
-For that, the algorithm finds the node $n$ in which the test fails, and in all precedent nodes to $n$ it succeeds (success parents), which would make $n$ a candidate to be the BIC.
+For that, the algorithm finds the node $n$ in which the test fails and which preceding nodes succeed (success parents), which would make $n$ a candidate to be the BIC.
 
 Since for some nodes we could not run the test (because it could not be compiled, it did not run, or the source code could not be compiled), we must consider that in these nodes the tests may or may not be executed successfully.
 %Therefore, the algorithm finds all nodes in which the test fails, or cannot be run, and in all nodes preceding these nodes the test succeeds, or cannot be run. 
@@ -215,7 +216,7 @@ If this precondition is fulfilled, we can run the algorithm, and come with two d
 \item \textbf{The test does not succeed in any precedent commit.}
   In this case, we should assume that the bug was always in the code, since the functionality tested by the test was introduced or that we cannot run the test for some reason (i.e., we are not able to compile the source code). In any case, we cannot find the BIC: either it doesn't exist, or it is hidden because we cannot run the test, so the algorithm returns an empty list of candidates.
   \patxi{¿No deberíamos distinguir ambos casos? No me parece lo mismo que el test no pase nunca, pero ejecute, que el hecho de que no se pueda ejecutar. En el primer caso puedes decir que el bug siempre ha estado ahí. En el segundo, no, porque hay commits para los que no sabes el resultado.}
-  \michel{Yo los distingui (hablabamos de commits grises o negros), pero se acordo (no por mi parte) que los trataramos igual. Se habla largo y tendido de estos casos en la discussion}
+  \michel{To discuss: Yo los distingui (hablabamos de commits grises o negros), pero se acordo (no por mi parte) que los trataramos igual. Se habla largo y tendido de estos casos en la discussion}
 \end{itemize}
 
 As an example of how the algorithm works, Figure~\ref{fig:bug41} represents the commit history for Bug 41 of the JacksonDatabind project from Defects4J dataset. 

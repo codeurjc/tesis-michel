@@ -213,7 +213,7 @@ Without the right context, some tests cannot perform exactly as they did in the 
 
 So, when we find a non-testable snapshot, a question arises: Is it non-testable because it was originally non-testable, or because we cannot reproduce the test execution context properly? 
 \patxi{Mójate, y di cuál de los puntos anteriores parece pertenecer a una categoría u otra.}
-\michel{En principio, la diferenciación ya está hecha (fijate en lso títulos de los puntos anteriores)}
+\michel{To discuss: En principio, la diferenciación ya está hecha (fijate en lso títulos de los puntos anteriores)}
 If a project had a continuous integration (CI) system where tests are executed on every snapshot, we could answer the question by analyzing the test results in CI logs. Unfortunately, it is usual to remove CI logs frequently to save storage space. 
 However, although having this information could be useful, not all of the cases above could be solved by improving the context of test execution. 
 For example, we have no chance when working with remote resources over which we have no control.

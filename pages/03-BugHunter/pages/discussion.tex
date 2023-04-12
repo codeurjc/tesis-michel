@@ -248,7 +248,7 @@ With this evaluation we have also shown that~\datasetName~can provide ground tru
 An important result of our study is a dataset of BICs (\datasetName), automatically found from their BFC (extracted from the Defects4J dataset), and manually validated. 
 Based also on Defects4J, InduceBenchmark~\cite{wen2019exploring}, a dataset with 91 BICs, was created to evaluate SZZ implementations. 
 \patxi{Quizá conviene dar un poco más de detalle: los 91 BICs son de los mismos proyectos que usamos nosotros (ya dices después que 9 son del que descartamos), por otro lado: 91 son pocos para los 800 bugs del dataset original, ¿qué bugs han seleccionado? Unos pocos de cada proyecto, sólo de algunos proyectos?}
-\michel{Los autores detectan esos bugs habiendo buscado en todos los proyectos del dataset (como nosotros). Lo que pasa es que ellos (al igual que nosotros) no encuentran siempre un BIC}
+\michel{To discuss: Los autores detectan esos bugs habiendo buscado en todos los proyectos del dataset (como nosotros). Lo que pasa es que ellos (al igual que nosotros) no encuentran siempre un BIC}
 We compare the results of our technique on 82 of the bugs in InduceBenchmark (the remaining 9 bugs correspond to the project we filtered out in Section~\ref{subsec:dataset}). 
 Our technique found automatically the BIC for 25 of those 82 bugs. In 22 of these cases, we found exactly the same BIC identified in InduceBenchmark.
 For the 3 bugs where we do not get the same BICs as in InduceBenchmark (all of them belonging to the Closure project), we have analyzed the results of both datasets.
