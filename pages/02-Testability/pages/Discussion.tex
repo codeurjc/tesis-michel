@@ -162,22 +162,23 @@ These reasons can be organized in three types:
 In projects with low compilability, testability is constrained by it.
 Tufano et al. showed how one of the main reasons why a commit is no longer compilable is because of an error in obtaining the project dependencies~\cite{tufano2017there}. 
 Therefore, it is possible that if those dependencies were available, the project not only built correctly, but also its tests could be executed successfully. 
-We found several projects where the \textit{Fully Testability\textsubscript{A}} is low due to low compilability, but \textit{Fully Testability\textsubscript{T}} is high.\patxi{, which is in line with this hypothesis.}
+We found several projects where the \textit{Fully Testability\textsubscript{A}} is low due to low compilability, but \textit{Fully Testability\textsubscript{T}} is high, which is in line with this hypothesis.
 
 \subsubsection{Snapshots were never testable.} When the project was being developed, not all of its commits were testable:
 
 \begin{itemize}
     \item  \textbf{No tests in the snapshot}: 
-    In some projects we have found no tests. 
+    In some projects we have found no tests for some commits. 
     We consider these commits without test as non-testable, resulting in low values if many snapshots are like that.
-    In these cases, maybe the project has tests, but they are not in the Maven project.\patxi{Ojo, los proyectos sin tests se habían quitado, no?}
+    In these cases, the project may not have developed the tests in the early stages of development.
     \item \textbf{Snapshots with failing tests}: 
     When compiling and running tests on snapshots, we decided to try all of them in the master branch, since a recent study by Kovalenko et al.~\cite{kovalenko:2018:miningfilehistories} has shown that considering additional branches does not seem to have a significant impact compared to using only the master branch. 
     But depending on the strategy used by the developers to merge changes into master, we may find commits with tests failing even when they were merged. 
     For example, a commit includes a new feature which breaks some tests, but it is still merged, maybe because the next commit will fix the tests or the cause of the error.
-    We found this case in \textit{elastic-job} by taking advantage of commit comments to understand the development workflow. 
+    We found this case in \textit{elastic-job} project by taking advantage of commit comments to understand the development workflow. 
     When refactoring, tests stop passing in some commits, being fixed in later commits (for example see commits 860, 929, 965, 1053 and 1120, where 0 is the last commit in the history).
-    So, if some tests of a project were never testable, it is not possible to make the snapshot testable when reproducing the past.\patxi{Esta última frase no me casa con el resto del punto}
+    Therefore, in some snapshots the tests never passed and therefore we cannot make them pass in the present without the changes to fix it.
+    \patxi{Esta última frase no me casa con el resto del punto}\michel{Re-escrito}
 \end{itemize}
 
 \subsubsection{Context is not reproduced.} 
@@ -196,12 +197,13 @@ Without the right context, some tests cannot perform exactly as they did in the 
     \item \textbf{System resources}: 
     Some projects require access to certain system resources for their tests. 
     For example, the \textit{Activiti} and \textit{FastJSON} projects require access to font-related resources (through the \texttt{SunFontManager} and \texttt{X11FontManager} classes respectively). 
-    The experiments have been run on machines that do not have a GUI and therefore these resources are not part of the system.\patxi{were not available}
+    The experiments have been run on machines that do not have a GUI and therefore these resources were not available.
     \item \textbf{Remote resources}: 
     There are tests that require accessing remote services and making requests on them. 
     If these resources have changed or are no longer accessible, they compromise the test results. 
-    We found an example in the \textit{checkstyle} project, where an attempt is made to download an XML file and parse it, failing in this last step, probably because it has been modified over time.\patxi{or moved to a different location}
-    This type of bugs has been characterized as \textit{extrinsic}~\cite{rodriguez2020bugs,rodriguezperez2020watch,rodriguez2018if}, since the problem is not in the source code, but in an external service.\patxi{Propón solución: In general, all tests should include all the necessary assets they need. }
+    We found an example in the \textit{checkstyle} project, where an attempt is made to download an XML file and parse it, failing in this last step, probably because it has been modified over time or moved to a different location.
+    This type of bugs has been characterized as \textit{extrinsic}~\cite{rodriguez2020bugs,rodriguezperez2020watch,rodriguez2018if}, since the problem is not in the source code, but in an external service.
+    The tests of a project should be self-contained, minimizing the external resources on which it depends in order to be more reliable.
     \item \textbf{Reflection}: 
     In Java it is possible to load classes through reflection. 
     These classes have not been checked by the compiler in the construction phase of the tests, so in case of error or absence of the class, the error appears at test runtime. 
@@ -209,7 +211,9 @@ Without the right context, some tests cannot perform exactly as they did in the 
     In detail, the class is not available because although a supported version of Java is used, the JDK distribution used does not have such a class.
 \end{itemize}
 
-So, when we find a non-testable snapshot, a question arises: Is it non-testable because it was originally non-testable, or because we cannot reproduce the test execution context properly? \patxi{Mójate, y di cuál de los puntos anteriores parece pertenecer a una categoría u otra.}
+So, when we find a non-testable snapshot, a question arises: Is it non-testable because it was originally non-testable, or because we cannot reproduce the test execution context properly? 
+\patxi{Mójate, y di cuál de los puntos anteriores parece pertenecer a una categoría u otra.}
+\michel{En principio, la diferenciación ya está hecha (fijate en lso títulos de los puntos anteriores)}
 If a project had a continuous integration (CI) system where tests are executed on every snapshot, we could answer the question by analyzing the test results in CI logs. Unfortunately, it is usual to remove CI logs frequently to save storage space. 
 However, although having this information could be useful, not all of the cases above could be solved by improving the context of test execution. 
 For example, we have no chance when working with remote resources over which we have no control.
@@ -220,9 +224,11 @@ It remains as future work to explore this line to improve project testability wh
 
 \subsection{Threats to validity}
 
-Our results are subject to construct validity issues, mostly due to how we define testability of a project: as the median\patxi{Median? En el resto del capítulo hablas de mean} percentage of test success with respect to the total and as percent of snapshots in which tests could be successfully executed). 
-As we have shown, testability can have different values depending on which sample of snapshots is selected to define 100\% \patxi{Esto está raro: depending on the set of snapshots selected}(all, source-compilable or test-compilable). 
-It could be possible that in some cases our testability metrics hide the real behavior of the project in this respect.\patxi{Di que esto se mitiga con el case study que nos permite añadir algunas métricas más precisamente porque vemos que las iniciales no parecen representar todos los casos de manera adecuada.}
+Our results are subject to construct validity issues, mostly due to how we define testability of a project: as the mean percentage of test success with respect to the total and as percent of snapshots in which tests could be successfully executed. 
+As we have shown, testability can have different values depending on the set of snapshots selected to define 100\% (all or test-compilable). 
+It could be possible that in some cases our testability metrics hide the real behavior of the project in this respect.
+We attempt to mitigate this through the proposed case study, where we propose metrics that complement the vision of the project's testability.
+\patxi{Di que esto se mitiga con el case study que nos permite añadir algunas métricas más precisamente porque vemos que las iniciales no parecen representar todos los casos de manera adecuada.}\michel{Done}
 
 Results are also subject to internal validity issues. 
 For example, without the environment where the tests were originally run, they may give a different result (lack of libraries, binaries or specific configurations). 
