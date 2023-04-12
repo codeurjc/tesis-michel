@@ -4,7 +4,7 @@ After running the experiment, we detected 20 projects in which not a single test
 The learning-spark project does not contain any tests in any commit of its history. 
 The Mycat-Server project has a dependency on software that must be installed on the machine for it to be compiled (therefore its Source Compilability is 0\%). 
 The Clojure project is a programming language and as such, its tests require a different execution method. 
-The remaining 17 projects correspond to projects that contain multiple Maven modules and cannot be built and tested with the proposed methodology. 
+The remaining 17 projects correspond to projects that contain multiple Maven modules and cannot be compiled and tested with the proposed methodology. 
 \patxi{Ojo con esto que nos pueden decir que lo arreglemos, que un proyecto maven multimodulo no es nada raro}
 \michel{Tenemos algunos proyectos multi-modulo que sí se pueden construir y testear con la metodología propuesta.}
 %Despite the interest and the percentage of the total that these projects represent, we consider that they should be studied in a separate study. \patxi{Yo quitaba esta frase.}
@@ -32,7 +32,7 @@ In general, differences between mean and median show large internal variability 
     \end{tabular}
 \end{table}
 
-Table~\ref{table:results-3} shows information on the buildability and testability metrics of the projects of the dataset. 
+Table~\ref{table:results-3} shows information on the compilability and testability metrics of the projects of the dataset. 
 \patxi{Esta línea huérfana aquí se queda muy pobre. Habría que explicarlo un poco más.}
 \michel{El problema aquí es que estos resultados se discuten en la siguiente sección. ¿Deberías fusionar ambas secciones?}
 
