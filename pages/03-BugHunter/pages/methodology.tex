@@ -42,13 +42,13 @@ For describing the bug in terms of a perfect test (2), we use regression tests. 
 %Regression tests are usually included in the change that fixes the bug. \as{``usually included'' refers to the assumption made before.}
 Therefore, for (3) we run those tests in snapshots of the source code after changes that are previous to the BFC  in the history of changes to the source code. 
 %We call running the tests on past snapshots ``transplanting the test'' to that past snapshot. 
-Figure~\ref{fig:process} illustrates the transplantation process, by showing a simplified version of it: we will later discuss on this section how the transplantation process should be adjusted considering the git history is a graph rather than a line.
+Figure~\ref{fig:process} illustrates the transplantation process, by showing a simplified version of it: we will later discuss on this section how the transplantation process should be adjusted considering the git history is a graph rather than a line.\patxi{En algún punto, por hacer la tesis más cohesiva, hay que indicar que esto es diferente a lo que hemos considerado en los dos capítulos anteriores, y se debe a que el BIC puede estar en cualquier commit de cualquier rama, por tanto no podemos centrarnos solo en la rama main, como hacíamos basándonos en el paper que indicabas en el primer capítulo. }
 
 \begin{figure}[h!]
   \centering    
   \includegraphics[width=0.8\textwidth]{pages/03-BugHunter/images/Model.pdf}
   \vspace{-0.5cm}
-  \caption{Simplified process leading to finding the first failing change (FFC), by running tests in past snapshots of the project.}
+  \caption{Simplified process leading to finding the first failing change (FFC), by running tests in past snapshots of the project.\patxi{Normalmente el histórico de git se representa al revés: los commits más nuevos a la derecha y el pasado está hacia la izquierda... pero para la tesis da un poco igual}}
   \label{fig:process}
   \vspace{-0.5cm}
 \end{figure}
@@ -115,14 +115,14 @@ For each bug in our subset of the dataset, it takes the following steps:
   \item \textbf{Set up the repository.} 
     By using the Defects4J command-line tool, obtain a copy of the git repository of the project corresponding to the bug.
   \item \textbf{Execute the regression test on the fix commit.} 
-    This will ensure that the test actually succeeds for this snapshot, which means that it succeeds when the bug is fixed (if not, the test would not check properly, as the perfect test method states). For this, checkout the snapshot corresponding to the bug fixing commit (BFC), and run the regression test on it.
+    This will ensure that the test actually succeeds for this snapshot, which means that it succeeds when the bug is fixed (if not, the test would not check properly, as the perfect test method states). For this, the tool checkouts the snapshot corresponding to the bug fixing commit (BFC), and runs the regression test on it.
     In this step, the file containing the test is stored, in order to be transplanted into the previous snapshot (the test method, as well as the file name and the path where it is located is provided by the dataset).
   % \item \textbf{Execute the regression test in the commit prior to the fix.}
   %   This will ensure that the test actually fails in this snapshot, confirming that it detects the bug properly (if it succeeds, the test is not detecting the bug properly, in the sense defined by the perfect test method). 
   %   For this, checkout the snapshot corresponding to the previous commit, transplant the regression test, and try to run it.
   %   We refer to transplanting as placing the file containing the test (copied from the BFC) in the original path (recreating the original directory if necessary).
   \item \textbf{Execute regression test on all previous commits.}
-    This will allow us to find the first failing change (FFC), which as we discussed, in the case of intrinsic bugs, will be the BIC that we are looking for. For this, checkout each of those past commits, transplant the test to each of them, and run it in each of them. 
+    This will allow us to find the first failing change (FFC), which as we discussed, in the case of intrinsic bugs, will be the BIC that we are looking for. For this, the tool checkouts each of those past commits, transplants the test to each of them, and runs it in each of them. 
     The FFC will be the first one that fails after the last one that succeeds. 
     %The list of past commits is obtained through the command \textit{git log --reverse}, run from the BFC.
 \end{enumerate}
@@ -158,16 +158,16 @@ Problems related to compilability of source code, the compilability of the regre
 To further understand these problems, we introduce three definitions: source code compilability, transplanted test compilability, and transplanted test runnability.
 
 \textbf{Source code compilability} is defined as the percentage of snapshots in the past history of the BFC that could be successfully compiled.
-This metric was originally defined by Tufano et al.~\cite{tufano2017there} and used in Chapters~\ref{chapter:buildability} and~\ref{chapter:testability}. 
+This metric was originally defined by Tufano et al.~\cite{tufano2017there} and used in Chapters~\ref{chapter:buildability} and~\ref{chapter:testability}.\patxi{Pero ojo, aquí se usa sólo desde el BFC hasta n, no para todo el histórico de commits. NO es exactamente la misma.} 
 \textbf{Transplanted test compilability} is similar, but for the transplanted test: the percentage of snapshots in the past history of the BFC in which we could compile the transplanted test. 
 These parameters let us know how often the reason for not being able of running the transplanted test was not being able to compile the test itself or compiling the source code in each of the snapshots.
 
-\textbf{Transplanted test runnability} is defined as the percentage of snapshots in the past history of the BFC in which we could run (execute) the transplanted test without errors, producing ``success'' or ``fail''. The larger the test runnability, the more commits in which we could run the test. If it is 100\%, the perfect test method can be run for the whole history before the BFC. When test runnability is not 100\%, for some commits we cannot assess if the test fails or succeeds (because it doesn't run). Depending on success and fail in other commits, maybe we have to add the commit to the list of candidate BICs without being able of be more conclusive about it. Therefore, the transplanted test runnability shows how successful is the transplantation of regression tests to past commits.
+\textbf{Transplanted test runnability} is defined as the percentage of snapshots in the past history of the BFC in which we could run (execute) the transplanted test without errors, producing a ``success'' or ``fail'' result, as stated in Chapter~\ref{chapter:testability}. The larger the test runnability, the more commits in which we could run the test. If it is 100\%, the perfect test method can be run for the whole history before the BFC. When test runnability is not 100\%, for some commits we cannot assess if the test fails or succeeds (because it doesn't run). Depending on success and fail in other commits, maybe we have to add the commit to the list of candidate BICs without being able of be more conclusive about it. Therefore, the transplanted test runnability shows how successful is the transplantation of regression tests to past commits.
 
 \subsection{Identifying the Bug Introducing Change}
 \label{subsec:identify-bic}
 
-From the results obtained after transplanting the regression test on the commits prior to the BFC we can seek to locate the BFC.
+From the results obtained after transplanting the regression test on the commits prior to the BFC we can seek to locate the BFC\patxi{BIC?}.
 At this point, we can revisit what ``all previous commits'' from Step 4 mean. 
 In Figure~\ref{fig:process} we present the history of commits as linear. 
 However, in a real git repository the commit history might not be linear: there are development models (as GitFlow~\footnote{\url{https://nvie.com/posts/a-successful-git-branching-model/}}) with git in which development is done in parallel branches, which are merged when convenient. 
@@ -175,11 +175,11 @@ Therefore, the history of a project can be considered as a directed graph.
 Each node represents a commit that will point to the commits that precede it (its parents), which can be one or more.
 
 With this in mind, we developed Algorithm~\ref{alg:bic} to detect the BIC in this graph. 
-This algorithm receives as parameters the graph, annotated with the result of running the tests (its status, which can be success, fail or error), and the identification of the BFC in that graph, returning the list of candidates to be the BIC. 
+This algorithm receives as parameters the graph, annotated with the result of running the tests (its status, which can be success, fail or error), and the identification of the BFC in that graph, \patxi{and the algorithm returns ...}returning the list of candidates to be the BIC. 
 This algorithm traverses the graph using a depth-first search~\cite{cormen2022depthfirstsearch}, starting with an empty list of candidates, and trying to find the list of candidates to be the BIC, according to the perfect test method. 
-For that, it finds nodes $n$ in which the test fails, and in all precedent nodes to $n$ it succeeds (success parents), which would make $n$ a candidate to be the BIC.
+For that, it finds nodes $n$ \patxi{nodes o node? Porque si es plural, entonces es un conjunto y se suele denotar en mayúsculas: N, y habrá multiples n que pertenecen a N}in which the test fails, and in all precedent nodes to $n$ it succeeds (success parents), which would make $n$ a candidate to be the BIC.
 
-Since for some nodes we could not run the test (because it could not be compiled, or it could be compiled but did not run, or the source code could not be compiled), we must consider that in these nodes the tests may or may not be executed successfully.
+Since for some nodes we could not run the test (because it could not be compiled, it did not run, or the source code could not be compiled), we must consider that in these nodes the tests may or may not be executed successfully.
 %Therefore, the algorithm finds all nodes in which the test fails, or cannot be run, and in all nodes preceding these nodes the test succeeds, or cannot be run. 
 %All the nodes found by the algorithm would be the candidates to be the BIC.
 \input{pages/03-BugHunter/algorithms/alg1DetectBICs.tex}
@@ -190,7 +190,7 @@ The second assumption is based on the unlikeness that the same bug (which is fix
 % For any given bug, it may happen that the test does not succeed in the BFC. 
 % This may happen because the source code or the test is not compilable, in which case we can say nothing: we just do not have enough evidence to guarantee that the test actually succeeds for the BFC, and therefore we do not run it (we considered this as a precondition for identifying the BIC). We will consider that we do not have enough data for this bug, and will ignore it in our study.
 
-Our algorithm has as a precondition that the regression test can be executed and gives a successful result in the BFC.
+Our algorithm has as a precondition that the regression test can be executed\patxi{run} and gives a successful result in the BFC.
 If this precondition is fulfilled, we can run the algorithm, and come with two different outcomes:
 
 \begin{itemize}
@@ -199,9 +199,9 @@ If this precondition is fulfilled, we can run the algorithm, and come with two d
   Following the ancestors of those commit that fail, we eventually find one that succeeds. 
   If we find a commit $n$ where the test does not succeed, but it succeeds for all its parents, then $n$ should be considered the commit that introduced the bug. 
   In this case, the algorithm found a single candidate and returns it. If we find a commit $n$ where the test cannot be compiled, and it succeeds in all its parents, then all commits between $n$ and $m$, being $m$ the first descendant of $n$ where the test can be compiled and fails, are considered candidates. 
-  We found several candidates, and we cannot decide which one is exactly the BIC because we cannot run the test in them, but we know the BIC should be one of them.
+  \patxi{In this case, we have found...}We found several candidates, and we cannot decide which one is exactly the BIC because we cannot run the test in them, but we know the BIC should be one of them.
 \item \textbf{The test does not succeed in any precedent commit.}
-  In this case, we should assume that the bug was always in the code, since the functionality tested by the test was introduced or that we cannot run the test for some reason (i.e., we are not able to compile the source code). In any case, we cannot find the BIC: either it doesn't exist, or it is hidden because we cannot run the test, so the algorithm returns an empty list of candidates.
+  In this case, we should assume that the bug was always in the code, since the functionality tested by the test was introduced or that we cannot run the test for some reason (i.e., we are not able to compile the source code). In any case, we cannot find the BIC: either it doesn't exist, or it is hidden because we cannot run the test, so the algorithm returns an empty list of candidates.\patxi{¿No deberíamos distinguir ambos casos? No me parece lo mismo que el test no pase nunca, pero ejecute, que el hecho de que no se pueda ejecutar. En el primer caso puedes decir que el bug siempre ha estado ahí. En el segundo, no, porque hay commits para los que no sabes el resultado.}
 \end{itemize}
 
 As an example of how the algorithm works, Figure~\ref{fig:bug41} represents the commit history for Bug 41 of the JacksonDatabind project from Defects4J dataset. 
@@ -236,7 +236,7 @@ Therefore, the candidate list in this case will include only Commit 9.
 \subsection{Manual validation}
 \label{subsec:manual}
 
-To ensure that the results of our study can be considered as ground truth, we verified them by performing a manual validation of the BICs detected for each analyzed bug. For this purpose, one author performed the following steps for each BIC detected:
+To ensure that the results of our study can be considered as ground truth, we verified them by performing a manual validation of the BICs detected for each analyzed bug. For this purpose, one author\patxi{aquí no digas one author, di we, como has hecho en todo el resto de la tesis} performed the following steps for each BIC detected:
 
 \begin{itemize}
     \item Check and understand the bug report
