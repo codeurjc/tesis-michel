@@ -77,14 +77,14 @@ As seen in Chapter~\ref{chapter:buildability}, we replicated this experiment in 
 %\as{Please be more explicit why the lapse of time could be expected to reduce the compilability value.} \michel{Below it is commented that one of the factors affecting compilability is the passage of time. I clarify it} 
 obtaining a value of 25.09\%. The compilability may vary largely from project to project, and it will depend among other factors on the availability of third party modules needed to build the code, on the availability of the building tools in the right version, and on the complete automation of the building process. These factors are usually affected by time, and a degradation of compilability as time passes has been observed in these two previous studies.
 In our case, the mean compilability of the snapshots previous of each bug is 53.43\% (with a median of 49.89\%). 
-The value obtained is higher than that obtained in previous studies due to a combination of good practices by the authors of the Defects4J dataset; 
+The value obtained is higher than that obtained in previous studies due to a combination of good practices by the authors of the Defects4J dataset; \patxi{Esto deberían ser dos puntos?}
 % \as{do you mean that storing dependencies and adding configuration files are the good practices? Or are there some good practices (whatever they might be) and on top of them the developers store dependencies and adapt configuration files?}
 % \michel{The configuration files and the storage of the libraries are the best practices that I want to emphasize. Further on I comment that it provides a high reproducibility of the experiments (understanding that these are good practices to follow for anyone who wants to make his dataset reproducible).} 
 storing project dependencies and adapting their configuration files to ensure high reproducibility in the experiments (although only in the BFCs), together with additional adaptations made by the authors of this work, completing the adaptation of the configuration of each project to each commit of its history.
 %\as{"relatively low" suggests comparison with some kind of baseline. How do our figures compare to those reported in the previous papers [36,22]?}
 %\michel{Now is more clear and we have added the comparison with the previous studies + the reason why our results are higher + explain the modifications to improve the compilability.}
 \item \textbf{Compilability of the regression test} If the test cannot be built, it cannot be run. The test is built on top of the snapshot, and it may not build because the code it expects in the snapshot is not present. This may happen because that code was still not implemented for a given snapshot. For example, this is the case if the test tests a certain function: in some past snapshot the function may not be implemented yet. This may also happen because the code was in the snapshot, but not in the way the test expects it. For example, this may happen in case of refactoring between the snapshot we are trying to build and the snapshot for which the test was designed. In general, these problems will be increasingly frequent for older commits with respect to the BFC, since more artifacts (code files, libraries or configuration files) could change since those snapshots to the one corresponding to the BFC, for which the regression test was designed. They will also be frequent in branches which for some reason lack some code needed by the test.
-The aggregate results for the transplanted test compilability (20.92\% mean and 12.36\% median for all bugs) are strictly lower than source code compilability, since compiling the source code is a necessary step to be able to compile and run the tests. 
+The aggregate results for the transplanted test compilability (20.92\% mean and 12.36\% median for all bugs) are strictly lower than source code compilability, since compiling the source code is a necessary step to be able to compile and run the tests. \patxi{This is different to the results from Chapther 4, where in general whenever the source code compiles, the tests compile as well. In this case, the fact that we are transplanting the test from the present to the past has an impact on its compilability.}
 To the best of our knowledge, there is no large-scale study on the compilability of a test that is transplanted to past commits, so we do not have a baseline on which to compare the results obtained on this metric.
 % \as{Can we find some kind of baseline to compare these numbers, similarly to the compilability figures for the source code?}
 % \michel{There are no previous studies that transplant tests into the past and measure how far they can be taken. The closest is a study of ours (not yet published) in which we ran tests on all commits of a project.}
@@ -96,7 +96,7 @@ When aggregating all bugs together, the mean for transplanted test runnability i
 Which means that in half of the bugs the test could be transplanted successfully to less than 12\% of the commits (although the difference with the mean shows how in some bugs, the transplant was successful in a much higher fraction of the cases). 
 These values are again slightly lower than the previous metric (the compilability of the regression test) since we need to compile the test code in order to be able to run it. In this case, the values are very close (or even equal) to those of the compilability of the regression tests, so we can affirm that if the transplanted test is successfully compiled, it can be executed.
 Again, as far as we know, the runnability of a test transplanted to the past has not been addressed on a large scale.
-Again, to the best of our knowledge, the runability of a test transplanted to the past has not been previously addressed.
+Again, to the best of our knowledge, the runability of a test transplanted to the past has not been previously addressed.\patxi{La frase se repite dos veces?}
 % \as{Also here, no other baselines?}
 % \michel{Like the previous one, we have no previous study to compare ourselves with.}
 % \as{As above?}
@@ -118,7 +118,7 @@ Despite all these factors, the fact that for some projects transplanted test run
 \vspace{0.4cm}
 \fbox{\begin{minipage}{0.9\textwidth}
     \textbf{\rqoneb}
-    The effectiveness of the transplant is limited by compilability issues unrelated to the transplanted test (the snapshot does not compile 
+    The effectiveness of the transplant \patxi{transplantation?} is limited by compilability issues unrelated to the transplanted test (the snapshot does not compile 
     46.57\% of the time) or by compilability of the transplanted test (the test does not compile 79.08\% of the time, essentially because of the limitation in compiling the source code or because it relies on missing code). However, we found that when the test compiles, in general, the test can be run. Therefore, compilability of the source code is a blocker that, when improved, could improve the transplanted test runnability.
 \end{minipage}}
 
@@ -139,7 +139,7 @@ Since the test never succeeds in commits previous to the BFC, we cannot find the
 In the snapshots corresponding to some of those commits this is because the test cannot be run (and therefore we don't know if the bug is present or not in them), and in some others because it can be run, but fails (and then we know that the bug is present).
 
 The reasons for the test not running (the test was not successfully transplanted) were already explored in the previous section, and in many cases are related to compilability problems. 
-The fact that the tests are executed (successfully transplanted) but fail in all commits prior to the BFC is a case contemplated and addressed by the perfect testing method: it means that the bug is present in those snapshots since the feature tested was introduced.
+The fact that the tests are executed (successfully transplanted) but fail in all commits prior to the BFC is a case contemplated and addressed by the perfect testing \patxi{test} method: it means that the bug is present in those snapshots since the feature tested was introduced.
 However, if we cannot find a previous commit for which the test succeeds, we have no evidence of where the BIC is.
 
 \textbf{The test succeeds again in some past commit.}
@@ -149,7 +149,7 @@ For the remaining 96 bugs, the test succeeds in at least one commit previous to 
 For 67 bugs out of these 96, our algorithm produces a single candidate to be the BIC. 
 The regression test succeeds in snapshots previous to this BIC candidate, which means it is the FFC (First-Failing Change), and following the perfect test method, the commit that introduce the bug (BIC). 
 In 8 of these cases, the BIC was found in a direct parent of the BFC, which means the bug was detected and fixed very quickly after it was introduced. 
-This is due to a practice known as \textit{Backtracking}~\cite{yoon2012exploratory,yoon2014longitudinal}, where the developer reverts part or all of the change made when an issue is reported.
+This is due to a practice known as \textit{Backtracking}~\cite{yoon2012exploratory,yoon2014longitudinal}, where the developer reverts part or all of the change \patxi{changes?} made when an issue is reported.
 
 For the 29 remaining bugs, the algorithm finds multiple candidates. 
 If $n$ is the first commit (going backwards from the BFC) in which the test succeeds, we have several candidates if for one or more commits that are right before $n$ (again, going backwards from the BFC) the test could not be executed (we are not able to compile the code or the test).
@@ -201,7 +201,7 @@ The bug is that the special entities that include numbers, to display fractions 
 In the commit marked as BIC by our tool, there is a refactoring of the parse functionality, the main method of the library. 
 This function goes from internally using the Parser class to using TreeBuilder (a new class). 
 This refactoring brings with it the creation of new classes (that TreeBuilder needs to operate), among which we will highlight Tokeniser and CharacterReader.
-In the BFC the method consumeLetterThenDigitSequence is added to the CharacterReader class, while in the Tokeniser class the call to consumeLetterSequence is changed by another one to the method consumeLetterThenDigitSequence (from CharacterReader) and solving the bug by considering numbers as part of an entity.
+In the BFC the method consumeLetterThenDigitSequence is added to the CharacterReader class, while in the Tokeniser class the call to consumeLetterSequence is changed by another one to the method consumeLetterThenDigitSequence (from CharacterReader) and solving the bug by considering numbers as part of an entity.\patxi{Esto es duro de leer y entender, quizá un diagrama UML con el refactoring podría ayudar}
 
 % For example, Bug 23 of the Jsoup project, has a BIC in which the commit message states that it is the refactoring of a functionality in which several classes are affected. 
 % In the BFC for this bug, only one function is fixed, which is the one that makes the test pass again. 
