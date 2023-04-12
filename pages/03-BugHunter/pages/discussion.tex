@@ -1,10 +1,15 @@
 % After presenting the main results, and its analysis, in this section we discuss the details of our research: the difficulties of running a present test in the past, the limitations of SZZ implementations, a post-study where we compare the generated dataset with a pre-existing one, the implications of our study for a developer and the threats to validity.
 
-In this section we will discuss in detail the difficulties of transplanting a test into the past~\ref{sec:transplant-discuss} \patxi{No tengo muy claro qué aporta aquí poner las referencias de las subsubsecciones.}and the implications of our work for practitioners~\ref{sec:implications-practitioners} and researchers~\ref{sec:implications-practitioners}.
+In this section we will discuss in detail the difficulties of transplanting a test into the past~\ref{sec:transplant-discuss} 
+\patxi{No tengo muy claro qué aporta aquí poner las referencias de las subsubsecciones.}
+\michel{como son muchas, puede ayudar a la navegación}
+and the implications of our work for practitioners~\ref{sec:implications-practitioners} and researchers~\ref{sec:implications-practitioners}.
 We will also discuss the contribution of the generated dataset through 
 \begin{inparaenum}[\bf(1)]
     \item an evaluation of SZZ-based tools on it~\ref{subsec:szz-tools} and
-    \item a comparison of our dataset (\datasetName) with a previous BICs dataset using Defects4J as bug dataset~\ref{sec:induce-benchmark}.\patxi{Esto no se entiende muy bien. A comparison of our dataset with a similar BIC dataset that was also using Defects4J as bug dataset?}
+    \item a comparison of our BIC dataset (\datasetName) with a previous BICs dataset using Defects4J as bug dataset~\ref{sec:induce-benchmark}.
+    \patxi{Esto no se entiende muy bien. A comparison of our dataset with a similar BIC dataset that was also using Defects4J as bug dataset?}
+    \michel{He clarificado que lo nuestro es un BIC dataset}
 \end{inparaenum}
 Finally, we discuss the threats to validity of this chapter (Section~\ref{sec:threats}).
 
@@ -72,10 +77,11 @@ One of the main advantages offered by these configuration files is that the proj
 %\michel{The numbers are now displayed. Using these configuration files is somewhat limited to this experiment, in projects outside the dataset. The developer should ensure that the configuration files for each commit can be built, or the researcher should create his own "transplantable" configuration file.}
 
 In the following we discuss other relevant modifications and fixes included, based on the suggestions proposed in Section~\ref{sec:buildability:discussion}.
-We find\patxi{found?} references to dependencies (not included in Defects4J) that include the suffix ``-SNAPSHOT'', which indicates that this is a volatile development version and is sometimes removed from the dependency repositories (causing the impossibility to compile a project that depends on them). 
+We found references to dependencies (not included in Defects4J) that include the suffix ``-SNAPSHOT'', which indicates that this is a volatile development version and is sometimes removed from the dependency repositories (causing the impossibility to compile a project that depends on them). 
 For 15 bugs we found that this dependency was included in the BFC, and the compilation of the BFC failed due to it, thus preventing our method from being able to work (the compilation and test execution at the BFC, with a success result, is a precondition for our method). 
 The removal of this suffix, forcing it to use the stable version of that dependency, has allowed us to compile the BFC of these 15 bugs, allowing our method to start finding the BIC for them.
-\patxi{Separar en nuevo párrafo, porque es otro fix diferente}In 131 bugs from 6 projects we faced problems with source code parsing (due to the inclusion of unrecognized characters in strings or comments). 
+
+In 131 bugs from 6 projects we faced problems with source code parsing (due to the inclusion of unrecognized characters in strings or comments). 
 Two different types of fixes have been used to solve this problem: 
 \begin{inparaenum}[\bf(1)]
     \item modify the encoding in the configuration file that is transplanted to the past along with the regression test or
@@ -84,7 +90,7 @@ Two different types of fixes have been used to solve this problem:
 We have also had to consider, in one project (Joda Time), that the code directories may change location (be placed in subfolders) in older commits, so it has been necessary to automate their re-structuring so that it can be compiled.
 
 Building transplanted tests was also a problem. First, the standard way of building tests in Java requires building all of them together. 
-This means that if there is a problem compiling just a single test, even if we do not have the intention to run it, because we only want to run the transplanted test, we cannot run it. \patxi{Yo diría más bien: the test compilation fails, and therefore we cannot run the transplanted test (even if it compiled successfully)}
+This means that if there is a problem compiling just a single test, the test compilation fails, and therefore we cannot run the transplanted test (even if it compiled successfully).
 This effect could be mitigated by ensuring that only the transplanted test is compiled, with the risk, maybe, of having dependencies on some test classes that are not run (e.g., inheritance of a parent class). Fortunately, we also observed that once the test was compiled, it almost always runs successfully.
 In any case, for 14 bugs, we have automatically removed in the past commits some problematic tests (that did not compile) and were not related to the regression test.
 For 10 bugs, it has been necessary not only to take the regression test to past commits, but also to take a file on which the test depends (auxiliary classes created specifically for that test).
@@ -239,12 +245,15 @@ With this evaluation we have also shown that~\datasetName~can provide ground tru
 \label{sec:induce-benchmark}
 %\as{Should this not be somehow combined with the threats to validity?}
 %\michel{I believe that this small study (cheap to conduct) adds a little more validity to our tool. It is not clear to me how such a study fits into the threats to validity. I can always expand it a bit more to make it even more self-contained.}
-An important result of our study is a dataset of BICs (\datasetName), automatically found from their BFC\patxi{(extracted from the Defects4J dataset)}, and manually validated, extracted from the Defects4J dataset. Based also on Defects4J, InduceBenchmark~\cite{wen2019exploring}, a dataset with 91 BICs, was created to evaluate SZZ implementations. \patxi{Quizá conviene dar un poco más de detalle: los 91 BICs son de los mismos proyectos que usamos nosotros (ya dices después que 9 son del que descartamos), por otro lado: 91 son pocos para los 800 bugs del dataset original, ¿qué bugs han seleccionado? Unos pocos de cada proyecto, sólo de algunos proyectos?}
+An important result of our study is a dataset of BICs (\datasetName), automatically found from their BFC (extracted from the Defects4J dataset), and manually validated. 
+Based also on Defects4J, InduceBenchmark~\cite{wen2019exploring}, a dataset with 91 BICs, was created to evaluate SZZ implementations. 
+\patxi{Quizá conviene dar un poco más de detalle: los 91 BICs son de los mismos proyectos que usamos nosotros (ya dices después que 9 son del que descartamos), por otro lado: 91 son pocos para los 800 bugs del dataset original, ¿qué bugs han seleccionado? Unos pocos de cada proyecto, sólo de algunos proyectos?}
+\michel{Los autores detectan esos bugs habiendo buscado en todos los proyectos del dataset (como nosotros). Lo que pasa es que ellos (al igual que nosotros) no encuentran siempre un BIC}
 We compare the results of our technique on 82 of the bugs in InduceBenchmark (the remaining 9 bugs correspond to the project we filtered out in Section~\ref{subsec:dataset}). 
 Our technique found automatically the BIC for 25 of those 82 bugs. In 22 of these cases, we found exactly the same BIC identified in InduceBenchmark.
 For the 3 bugs where we do not get the same BICs as in InduceBenchmark (all of them belonging to the Closure project), we have analyzed the results of both datasets.
-\patxi{For bugs 90 and 114 of the Closure project...}For Closure project bugs 90 and 114, we found that in the commits reported by InduceBenchmark as BICs, the regression test provided by Defects4J that reveals the bug gives a success result. In fact, in these commits reported as BICs there is no real change in the application code, just changes in the comments (90) and file permissions (114).
-\patxi{In }The third bug (Closure 82), the test fails on the commit marked as BIC. Reviewing this commit we find that there is no real change in functionality that could cause the bug to be introduced. Furthermore, in the commit prior to this one (and for more than 100 commits) the regression test still fails, discarding that it was the commit that introduced the bug. 
+For bugs 90 and 114 of the Closure project, we found that in the commits reported by InduceBenchmark as BICs, the regression test provided by Defects4J that reveals the bug gives a success result. In fact, in these commits reported as BICs there is no real change in the application code, just changes in the comments (90) and file permissions (114).
+In the third bug (Closure 82), the test fails on the commit marked as BIC. Reviewing this commit we find that there is no real change in functionality that could cause the bug to be introduced. Furthermore, in the commit prior to this one (and for more than 100 commits) the regression test still fails, discarding that it was the commit that introduced the bug. 
 Summarizing this discussion,~\datasetName~adds 42 new BICs to those offered by InduceBenchmark, our tool offers a method to obtain new project BICs automatically and can also be used as an automatic method to validate BIC datasets.
 %\as{What is the main advantage of our work compared to InduceBenchmark? The fact that our dataset has been constructed (more or less) automatically?}
 %\michel{I add a sentence to the end of the paragraph to make this more clear.}
