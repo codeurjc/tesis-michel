@@ -21,8 +21,6 @@ If the users of our software use different versions of it, being able to detect 
 One of the most relevant proposals for locating the change that introduced the bug is the SZZ algorithm~\cite{Sliwerski:2005:CIF:1083142.1083147}. 
 This algorithm starts from the assumption that the same lines of code that were modified or deleted in the fix changes are the ones that contained the bug. 
 In this way, the change history of a software project could be used to search for the change that introduced or modified those lines and thus be able to know which versions of the project are affected by the bug.
-\patxi{Esta frase podría adelantarse porque precisamente motiva el trabajo}
-\michel{La mantengo aquí, pero incluyo una descripción más genérica al inicio que motiva mejor el problema}
 
 The SZZ algorithm has been for many years the state of the art when locating the change that induced a bug. 
 In 2018, Gema Rodriguez presented her PhD. Thesis~\cite{rodriguez2018towards}, in which she exposed the limitations of this algorithm and all those that have been derived from it, finding several examples in which this algorithm failed in its purpose. 
@@ -76,8 +74,9 @@ These contributions will be detailed in the corresponding chapters.
     This contribution is planned to be submitted at the Software Evolution and Process journal.
     \item \textbf{An empirical method for detecting the change that introduced a bug through regression tests}
     This contribution addresses the third objective defined in the previous section. 
-    This study proposes the operationalization of a previous theoretical model, in which our proposal offers a tool to automatically detect the change introduced by the bug using regression tests. To accomplish this, we will start from a well-known dataset of software projects that have labeled the changes that fix a bug together with a regression test that reveals that bug.
-    This contribution has been submitted to and is under review at the Empirical Software Engineering journal.
+    This study proposes the operationalization of a previous theoretical model, in which our proposal offers a tool to automatically detect the change that introduced the bug using regression tests. 
+    To accomplish this, we will start from a well-known dataset of software projects that have labeled the changes that fix a bug together with a regression test that reveals that bug.
+    This contribution has been submitted to Empirical Software Engineering journal and is under review at the time of this writing.
     % \item{Otros} \michel{Si hay tiempo, podemos añadir otros artículos relacionados: el dataset de regressiones e2e y su continuación, la identificación de proyectos e2e en GitHub}
 \end{itemize}
 
