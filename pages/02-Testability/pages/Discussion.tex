@@ -181,7 +181,7 @@ We found several projects where the \textit{Fully Testability\textsubscript{A}} 
     \patxi{Esta última frase no me casa con el resto del punto}\michel{Re-escrito}
 \end{itemize}
 
-\subsubsection{Context is not reproduced.} 
+\subsubsection{Context can not be reproduced.} 
 Without the right context, some tests cannot perform exactly as they did in the past. Here are some of the problems related to test execution context:
 
 \begin{itemize}
@@ -196,7 +196,7 @@ Without the right context, some tests cannot perform exactly as they did in the 
     For example, this project requires in different commits different versions of Python (2.7 or 3.5).
     \item \textbf{System resources}: 
     Some projects require access to certain system resources for their tests. 
-    For example, the \textit{Activiti} and \textit{FastJSON} projects require access to font-related resources (through the \texttt{SunFontManager} and \texttt{X11FontManager} classes respectively). 
+    For example, the \textit{Activiti} and \textit{FastJSON} projects require access to font-related resources (through the classes \texttt{SunFontManager} and \texttt{X11FontManager} respectively). 
     The experiments have been run on machines that do not have a GUI and therefore these resources were not available.
     \item \textbf{Remote resources}: 
     There are tests that require accessing remote services and making requests on them. 
@@ -212,8 +212,6 @@ Without the right context, some tests cannot perform exactly as they did in the 
 \end{itemize}
 
 So, when we find a non-testable snapshot, a question arises: Is it non-testable because it was originally non-testable, or because we cannot reproduce the test execution context properly? 
-\patxi{Mójate, y di cuál de los puntos anteriores parece pertenecer a una categoría u otra.}
-\michel{To discuss: En principio, la diferenciación ya está hecha (fijate en lso títulos de los puntos anteriores)}
 If a project had a continuous integration (CI) system where tests are executed on every snapshot, we could answer the question by analyzing the test results in CI logs. Unfortunately, it is usual to remove CI logs frequently to save storage space. 
 However, although having this information could be useful, not all of the cases above could be solved by improving the context of test execution. 
 For example, we have no chance when working with remote resources over which we have no control.
@@ -227,8 +225,7 @@ It remains as future work to explore this line to improve project testability wh
 Our results are subject to construct validity issues, mostly due to how we define testability of a project: as the mean percentage of test success with respect to the total and as percent of snapshots in which tests could be successfully executed. 
 As we have shown, testability can have different values depending on the set of snapshots selected to define 100\% (all or test-compilable). 
 It could be possible that in some cases our testability metrics hide the real behavior of the project in this respect.
-We attempt to mitigate this through the proposed case study, where we propose metrics that complement the vision of the project's testability.
-\patxi{Di que esto se mitiga con el case study que nos permite añadir algunas métricas más precisamente porque vemos que las iniciales no parecen representar todos los casos de manera adecuada.}\michel{Done}
+We attempt to mitigate this through the proposed case study, where we introduce new metrics that complement the vision of the project's testability.
 
 Results are also subject to internal validity issues. 
 For example, without the environment where the tests were originally run, they may give a different result (lack of libraries, binaries or specific configurations). 

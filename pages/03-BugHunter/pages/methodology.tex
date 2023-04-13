@@ -42,9 +42,7 @@ For describing the bug in terms of a perfect test (2), we use regression tests. 
 %Regression tests are usually included in the change that fixes the bug. \as{``usually included'' refers to the assumption made before.}
 Therefore, for (3) we run those tests in snapshots of the source code after changes that are previous to the BFC  in the history of changes to the source code. 
 %We call running the tests on past snapshots ``transplanting the test'' to that past snapshot. 
-Figure~\ref{fig:process} illustrates the transplantation process, by showing a simplified version of it: we will later discuss on this section how the transplantation process should be adjusted considering the git history is a graph rather than a line.
-\patxi{En algún punto, por hacer la tesis más cohesiva, hay que indicar que esto es diferente a lo que hemos considerado en los dos capítulos anteriores, y se debe a que el BIC puede estar en cualquier commit de cualquier rama, por tanto no podemos centrarnos solo en la rama main, como hacíamos basándonos en el paper que indicabas en el primer capítulo.}
-\michel{To discuss: Seguimos considerando una única rama (master). La cuestión es que al recorrer máster, enconramos que los commits que llegan a esta rama vienen de otra.}
+Figure~\ref{fig:process} illustrates the transplantation process, by showing a simplified version of it: we will later discuss on this section how the BIC should be searched considering that the git history is a graph rather than a line.
 
 \begin{figure}[h!]
   \centering    
@@ -164,10 +162,9 @@ To further understand these problems, we introduce three definitions: source cod
 
 \textbf{Source code compilability} is defined as the percentage of snapshots in the past history of the BFC that could be successfully compiled.
 This metric was originally defined by Tufano et al.~\cite{tufano2017there} and used in Chapters~\ref{chapter:buildability} and~\ref{chapter:testability}.
-These previous studies took as reference commit the last one in the repository (the most recent one), considering the commit history all the commits previous to this one. 
-In this chapter we will use as reference commit to define the BFC history for each bug. In this way, we will calculate the Source code compilability of the commits previous to the BFC.
-\patxi{Pero ojo, aquí se usa sólo desde el BFC hasta n, no para todo el histórico de commits. NO es exactamente la misma.} 
-\michel{Lo clarifico. En cualquier caso, al final la compilability siempre se calcula desde el commit inicial hasta otro (el último según cuando nos lo hayamos clonado o en este caso el BFC) }
+These previous studies took as reference commit the last one in the repository (the most recent one), considering as the commit history of the project all the commits previous to this one. 
+In this chapter we will use as reference the BFC commit to define the commit history for each bug. In this way, we will calculate the Source code compilability of the commits previous to the BFC.
+
 \textbf{Transplanted test compilability} is similar, but for the transplanted test: the percentage of snapshots in the past history of the BFC in which we could compile the transplanted test. 
 These parameters let us know how often the reason for not being able of running the transplanted test was not being able to compile the test itself or compiling the source code in each of the snapshots.
 
@@ -181,10 +178,8 @@ At this point, we can revisit what ``all previous commits'' from Step 4 mean.
 In Figure~\ref{fig:process} we present the history of commits as linear. 
 However, in a real git repository the commit history might not be linear: there are development models (as GitFlow~\footnote{\url{https://nvie.com/posts/a-successful-git-branching-model/}}) with git in which development is done in parallel branches, which are merged when convenient. 
 Therefore, the history of a project can be considered as a directed graph. 
-The previous theoretical model contemplates only a linear history of commits, which limits the understanding of this history.
+The previous theoretical model contemplated only a linear history of commits, which limits the understanding of this history. The consideration of the history as a graph to further refine the BIC search is a contribution of this work.
 Each node represents a commit that will point to the commits that precede it (its parents), which can be one or more.
-\patxi{Ojo, decir aquí que esto es una aportación de la tesis y que en el trabajo original del perfect test no estaba}
-\michel{Añadido}
 
 With this in mind, we developed Algorithm~\ref{alg:bic} to detect the BIC in this graph. 
 This algorithm receives as parameters the graph, annotated with the result of running the tests (its status, which can be success, fail or error) and the identification of the BFC in that graph. 
@@ -215,8 +210,6 @@ If this precondition is fulfilled, we can run the algorithm, and come with two d
   In this case, we have found several candidates, and we cannot decide which one is exactly the BIC because we cannot run the test in them, but we know the BIC should be one of them.
 \item \textbf{The test does not succeed in any precedent commit.}
   In this case, we should assume that the bug was always in the code, since the functionality tested by the test was introduced or that we cannot run the test for some reason (i.e., we are not able to compile the source code). In any case, we cannot find the BIC: either it doesn't exist, or it is hidden because we cannot run the test, so the algorithm returns an empty list of candidates.
-  \patxi{¿No deberíamos distinguir ambos casos? No me parece lo mismo que el test no pase nunca, pero ejecute, que el hecho de que no se pueda ejecutar. En el primer caso puedes decir que el bug siempre ha estado ahí. En el segundo, no, porque hay commits para los que no sabes el resultado.}
-  \michel{To discuss: Yo los distingui (hablabamos de commits grises o negros), pero se acordo (no por mi parte) que los trataramos igual. Se habla largo y tendido de estos casos en la discussion}
 \end{itemize}
 
 As an example of how the algorithm works, Figure~\ref{fig:bug41} represents the commit history for Bug 41 of the JacksonDatabind project from Defects4J dataset. 

@@ -56,7 +56,7 @@ Specifically, this metric drops to 70.58\%, which means that in almost 30\% of t
 The second set of project that we are going to study (Figure~\ref{fig:projects-2}) have been selected as a representative set of projects that, taking a look at their visual representation, it seems that it is possible to run the tests in the past in almost all their history, although in some of them we find multiple commits where failures or errors are located.
 However, if we look again at the Fully Testability values (Table~\ref{table:projects-2}), we find that their values are surprisingly low. 
 For example, the \textit{Checkstyle} project, despite the fact that a portion of its commits at the beginning of the project are not compilable, the figure seems to indicate that almost all of its tests pass. 
-Its low Fully Testability value is due to a few tests fail\patxi{failing consistently (in the order of 10 out of 1000)?}\michel{To discuss: Como en la figura se muestra la cantidad de test verdes/rojos que hay, se puede apreciar que en la mayoria de commits el \% es muy bajo, menos de 10 por cada 1000} along the project history.
+Its low Fully Testability value is due to a few tests failing consistently (in the order of 10 out of 1000) along the project history.
 % \michel{He vuelto a mirar muy en detalle, parece que al re-ejecutarlo han cambiado un poco los resultados. En un párrafo no puedo comentarte exacatemente lo que he encontrado. Tengo que enseñarte las tablas y comentarte. Rápidamente puedo decir que en este proyecto solo pasan los test en el 0.01\% de los commtis (81). En la mayoria de commits, un porcentaje muy bajo de test fallan. En un commit en concreto fallan 17 test, pero en los demás es menos de 10 (con +1000 test). Hay test que fallan en todos los commits, pero no son muchos (17 test únicos). Hay un par de test más que fallan en muy pocos commits. Para ver los logs de porqué fallan esos test tengo que bajarme los resultados de Minio y descomprimirlos, por lo que me gustaría comentarlo antes}
 The other two projects expose a similar behavior, in the case of \textit{HikariCP} the failures are more visible in the graph (there are more tests per commit resulting in failures or errors) despite having the highest Fully Testability value of this set.
 
@@ -230,11 +230,8 @@ The Fully Testability\textsubscript{T} shows us that for those commits where we 
 %\patxi{Podría ser interesante incluir también o analizar los del conjunto 1, para dar una idea de la robustez de esta métrica: ¿sigue manteniéndose alta en el primer conjunto de proyectos y refleja por tanto lo que queremos?}
 %\michel{Temo sobrecargar esta sección de tablas. Mi impresión es que las métricas son esperables teniendo en cuenta los razonamientos que hemos hecho, no aportan nada nuevo.}
 
-\def \RQIII{How many tests of a snapshot can be run with a `success' result?}
+\def \RQIII{On average, how many tests of a snapshot can be run with a `success' result?}
 
 This case study helped us to define metrics that better describe a project's stability. These new metrics lead to a new research question: 
 
-\textbf{RQ\textsubscript{3}}: ``\RQIII''
-\michel{Habría quedar una vuelta a la pregunta}
-\patxi{Yo diría: For those commits of a project on which tests compile, how many of them can be run with a success result?}
-\michel{To discuss: Ojo cuidado, que la pregunta deberia ser para todos los commits, no solo para los compilables. (No lo digo yo, este comentario lo ha generado Copilot :D). Solo los compilables es la TestabilityRate_T}
+\textbf{RQ\textsubscript{2.3}}: ``\RQIII''
