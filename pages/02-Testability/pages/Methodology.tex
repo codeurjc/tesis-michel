@@ -100,7 +100,8 @@ Therefore, 86 projects have been selected.
 \subsection{Methods}
 \label{subsec:methods}
 
-For each of the 86 projects we proceed as follows. First, we clone the git repository of the project (from GitHub\patxi{¿Los repos no están en el dataset? Aclarar esto porque hablamos del dataset pero luego se clonan de github}\michel{Aclarado en la sección anterior}), and we perform the following steps for each commit in its \textit{master/main} branch (the number of commits analyzed in each step can be seen in Figure~\ref{fig:methodology-process}):
+For each of the 86 projects we proceed as follows. 
+First, we clone the git repository of the project (from GitHub\patxi{¿Los repos no están en el dataset? Aclarar esto porque hablamos del dataset pero luego se clonan de github}\michel{Aclarado en la sección anterior}), and we perform the following steps for each commit in its \textit{master/main} branch:
 
 \begin{enumerate}
     \item Checkout the commit.
@@ -117,13 +118,6 @@ For each of the 86 projects we proceed as follows. First, we clone the git repos
 \end{enumerate}
 
 %There are commits in some projects that do not have tests, and where executing the mentioned build and test execution commands does not result in a failure. Thus, only those commits that have at least one test will be considered as compilable/testable.
-
-\begin{figure}[h!]
-    \centering    
-    \include{pages/02-Testability/graphs/process}
-    \caption{Study overview \patxi{over all projects?}\michel{To discuss: Es de los 66 proyectos, después del filtrado de los que no tienen tests, no tengo claro como adelantar estos resultados, quizás haya que mover esta gráfica más adelante.}}
-    \label{fig:methodology-process}
-\end{figure}
 
 %\subsection{Resulting metrics}
 %\label{sec:metrics}

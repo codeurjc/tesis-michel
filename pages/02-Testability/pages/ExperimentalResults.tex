@@ -8,8 +8,18 @@ The remaining 17 projects correspond to projects that contain multiple Maven mod
 %Despite the interest and the percentage of the total that these projects represent, we consider that they should be studied in a separate study. \patxi{Yo quitaba esta frase.}
 Since we cannot execute any of the tests on any of these projects, we have decided to leave them out of our study, and from this point on we will only consider the remaining 66 projects.
 
+% \begin{figure}[h!]
+%     \centering    
+%     \include{pages/02-Testability/graphs/process}
+%     \caption{Study overview 
+%     \patxi{over all projects?}
+%     \michel{To discuss: Es de los 66 proyectos, después del filtrado de los que no tienen tests, no tengo claro como adelantar estos resultados, quizás haya que mover esta gráfica más adelante.}}
+%     \michel{Añadir una aclaración del filtrado de los proyectos que no tienen tests (the number of commits analyzed in each step can be seen in Figure~\ref{fig:methodology-process})}
+%     \label{fig:methodology-process}
+% \end{figure}
+
 Table~\ref{table:results-1} shows a summary of the experiment for the 66 projects. 
-In the Count column we can see the magnitude of the study for the metrics defined in the methodology. 
+In the \textit{Count} column we can see the magnitude of the study for the metrics defined in the methodology. 
 The Mean ({\large$\mean{x}$}) and Median ({\large$\median{x}$}) columns show the trend at the project level.
 We run a normality test for each metric in this table, finding that with the exception of \textit{Age}, none of the metrics shows a normal distribution. 
 In general, differences between mean and median show large internal variability in each of the samples.
@@ -30,9 +40,7 @@ In general, differences between mean and median show large internal variability 
     \end{tabular}
 \end{table}
 
-Table~\ref{table:results-3} shows information on the compilability and testability metrics of the projects of the dataset. 
-\patxi{Esta línea huérfana aquí se queda muy pobre. Habría que explicarlo un poco más.}
-\michel{El problema aquí es que estos resultados se discuten en la siguiente sección. ¿Deberías fusionar ambas secciones?}
+Table~\ref{table:results-3} shows information on the compilability and testability metrics of the projects of the dataset.
 
 \begin{table}[h]
     \centering
