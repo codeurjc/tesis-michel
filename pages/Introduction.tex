@@ -9,7 +9,6 @@ This revision is also known as a "commit" or "snapshot".
 One of the most popular and dominant VCS in recent years has been Git~\cite{VersionControlSystemSurvey:2022:Online}. 
 Git was started with the goal of being an open-source distributed version control system for developing the Linux kernel.
 Among its main features is its strong support for non-linear development (i.e., multiple users can develop in forked branches of a main branch and then merge the code back together).
-%\patxi{No sé si no habría que introducir que puedes tener ramas, que los commits pueden tener uno o varios padres... Esas cosas habría que introducirlas en algún momento. No creo que este sea ese momento, pero habrá que hacerlo para darles más valor del que le dimos en su día en los papers.}
 %Git is a distributed version control system that allows developers to work locally and collaborate with other developers.
 
 This version history is fundamental to software evolution and maintenance. 
@@ -40,7 +39,7 @@ For example, it is possible that the bug has always existed in the code, since t
 On the other hand, it is also possible that the bug was a regression, in which case, at some point in the project life cycle, the bug did not exist and was somehow incorporated into the code. 
 
 Our hypothesis is that the tests implemented when the bug is fixed can be used to determine whether the bug was a regression and used as the operationalization of the "perfect test" defined in the theoretical model of the previous work. 
-It would be enough to run this test with previous versions of the code. 
+It would be enough to run this test against previous versions of the code. 
 If a version is found in which the test passes, then in that version the bug did not exist, and therefore it has been a regression. 
 If no previous version is found in which the test passes, then the bug is not a regression, because the functionality never worked correctly, or at least not exactly as verified by the test.
 
@@ -79,7 +78,6 @@ These contributions will be detailed in the corresponding chapters.
     This study proposes the operationalization of a previous theoretical model, in which our proposal offers a tool to automatically detect the change that introduced the bug using regression tests. 
     To accomplish this, we will start from a well-known dataset of software projects that have labeled the changes that fix a bug together with a regression test that reveals that bug.
     This contribution has been submitted to Empirical Software Engineering journal and is under review at the time of this writing.
-    % \item{Otros} \michel{Si hay tiempo, podemos añadir otros artículos relacionados: el dataset de regressiones e2e y su continuación, la identificación de proyectos e2e en GitHub}
 \end{itemize}
 
 \section{Organization of the thesis}
