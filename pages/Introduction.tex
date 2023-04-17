@@ -12,8 +12,9 @@ Among its main features is its strong support for non-linear development (i.e., 
 %\patxi{No sé si no habría que introducir que puedes tener ramas, que los commits pueden tener uno o varios padres... Esas cosas habría que introducirlas en algún momento. No creo que este sea ese momento, pero habrá que hacerlo para darles más valor del que le dimos en su día en los papers.}
 %Git is a distributed version control system that allows developers to work locally and collaborate with other developers.
 
-\patxi{Estos dos párrafos no están muy unidos. Te propongo empezar el segundo así: This version history is fundamental to software evolution and maintenance. Indeed, one of the main activities performed by developers within software evolution and maintenance is bug fixing. ...}
-Within software evolution and maintenance, one of the main activities performed by developers is bug fixing. 
+This version history is fundamental to software evolution and maintenance. 
+Indeed, one of the main activities performed by developers within software evolution and maintenance is bug fixing.
+%Within software evolution and maintenance, one of the main activities performed by developers is bug fixing. 
 These bugs were, at that moment, changes introduced in the change history as commits.
 The fixes to these bugs are made through changes that are also reflected in the VCS as a fix commit. 
 In other words, both the changes that introduced the bug and the one that fixed the bug are recorded in the VCS. 
@@ -29,7 +30,7 @@ In her research and as part of her thesis, the author proposed a theoretical mod
 This model, in essence, was based on the idea of the "perfect test", a theoretical construct that was able to check if a bug was present or not in commits prior to the change that fixed it. The author of this work explained the difficulties in operationalizing this theoretical model. 
 Among the limitations encountered, she points out the difficulty of finding a candidate to be the "perfect test", the impossibility of compiling some code revisions in the past, or the impossibility of executing code of the present (the perfect test) in the commits of the past.
 
-The motivation of my\patxi{this} PhD. Thesis is to deal with these limitations, to acquire empirical knowledge of the proposed problems and to operationalize the perfect test theoretical model
+The motivation of this PhD. Thesis is to deal with these limitations, to acquire empirical knowledge of the proposed problems and to operationalize the perfect test theoretical model
 
 \section{Hypothesis}
 
@@ -45,7 +46,7 @@ If no previous version is found in which the test passes, then the bug is not a 
 
 \section{Objectives}
 
-The primary objective of this PhD. Thesis is to validate the hypothesis proposed in the previous subsection, aiming to put into practice the theoretical model proposed in the literature and described in the introduction. \patxi{described here (ya estás en la introducción)}
+The primary objective of this PhD. Thesis is to validate the hypothesis proposed in the previous subsection, aiming to put into practice the theoretical model proposed in the literature and described in previous sections.
 From the limitations pointed out by the authors of this model, particular objectives arise, related to study the history of the projects in order to understand the feasibility of our proposal.
 
 The objectives of the thesis will be three and correspond to three research projects that complement each other:
@@ -54,7 +55,7 @@ The objectives of the thesis will be three and correspond to three research proj
     \item To verify the extent to which it is possible to build past commits of a project. To be able to carry out the execution of tests in the past it is required to fulfill the precondition that this code can be built: which means that its dependencies can be downloaded and the code compiles (if the language requires it). 
     There is previous work on this topic that we aim to validate and extend.
     \item To verify the extent to which it is possible to run the tests in the past. This objective extends the purpose of the previous one, extending it by means of trying to execute the tests after the code was compiled. As there is no previous work on this topic (at the time of writing this thesis), we aim to propose new metrics that will help us to assess the project level coverage provided by the tests.
-    \item To apply the knowledge acquired in achieving the previous objectives to \patxi{verify our hypothesis: that it is possible...}solve our initial objective: to validate the hypothesis that it is possible to use regression testing as a "perfect test" following the theoretical model proposed in the literature.
+    \item To apply the knowledge acquired in achieving the previous objectives to verify our hypothesis, that it is possible to solve our initial objective: to validate the hypothesis that it is possible to use regression testing as a "perfect test" following the theoretical model proposed in the literature.
     For that purpose, we will run regression tests along the commit history of the project to detect the change that introduced the bug.
 \end{itemize}
 
