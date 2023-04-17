@@ -203,8 +203,6 @@ In the commit marked as BIC by our tool, there is a refactoring of the parse fun
 This function goes from internally using the Parser class to using TreeBuilder (a new class). 
 This refactoring brings with it the creation of new classes (that TreeBuilder needs to operate), among which we will highlight Tokeniser and CharacterReader.
 In the BFC the method consumeLetterThenDigitSequence is added to the CharacterReader class, while in the Tokeniser class the call to consumeLetterSequence is changed by another one to the method consumeLetterThenDigitSequence (from CharacterReader) and solving the bug by considering numbers as part of an entity.
-\patxi{Esto es duro de leer y entender, quizá un diagrama UML con el refactoring podría ayudar}
-\michel{Tengo que verme el ejemplo de nuevo, porque era muy duro de describir también.}
 
 % For example, Bug 23 of the Jsoup project, has a BIC in which the commit message states that it is the refactoring of a functionality in which several classes are affected. 
 % In the BFC for this bug, only one function is fixed, which is the one that makes the test pass again. 

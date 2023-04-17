@@ -56,7 +56,6 @@ Based on this, we define the following metrics, that will characterize a project
 Each of these metrics tries to capture a \textit{ratio of progress} when we advance in the process towards running the tests. \textit{Source Compilability} informs on the ratio of snapshots that passed the first blocker: it only makes sense to test a snapshot if its main source could be built. This metric is quite similar to the one provided in the previous chapter and by Tufano et al.~\cite{tufano2017there}, when studying compilability. 
 From this point on, we introduce \textit{Test Compilability}, to determine the ratio that pass the next blocker: tests can be built.
 Thus, we define \textit{Testability} at the project level (as we did with \textit{compilability}), different from others who define it at the class or module level~\cite{bruntink2006empirical}.
-% \patxi{¿Por qué este párrafo está separado del anterior? Va junto con Test Compiulability o con Fully Testability?}
 Processing the result of \textit{all} tests in binary form gives us information on whether a change in that commit would be supported by the tests. 
 This way of characterizing a commit as \textit{Fully Testable} or not is also used in Continuous Integration (CI) systems to validate if a change (commit) can be integrated with the rest of the code of a project.
 We define \textbf{Fully Testability} as a metric with respect to the total number of commits of the project metric which measures how often these commits can be fully testable.
@@ -101,7 +100,7 @@ Therefore, 86 projects have been selected.
 \label{subsec:methods}
 
 For each of the 86 projects we proceed as follows. 
-First, we clone the git repository of the project (from GitHub\patxi{¿Los repos no están en el dataset? Aclarar esto porque hablamos del dataset pero luego se clonan de github}\michel{Aclarado en la sección anterior}), and we perform the following steps for each commit in its \textit{master/main} branch:
+First, we clone the git repository of the project (from GitHub), and we perform the following steps for each commit in its \textit{master/main} branch:
 
 \begin{enumerate}
     \item Checkout the commit.
@@ -111,8 +110,6 @@ First, we clone the git repository of the project (from GitHub\patxi{¿Los repos
     %In any case, the log of the command execution is saved.
     \item Run the project tests by executing \textit{mvn test}, checking if all tests passed (labeling the commit as \textit{fully testable}).
     In addition, we save the individual reports for each test class in XML format.
-    \patxi{No sé si deberíamos indicar la info que guardas. Porque luego, para construir las otras métricas que van surgiendo hacen falta más datos que sólo si todos los tests han pasado. Problema, te pueden pedir (en el paper, no en la tesis) que en base a esos datos hagas más cosas.}
-    \michel{Aclaro que guardamos los reportes de JUnit. De cara al articulo puedo dar más detalles del formato}
       %Otherwise, it means that at least one test has failed or has had some kind of error. 
     %In any case, we will save the results of each test as Maven Surefire Reports~\footnote{https://maven.apache.org/surefire/maven-surefire-plugin/} in XML and TXT for each test case.
 \end{enumerate}
@@ -132,7 +129,7 @@ For each project, the following metrics are generated:
     \item \textbf{Test-compilable commits:} Number of commits that were test-compilable
     \item \textbf{Testable commits:} Number of testable commits
     %\item \textbf{\# commits w/ failed tests:} Number of commits where at least one of the tests failed without any error occurring.
-    %\item \textbf{\# commits w/ errors tests:} Number of commits where at least one of the tests produced an error. \michel{Añadir las definiciones de eror y failed test} \mica{¿Omitir estas dos últimas métricas?}
+    %\item \textbf{\# commits w/ errors tests:} Number of commits where at least one of the tests produced an error. 
 \end{itemize}
 
 

@@ -9,7 +9,8 @@
 % This means running tests on past versions of the software.
 % The snapshot (commit) where the test fails would be the candidate for being the BIC~\cite{kim2006automatic}.
 % To do this, it is however necessary to first build, and then run the regression test on the previous snapshots of the project.
-% When doing this, we found that many of the snapshots were not compilable. %\patxi{Explicar claramente que los commits en rojo se produjeron por algún motivo. ¿Estamos seguros que estaban en rojo? Igual no tenía CI, y no se verificó. Habria que explicar que esos builds que no compilan no se pueden reproducir. Comentar ejemplos concretos.Referenciar el estado del arte para indicar que esto se sigue produciendo.}
+% When doing this, we found that many of the snapshots were not compilable. 
+
 % We discovered that when the build failed, in some cases the failure was the original outcome of the build (i.e., there was a bug in the project or some changes broke the build), but in other cases, the problem was that we were not able to reproduce the environment conditions necessary for the build to succeed. \grex{Reescribir esta \'ultima frase que es un poco cr\'iptica.}
 
 % That way, our original aim (running regression tests on past versions of the software) required first to solve the problem of how to first build these past versions of the software. 

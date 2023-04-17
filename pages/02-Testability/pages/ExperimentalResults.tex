@@ -5,16 +5,13 @@ The learning-spark project does not contain any tests in any commit of its histo
 The Mycat-Server project has a dependency on software that must be installed on the machine for it to be compiled (therefore its Source Compilability is 0\%). 
 The Clojure project is a programming language and as such, its tests require a different execution method. 
 The remaining 17 projects correspond to projects that contain multiple Maven modules and cannot be compiled and tested with the proposed methodology. In general, when the multimodule parent project has the proper configuration, we are able to compile and run the tests from the parent module, which is from where we run the Maven command. However, in some cases, this approach does not work, and compiling and running tests would require knowing in which order modules need to be compiled so that tests for that or another module can be compiled and run. This is due to dependencies among modules that forces some modules to be built before others. 
-%Despite the interest and the percentage of the total that these projects represent, we consider that they should be studied in a separate study. \patxi{Yo quitaba esta frase.}
+%Despite the interest and the percentage of the total that these projects represent, we consider that they should be studied in a separate study.
 Since we cannot execute any of the tests on any of these projects, we have decided to leave them out of our study, and from this point on we will only consider the remaining 66 projects.
 
 % \begin{figure}[h!]
 %     \centering    
 %     \include{pages/02-Testability/graphs/process}
 %     \caption{Study overview 
-%     \patxi{over all projects?}
-%     \michel{To discuss: Es de los 66 proyectos, después del filtrado de los que no tienen tests, no tengo claro como adelantar estos resultados, quizás haya que mover esta gráfica más adelante.}}
-%     \michel{Añadir una aclaración del filtrado de los proyectos que no tienen tests (the number of commits analyzed in each step can be seen in Figure~\ref{fig:methodology-process})}
 %     \label{fig:methodology-process}
 % \end{figure}
 
@@ -62,8 +59,6 @@ Table~\ref{table:results-3} shows information on the compilability and testabili
 
 To illustrate the diversity of the results, we have divided the 66 projects into three groups of the same size according to their number of commits: large, medium and small. 
 Figures~\ref{fig:many4j-1-bar-chart} (large projects), \ref{fig:many4j-2-bar-chart} (medium projects) and \ref{fig:many4j-3-bar-chart} (short projects) show the results for each project for each of the integer metrics as overlapping bars.
-\patxi{Primero di que los agrupas por número de commits, y luego explicas lo de las barras. SI no queda raro}
-\michel{Hecho}
 % To illustrate the diversity of results across the projects, we have represented the different categories of commits per project in overlapped bars in Figures~\ref{fig:many4j-1-bar-chart} (large projects), \ref{fig:many4j-2-bar-chart} (medium projects) and \ref{fig:many4j-3-bar-chart} (short projects).
 % The division of projects into the three categories (long, medium and short) is based on the number of commits.
 It is easy to appreciate, just by checking colors, how each project tells a very different story. 

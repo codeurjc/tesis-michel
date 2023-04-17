@@ -7,9 +7,6 @@
         \Input{A $\mbox{\sl graph}$ (commit history) and the $\mbox{\sl bfc}$}
         \Output{A list of candidates for BIC}
         \Precondition {The $bfc$ status (the output of the regression test) must be success
-        % \as{I understand the intention but ``status'' does not seem to be defined. }
-        % \michel{I clarify what ``status'' is at text}
-        % \as{It might be a good idea to explain ``status'' here such that the algorithm becomes self-contained?}
         }
 
         $candidates \gets []$\;
@@ -24,8 +21,6 @@
             }
             $parents \gets GetParents(graph, n)$\;
             $successParents \gets True$\ \Comment*[r]{Control if all parents are success} 
-            % \as{What does $successParents$ mean?}
-            % \michel{I clarify at text}
             \If{$ isEmpty(parents) $\Comment*[r]{Reach first commit}}{
                     \eIf{size(queue) == 0}{
                         $break$\;

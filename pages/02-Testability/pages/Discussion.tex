@@ -1,12 +1,8 @@
 After presenting the main results, and its analysis, in this section we discuss some details of our studies, including the threats to their validity.
 %In conducting the different studies, we have found that there is a great variety in the testability of the different projects, even within the same study. In this section we will discuss the semantics of the testability metrics, analyse some of the projects with the higher testability, study why projects have low testability and, finally, present the  threats to validity of this work.
 
-\michel{Aqui faltan dos subsecciones: una sobre la semantica de las metricas, y otra sobre los proyectos con alta testabilidad. La primera queda bastante obsoleta con el CaseStudy, la segunda tendría que volver a escribirla, ya que las métricas no son las mismas}
-
 % \subsection{On the semantics of testability metrics}
 % \label{sec:semantics}
-
-% \michel{Es posible que esta sub-sección, con el nuevo Case Study, no tenga mucho sentido}
 
 % For the studies presented in this paper, we designed a framework based on extending compilability to consider also compilability of tests, and introducing four \textit{Testability} metrics. 
 % Each of these metrics shows a different aspect of testability.
@@ -178,7 +174,6 @@ We found several projects where the \textit{Fully Testability\textsubscript{A}} 
     We found this case in \textit{elastic-job} project by taking advantage of commit comments to understand the development workflow. 
     When refactoring, tests stop passing in some commits, being fixed in later commits (for example see commits 860, 929, 965, 1053 and 1120, where 0 is the last commit in the history).
     Therefore, in some snapshots the tests never passed and therefore we cannot make them pass in the present without the changes to fix it.
-    \patxi{Esta última frase no me casa con el resto del punto}\michel{Re-escrito}
 \end{itemize}
 
 \subsubsection{Context can not be reproduced.} 

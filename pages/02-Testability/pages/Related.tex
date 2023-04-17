@@ -1,5 +1,3 @@
-%\patxi{[[[Publication Title: "test"] OR [Publication Title: "testable"]] AND [[Publication Title: "commit"] OR [Publication Title: "snapshot"] OR [Publication Title: "history"] ]] OR [[[Abstract: "test"] OR [Abstract: "testable"]] AND [[Abstract: "commit"] OR [Abstract: "snapshot"] OR [Abstract: "history"]]]}
-
 Compilability of software projects is fundamental to be able to execute tests. %Following are the works that address this property of the projects:
 Studying the compilability of past snapshots has been a topic of several publications, however, to the author's awareness, there are no studies of the testability of past snapshots. 
 % Among the works on compilability, Tufano et al.~\cite{tufano2017there} is one of the most recent studies on the topic. 
@@ -37,5 +35,3 @@ Pecorelli et al. chose eight Apache projects to study the relation of test-relat
 Garousi et al. performed a survey on \textit{testability}~\cite{garousi2019survey}, finding several uses of this term in the research literature. All of these uses do not consider testability of past snapshots. In this regard, the way we refer to \textit{testability} in this thesis could be understood as \textit{project history testability}.
 
 % The Defects4J~\cite{just2014defects4j} dataset is a collection of Java projects where the regressions in the code are well documented. They offer a reproducible scenario where you can check the correct behavior (or not) of the tests in different commits of the project history. This scenario has been provided by the authors themselves, encapsulating the project dependencies together with the source code, as well as having all the necessary tools for the execution of the tests in the form of binaries (and in their most recent versions, using Docker to isolate the execution). Although they run the tests on past commits, they do not run them on their entire history to check their testability.
-
-%\patxi{Analizan los tests en CI: Oops, my tests broke the build: An explorative analysis of travis ci with github}
