@@ -5,17 +5,24 @@ A recent work (presented as a PhD. Thesis by Gema Rodriguez in 2018) offered a t
 The perfect test method is a theoretical construct aimed at detecting bug introducing changes (BIC) through a theoretical perfect test. This perfect test always fails if the bug is present, and passes otherwise.
 In theory, this perfect test would allow to detect the bug in the change history of a project.
 
-\patxi{Quizá indicar aquí que los tests de regresión son escritos por los desarrolladores cuando se detecta un bug y se corrige para evitar regresiones, y que al ser una práctica habitual, están disponibles en muchos casos. Esto nos lleva a plantearnos el principal objetivo de la tesis: operacionalizar... basandonos en tests de regresión.}
-In this PhD. Thesis, one of the main objectives is to operationalize this theoretical construct. 
-This dissertation hypothesizes that regression tests (tests written after finding a bug with the purpose of detecting if it reappears) can be used as perfect tests to detect the change that introduced the bug. 
+In this PhD. Thesis, one of the main objectives is to operationalize this theoretical construct.
+It is common practice in software development that when a bug is detected and fixed, developers write a test that detects the bug in case it reappears, referred to as a regression test. 
+This test may even be available as part of the bug report before the bug is fixed (the fix being test-driven). 
+This dissertation hypothesizes that regression tests can be used as perfect tests to detect the change that introduced the bug. 
 
 One of the main problems of operationalizing this approach, pointed out in the previous work, is the difficulty that can be encountered when running this regression test on previous versions of the code. 
 A step prior to the execution of the tests is the building of the project, which requires downloading the dependencies of that project and compiling the source code (if the language requires it). 
 In order to achieve the above-mentioned objective, this thesis will also carry out a study on the buildability of the previous versions of the code, verifying how far they can be built and what problems can be encountered during the process.
-This dissertation also extends the previous\patxi{this study (previous suena a que ya lo han hecho otros)} study to check whether, in addition to being able to build the source code, we can build and run its tests. 
+This dissertation also extends the abovementioned study to check whether, in addition to being able to build the source code, we can build and run its tests. 
 These two studies are intended to shed some light on the problems of the initial proposal in order to be able to implement it with the knowledge acquired.
 
-The results obtained in this thesis show that \patxi{comienza aquí presentando las aportaciones: a) compiling past snapshots is greatly affected by time unless remediation measures are applied; b) testing past snapshots is mainly affected by compilation, but contrary to what was expected, not all tests pass in all commits; c) the operationalization...}the operationalization of the perfect test method through regression tests is feasible and can be completely automated in practice when tests can be transplanted and run in past snapshots of the code. 
+The results obtained in this thesis show that: 
+\renewcommand{\labelenumi}{\alph{enumi})}
+\begin{inparaenum}
+    \item compiling past snapshots is greatly affected by time unless remediation measures are applied;
+    \item testing past snapshots is mainly affected by compilation, but contrary to what was expected, not all tests pass in all commits;
+    \item the operationalization of the perfect test method through regression tests is feasible and can be completely automated in practice when tests can be transplanted and run in past snapshots of the code.
+\end{inparaenum}
 Given that implementing regression tests when a bug is fixed is considered a good practice, when developers follow it, they can detect effortlessly bug introducing changes by using the proposed operationalization of the perfect test method.
 
 
