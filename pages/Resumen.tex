@@ -1,0 +1,23 @@
+Encontrar los cambios en el código que introducen errores es importante tanto para los profesionales como para los investigadores, pero hacerlo con precisión es un proceso manual que requiere mucho esfuerzo.
+Hay varios estudios que intentan detectar automáticamente estos cambios que introducen el error. 
+El estado del arte más reconocido en este campo es el SZZ, un algoritmo basado en la identificación del cambio que corrige el error para analizar las líneas que han sido modificadas o eliminadas, asumiendo que el último cambio realizado en esas líneas antes de la corrección fue el cambio que introdujo el error. 
+Un trabajo reciente (presentado como Tesis Doctoral por Gema Rodríguez en 2018) ofrecía un modelo teórico, denominado "método de la prueba perfecta", que proponía un enfoque completamente diferente al SZZ y pretendía mitigar las limitaciones de este algoritmo. 
+El método de la prueba perfecta es una construcción teórica cuyo objetivo es detectar cambios que introducen errores (en inglés \textit{Bug Introduction Changes} o \textit{BICs}) a través de un prueba perfecta teórica. 
+Esta prueba perfecta siempre falla si el error está presente, y pasa en caso contrario.
+En teoría, esta prueba perfecta permitiría detectar el error en el historial de cambios de un proyecto.
+
+En esta tésis doctoral, uno de los principales objetivos es operacionalizar este constructo teórico.
+Es una práctica común en el desarrollo de software que, cuando se detecta y corrige un error, los desarrolladores escriban una prueba que detecte dicho error en caso de que reaparezca, lo que se conoce como una prueba de regresión. 
+Esta prueba puede incluso estar disponible como parte del informe de error antes de que se corrija el error (la corrección está dirigida por pruebas). 
+Esta tésis plantea la hipótesis de que las pruebas de regresión podrían utilizarse como pruebas perfectas para detectar el cambio que introdujo el error.
+
+Uno de los principales problemas de la operacionalización de este enfoque, señalado en el trabajo anterior, es la dificultad que puede encontrarse al ejecutar esta prueba de regresión sobre versiones anteriores del código. 
+Un paso previo a la ejecución de las pruebas es la construcción del proyecto, que requiere descargar las dependencias del mismo y compilar el código fuente (si el lenguaje lo requiere). 
+Para conseguir el objetivo mencionado, en esta tésis también se realizará un estudio sobre la constructibilidad de las versiones anteriores del código, comprobando hasta qué punto se pueden construir y qué problemas se pueden encontrar durante el proceso.
+Esta tésis también amplía el estudio mencionado para comprobar si, además de poder construir el código fuente, podemos construir y ejecutar sus pruebas. 
+Con estos dos estudios se pretende arrojar algo de luz sobre los problemas de la propuesta inicial de la operacionalización de la prueba perfecta para poder llevarla a la práctica con los conocimientos adquiridos.
+
+Los resultados obtenidos en esta tésis muestran que la compilación de instantáneas pasadas se ve muy afectada por el tiempo, a menos que se apliquen medidas de mitigación; 
+la comprobación de instantáneas pasadas se ve afectada principalmente por la compilación, pero contrariamente a lo esperado, no todas las pruebas pasan en todos las instantáneas;
+la puesta en práctica del método de la prueba perfecta mediante pruebas de regresión es factible y puede automatizarse completamente en la práctica cuando las pruebas pueden trasplantarse y ejecutarse en instantáneas pasadas del código.
+Dado que implementar pruebas de regresión cuando se corrige un error se considera una buena práctica, cuando los desarrolladores la siguen, pueden detectar sin esfuerzo los cambios que introducen errores utilizando la operacionalización propuesta del método de la prueba perfecta.
