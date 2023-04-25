@@ -126,7 +126,7 @@ For each commit of interest in each repository, the script runs the following pr
 \begin{enumerate}
 \item Check out the intended commit, obtaining the snapshot of the source code to be built.
 \item Find the configuration for Maven (usually a \verb|pom.xml| file). If it is found, the build command for Maven is executed (\textit{mvn clean compile -X}) in a Docker container spawned for this specific analysis.
-\item Collect the success code and the log produced by the execution in a log file (the verbose option of the command is used to obtain the most detailed log). If a configuration for Maven was not found, it is also noted in the log file.
+\item Collect the status code and the log produced by the execution in a log file (the verbose option of the command is used to obtain the most detailed log). If a configuration for Maven was not found, it is also noted in the log file.
 \end{enumerate}
 
 A further analysis of the log file allowed us to identify if the snapshot had configuration files for Maven, if the build was successful or not, and if not, the likely reason for the failure.
