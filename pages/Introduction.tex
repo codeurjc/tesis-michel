@@ -25,7 +25,7 @@ In this way, the change history of a software project could be used to search fo
 
 The SZZ algorithm has been for many years the state of the art when locating the change that induced a bug. 
 In 2018, Gema Rodriguez presented her PhD. Thesis~\cite{rodriguez2018towards}, in which she exposed the limitations of this algorithm and all those that have been derived from it, finding several examples in which this algorithm failed in its purpose. 
-In her research and as part of her thesis, the author proposed a theoretical model for the identification of the change that introduced a bug, trying to improve the state of the art. 
+In her research and as part of her thesis, the author proposed a theoretical model for the identification of the change that introduced a bug (bug introducing change, BIC), trying to improve the state of the art. 
 This model, in essence, was based on the idea of the "perfect test", a theoretical construct that was able to check if a bug was present or not in commits prior to the change that fixed it. The author of this work explained the difficulties in operationalizing this theoretical model. 
 Among the limitations encountered, she points out the difficulty of finding a candidate to be the "perfect test", the impossibility of compiling some code revisions in the past, or the impossibility of executing code of the present (the perfect test) in the commits of the past.
 
