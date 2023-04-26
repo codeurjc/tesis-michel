@@ -2,7 +2,7 @@ Finding code changes that introduced bugs is important both for practitioners an
 There are several studies that try to automatically detect these changes that introduce the bug. 
 The most recognized state of the art in this field is the SZZ, an algorithm based on identifying the change that fix the bug to analyze the lines that have been modified or deleted, assuming that the last change made in those lines before the fix was the change that introduced the bug. 
 A recent work (presented as a PhD. Thesis by Gema Rodriguez in 2018) offered a theoretical model, called the "perfect test method", which proposed a completely different approach to the SZZ and aimed to mitigate the limitations of this algorithm. 
-The perfect test method is a theoretical construct aimed at detecting bug introducing changes (BIC) through a theoretical perfect test. This perfect test always fails if the bug is present, and passes otherwise.
+The perfect test method is a theoretical construct aimed at detecting bug-introducing changes (BIC) through a theoretical perfect test. This perfect test always fails if the bug is present, and passes otherwise.
 In theory, this perfect test would allow to detect the bug in the change history of a project.
 
 In this PhD. Thesis, one of the main objectives is to operationalize this theoretical construct.
@@ -19,7 +19,7 @@ These two studies are intended to shed some light on the problems of the initial
 The results obtained in this thesis show that compiling past snapshots is greatly affected by time unless mitigation measures are applied; 
 testing past snapshots is mainly affected by compilation, but contrary to what was expected, not all tests pass in all commits;
 operationalization of the perfect test method through regression tests is feasible and can be completely automated in practice when tests can be transplanted and run in past snapshots of the code.
-Given that implementing regression tests when a bug is fixed is considered a good practice, when developers follow it, they can detect effortlessly bug introducing changes by using the proposed operationalization of the perfect test method.
+Given that implementing regression tests when a bug is fixed is considered a good practice, when developers follow it, they can detect effortlessly bug-introducing changes by using the proposed operationalization of the perfect test method.
 
 
 

@@ -32,7 +32,7 @@ The perfect test method consists of the following steps~\cite{rodriguez2020bugs}
 \emph{Intrinsic bugs} are bugs that have been introduced by a change in the code.
 In the case of intrinsic bugs, there should be a BIC, and that will correspond to the FFC: before the BIC, the bug was not present, and after it, it was present until fixed. 
 \emph{Extrinsic bugs} are not introduced by a change to the source code but by an external factor, e.g., a change in an external API.
-In the case of extrinsic bugs, \gema indicates that there is a first-failing moment (FFM), not present in the version control system and the FFC is the first change to the version control system after the FFM.
+In the case of extrinsic bugs, \gema~indicates that there is a first-failing moment (FFM), not present in the version control system and the FFC is the first change to the version control system after the FFM.
 
 In the current work we focus on intrinsic bugs, and therefore for us finding the FFC will mean we found the BIC.
 We will not address the detection of FFC in extrinsic bugs since regression tests cannot help us find that change and the bug dataset chosen to test our proposal (to be described in the next section) only contains intrinsic bugs.
@@ -50,7 +50,7 @@ Figure~\ref{fig:process} illustrates the transplantation process, by showing a s
   \vspace{-0.5cm}
   \caption{Simplified process leading to finding the first failing change (FFC), by running tests in past snapshots of the project.}
   \label{fig:process}
-  \vspace{-0.5cm}
+  % \vspace{-0.5cm}
 \end{figure}
 
 The paper presenting the perfect test method~\cite{rodriguez2020bugs} states that one of the main limitations of the perfect test is that being able to construct a perfect test requires a deep knowledge of the bug, how it was fixed, and the project in which it was found. 

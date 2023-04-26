@@ -3,8 +3,8 @@
 % %However, finding the commit introducing such a change can nowadays only be done 
 % often a manual, labor intensive and time-consuming process.
 % \textit{Goal:}
-% We investigate how to automate identification of bug introducing changes using regression tests.
-% We design a prototype tool to perform this automation, build a golden dataset of bugs and their corresponding bug introducing changes using the tool, and assess state-of-art SZZ algorithms with respect to this dataset.
+% We investigate how to automate identification of bug-introducing changes using regression tests.
+% We design a prototype tool to perform this automation, build a golden dataset of bugs and their corresponding bug-introducing changes using the tool, and assess state-of-art SZZ algorithms with respect to this dataset.
 % \textit{Method:}
 % %The idea is to use the regression tests that developers include when fixing a bug.
 % %The regression tests are executed on previous versions of the project.
@@ -15,19 +15,19 @@
 % To evaluate feasibility of our method we apply it on 730 bugs from 13 Java Open Source projects, performing a manual validation of the results of our tool.
 % \textit{Results:}
 % Out of 730 bugs, we are able to identify bug-introducing changes in 75 cases. % that the test worked again in a past version. 
-% In 49 cases we are able to unequivocally confirm the bug introducing change and in the remaining 26 cases, we can only provide a list of candidates due to compiling issues.\as{I am not sure how too phrase this better.}
-% Our manual validation confirms that these 49 cases are the actual bug introducing changes that become our golden dataset.
+% In 49 cases we are able to unequivocally confirm the bug-introducing change and in the remaining 26 cases, we can only provide a list of candidates due to compiling issues.\as{I am not sure how too phrase this better.}
+% Our manual validation confirms that these 49 cases are the actual bug-introducing changes that become our golden dataset.
 % We run 7 variants of SZZ algorithm on our golden dataset and in general, their accuracy is below 66\%. 
-% Specifically, we find out that for 13 cases no algorithm is able to find the bug introducing change due to limitations of SZZ algorithms.
-% % A manual validation confirms that this bug introducing changes are not related to the changes introduced by the bug fixing change in this cases.
+% Specifically, we find out that for 13 cases no algorithm is able to find the bug-introducing change due to limitations of SZZ algorithms.
+% % A manual validation confirms that this bug-introducing changes are not related to the changes introduced by the bug fixing change in this cases.
 % \textit{Conclusions:} 
 % With this work we demonstrate that regression tests can be used to find the change that introduced the bug.
-% % We demonstrate that it is possible in some cases\as{weak} to use regression tests to detect bug introducing changes, elaborate a practical way to find them, and propose a tool to automate this task.
-% % We use the results of our tool to build a golden dataset of bug introducing changes. 
+% % We demonstrate that it is possible in some cases\as{weak} to use regression tests to detect bug-introducing changes, elaborate a practical way to find them, and propose a tool to automate this task.
+% % We use the results of our tool to build a golden dataset of bug-introducing changes. 
 % % We show that further research is needed to improve the results of SZZ algorithms.
 % % \as{I do not think we need conclusions. What we need is discussion of impact: how can our results affect software engineering practice and/or research?}
 
-% % We demostrated that it is possible in some cases to find the bug introducing change by running regression tests in past versions of the project.
+% % We demostrated that it is possible in some cases to find the bug-introducing change by running regression tests in past versions of the project.
 
 % % \grex{We offer some first steps on how to automatically identify the change that introduced a bug.}
 % % We detail the cases that we have found when carrying out an experiment. 
@@ -35,9 +35,9 @@
 
 % \jgb{Alternative (not that different, minor tweaks}
 \textit{Background:}
-Finding code changes that introduced bugs is important both for practitioners and researchers, but doing it precisely is a manual, effort-intensive process. The \underline{perfect test method} is a theoretical construct aimed at detecting bug introducing changes (BIC) through a theoretical perfect test. This perfect test always fails if the bug is present, and passes otherwise.
+Finding code changes that introduced bugs is important both for practitioners and researchers, but doing it precisely is a manual, effort-intensive process. The \underline{perfect test method} is a theoretical construct aimed at detecting bug-introducing changes (BIC) through a theoretical perfect test. This perfect test always fails if the bug is present, and passes otherwise.
 \textit{Goal:}
-%To determine if using regression test is feasible in practice to automatically determine the bug introducing change (BIC), by transplanting these regression tests to past snapshots of the code, and using them to detect if the bug is present or not.
+%To determine if using regression test is feasible in practice to automatically determine the bug-introducing change (BIC), by transplanting these regression tests to past snapshots of the code, and using them to detect if the bug is present or not.
 %\as{There is a gap between the previous sentence and the current one. It is the first time that any kind of theoretical constructs are mentioned.}
 To operationalize the perfect test method.
 \textit{Method:}
@@ -47,14 +47,14 @@ To use regression tests as substitutes for the perfect test.
 %on Defects4J, a well-known collection of bugs, checking in which cases the method can be used, and when it identifies correctly the BIC for the bugs in the collection. 
 For this, we transplant the regression tests to past snapshots of the code, and use them to identify the BIC, on a well-known collection of bugs from the Defects4J dataset. 
 \textit{Results:}
-%We demonstrate that the perfect test method works when using regression tests, at least for those cases where a functionality no longer behaves as the regression test expects it to until the commit on which the bug is fixed. Given that implementing regression tests when a bug is fixed is considered a good practice, when developers follow it, the detection of bug introducing changes by using our operationalization of the perfect test method can be automated. 
+%We demonstrate that the perfect test method works when using regression tests, at least for those cases where a functionality no longer behaves as the regression test expects it to until the commit on which the bug is fixed. Given that implementing regression tests when a bug is fixed is considered a good practice, when developers follow it, the detection of bug-introducing changes by using our operationalization of the perfect test method can be automated. 
 From 809 bugs in the dataset, we could automatically run our method for 96 of them. 
 %\as{This sounds very low: without knowing all the details of the analysis, the reviewer will be disappointed to see such a low number...}
 %which are the cases where our tool could successfully transplant and run regression tests to the past history of changes. 
 In 67 of these bugs we are able to precisely identify the BIC, and in the remaining 29 bugs, we could provide a list of candidates.
-% A manual validation confirms that these bug introducing changes are not related to the changes introduced by the bug fixing change in these cases.\as{The last sentence will probably be cryptic to the person not familiar with the SZZ lingo. }
+% A manual validation confirms that these bug-introducing changes are not related to the changes introduced by the bug fixing change in these cases.\as{The last sentence will probably be cryptic to the person not familiar with the SZZ lingo. }
 \textit{Conclusions:} 
-We demonstrate that the operationalization of the perfect test method through regression tests is feasible and can be completely automated in practice when tests can be transplanted and run in past snapshots of the code. Given that implementing regression tests when a bug is fixed is considered a good practice, when developers follow it, they can detect effortlessly bug introducing changes by using our operationalization of the perfect test method.
+We demonstrate that the operationalization of the perfect test method through regression tests is feasible and can be completely automated in practice when tests can be transplanted and run in past snapshots of the code. Given that implementing regression tests when a bug is fixed is considered a good practice, when developers follow it, they can detect effortlessly bug-introducing changes by using our operationalization of the perfect test method.
 % We also show that the method is practical \as{in what sense?} in some scenarios of interest for both practitioners and researchers.
 
 %%% Local Variables:

@@ -71,8 +71,8 @@ Table~\ref{table:rq1b-iqr} provides in detail the distribution these metrics for
 The reasons that prevent transplanting the regression test are directly related to these metrics and can be classified as follows:
 
 \begin{itemize}
-\item \textbf{Compilability of the source code} If the source code cannot be built for the snapshot, there is no way to build the regression test. 
-Compilability of past snapshots has been studied in detail by Tufano et al.~\cite{tufano2017there},whose experiment in 2014 showed an average compilability of 100 Java projects of 37.74\%. 
+\item \textbf{Compilability of the source code.} If the source code cannot be built for the snapshot, there is no way to build the regression test. 
+Compilability of past snapshots has been studied in detail by Tufano et al.~\cite{tufano2017there}, whose experiment in 2014 showed an average compilability of 100 Java projects of 37.74\%. 
 As seen in Chapter~\ref{chapter:buildability}, we replicated this experiment in 2020 and a decrease in compilability was observed due to the lapse of time, 
 %\as{Please be more explicit why the lapse of time could be expected to reduce the compilability value.} \michel{Below it is commented that one of the factors affecting compilability is the passage of time. I clarify it} 
 obtaining a value of 25.09\%. The compilability may vary largely from project to project, and it will depend among other factors on the availability of third party modules needed to build the code, on the availability of the building tools in the right version, and on the complete automation of the building process. These factors are usually affected by time, and a degradation of compilability as time passes has been observed in these two previous studies.
@@ -83,7 +83,7 @@ The value obtained is higher than that obtained in previous studies due to a com
 storing project dependencies and adapting their configuration files to ensure high reproducibility in the experiments (although only in the BFCs), together with additional adaptations made by the authors of this work, completing the adaptation of the configuration of each project to each commit of its history.
 %\as{"relatively low" suggests comparison with some kind of baseline. How do our figures compare to those reported in the previous papers [36,22]?}
 %\michel{Now is more clear and we have added the comparison with the previous studies + the reason why our results are higher + explain the modifications to improve the compilability.}
-\item \textbf{Compilability of the regression test} If the test cannot be built, it cannot be run. The test is built on top of the snapshot, and it may not build because the code it expects in the snapshot is not present. This may happen because that code was still not implemented for a given snapshot. For example, this is the case if the test tests a certain function: in some past snapshot the function may not be implemented yet. This may also happen because the code was in the snapshot, but not in the way the test expects it. For example, this may happen in case of refactoring between the snapshot we are trying to build and the snapshot for which the test was designed. In general, these problems will be increasingly frequent for older commits with respect to the BFC, since more artifacts (code files, libraries or configuration files) could change since those snapshots to the one corresponding to the BFC, for which the regression test was designed. They will also be frequent in branches which for some reason lack some code needed by the test.
+\item \textbf{Compilability of the regression test.} If the test cannot be built, it cannot be run. The test is built on top of the snapshot, and it may not build because the code it expects in the snapshot is not present. This may happen because that code was still not implemented for a given snapshot. For example, this is the case if the test verify the behavior of a certain function: in some past snapshot the function may not be implemented yet. This may also happen because the code was in the snapshot, but not in the way the test expects it. For example, this may happen in case of refactoring between the snapshot we are trying to build and the snapshot for which the test was designed. In general, these problems will be increasingly frequent for older commits with respect to the BFC, since more artifacts (code files, libraries or configuration files) could change since those snapshots to the one corresponding to the BFC, for which the regression test was designed. They will also be frequent in branches which for some reason lack some code needed by the test.
 The aggregate results for the transplanted test compilability (20.92\% mean and 12.36\% median for all bugs) are strictly lower than source code compilability, since compiling the source code is a necessary step to be able to compile and run the tests. 
 This is different to the results from Chapter~\ref{chapter:testability}, where in general whenever the source code compiles, the tests compile as well. 
 In this case, the fact that we are transplanting the test from the present to the past has an impact on its compilability.
@@ -91,8 +91,9 @@ To the best of our knowledge, there is no large-scale study on the compilability
 % \as{Can we find some kind of baseline to compare these numbers, similarly to the compilability figures for the source code?}
 % \michel{There are no previous studies that transplant tests into the past and measure how far they can be taken. The closest is a study of ours (not yet published) in which we ran tests on all commits of a project.}
 % \as{Can we comment that there is no publicly available baseline?}
+\\
 
-\item \textbf{Runnability of the regression test} Even if the regression test can be built, maybe its run does not produce a result, but fails earlier due to some code not behaving as expected. 
+\item \textbf{Runnability of the regression test.} Even if the regression test can be built, maybe its run does not produce a result, but fails earlier due to some code not behaving as expected. 
 % This may happen, for example, if the test calls some function that is expected to return a certain value, but returns some other because that was the case in the earlier version of the code corresponding to the snapshot. 
 When aggregating all bugs together, the mean for transplanted test runnability is 20.71\%, and the median is 12\%. 
 Which means that in half of the bugs the test could be transplanted successfully to less than 12\% of the commits (although the difference with the mean shows how in some bugs, the transplant was successful in a much higher fraction of the cases). 
@@ -153,7 +154,7 @@ In 8 of these cases, the BIC was found in a direct parent of the BFC, which mean
 This is due to a practice known as \textit{Backtracking}~\cite{yoon2012exploratory,yoon2014longitudinal}, where the developer reverts part or all of the changes made when an issue is reported.
 
 For the 29 remaining bugs, the algorithm finds multiple candidates. 
-If $n$ is the first commit (going backwards from the BFC) in which the test succeeds, we have several candidates if for one or more commits that are right before $n$ (again, going backwards from the BFC) the test could not be executed (we are not able to compile the code or the test).
+If $n$ is the first commit (going backwards from the BFC) in which the test succeeds, we have several candidates if for one or more commits that are right before $n$ (again, going backwards from the BFC) the test could not be executed (we are not able to compile the source code or the test).
 In those cases, since the test could not be run, we do not know if the bug is present or not, and, according to the definition provided by~\gema, any of them could be the FFC (the first failing change).
 So, all of them, including the last one that failed (again, in the same order), are candidates to be the BIC. 
 Without more information, we cannot assess which one of them is really the BIC.
@@ -163,10 +164,10 @@ Without more information, we cannot assess which one of them is really the BIC.
 %\as{Do we want to make this assumption explicit?}
 %\michel{We rephrase stated that we follow the definition provided by Gema}
 
-\vspace{0.4cm}
+\vspace{0.3cm}
 \fbox{\begin{minipage}{0.9\textwidth}
     \textbf{\rqtwo}
-    Yes, at least for those cases where a functionality no longer behaves as the regression test expects it. 
+    Yes, at least for those cases where a functionality no longer behaves as the regression test expects it, but did in the past. 
     The regression test can be transplanted to past commits, and using the perfect test method with the regression test as perfect test, the BIC can be found. 
     In our case, for the 809 bugs for which we could assess the regression test detected the bug, we could use the method to identify precisely the BIC in 67 bugs, and to provide a list of candidates for other 29 bugs. 
     The bugs for which the method did not work were mainly due to not being able of running the test, because of compilability or runnability problems, in addition to the contemplated case in which the tested feature has always contained the bug.
@@ -179,7 +180,7 @@ Without more information, we cannot assess which one of them is really the BIC.
 %\michel{As I understand Gema's model and how regression tests work, the first commit in which the test fails and its parent (or parents) have a success score on the same test should be the BIC. If there have been changes in different commits, our method will detect the first change that actually breaks the functionality as it is expected to work in the regression test.}
 Once we have detected the BIC for 67 bugs through the perfect test method, we want to ensure that the BIC found is actually the BIC, the commit that introduced that bug. Following the steps already described in Section~\ref{sec:bug-hunter:methodology}, we checked manually all these cases, finding that all of them are true positives. This result allows for two conclusions:
 \begin{itemize}
-\item The perfect test method can be used to identify the bug introducing change, with regression tests as perfect tests, at least for those cases where a functionality no longer behaves as the regression test expects it.
+\item The perfect test method can be used to identify the bug-introducing change, with regression tests as perfect tests, at least for those cases where a functionality no longer behaves as the regression test expects it.
 \item We have a ground truth dataset of 67 bugs for which we know the BFC and the BIC, which can be used to evaluate methods for finding the BIC.
 \end{itemize}
 

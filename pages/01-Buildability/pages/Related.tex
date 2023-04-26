@@ -7,7 +7,7 @@ Travis logs from 14 open-source projects were analyzed, finding that a significa
 The study analyzed the build logs from the point of view of continuous integration systems (snapshot build and test execution), but it did not include a reproduction of the builds.
 Some authors have emphasized the importance of historic compilability to propose repair tools for failed builds.
 Using a taxonomy for the root causes of build failures found in 86 out of the 200 most popular Java projects in GitHub, it was demonstrated that 52 of these failures could be resolved in an automated manner~\cite{hassan2017automatic}.
-The \texttt{HireBuild} tool was able to fix 11 out of 24 reproducible build failures using fix patterns automatically generated from existing build script fixes and recommending fix patterns based on build log similarity~\cite{HireBuild}.
+The \textit{HireBuild} tool was able to fix 11 out of 24 reproducible build failures using fix patterns automatically generated from existing build script fixes and recommending fix patterns based on build log similarity~\cite{HireBuild}.
 None of the previous studies considered historic compilability, which is the subject of our study. They were in general based on the analysis of logs: in comparison, our studies perform our own building processes, starting from scratch with the source code available in the analyzed snapshots.
 
 A related area to compilability is build reproducibility: \emph{``the ability to generate byte-to-byte identical binaries from the source code of a project version, no matter who builds the binary, when or in which machine''}~\cite{RepBlds:2017:Online}. 

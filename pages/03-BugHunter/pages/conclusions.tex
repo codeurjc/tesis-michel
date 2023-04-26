@@ -2,7 +2,7 @@
 % We demonstrate that it is possible to use a regression test as a real substitute for the perfect test conceptualized by~\gema.
 % We also expose the limitations of this approach; it is only able to find the BICs when the test is able to pass back in the past and is sensitive to refactorings.
 
-% Through the results obtained by the tool and after a manual validation, we generate a golden dataset of bug introducing changes.
+% Through the results obtained by the tool and after a manual validation, we generate a golden dataset of bug-introducing changes.
 % On this same dataset, we check how different implementations of the SZZ algorithm, also designed to detect the changes that introduce the bug, behave. We verify a well-known limitation of these algorithms (they can only find the BIC from the modified lines in the BFC) and how our algorithm is able to detect these cases using the tests. 
 
 % Future lines of work can extend this work by trying to apply this tool on datasets of projects using other programming languages than Java (Python, C, C++ ...), other types of projects (not only libraries) and other types of tests (not limited to unit tests).
