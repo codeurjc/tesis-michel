@@ -1,4 +1,4 @@
-This chapter recapitulates the initial objectives of the research and the contributions claimed in Chapter~\ref{chapter:intro}, in addition to presenting the conclusions (Section~\ref{sec:conclusions}) of the three studies included in this PhD. thesis. 
+This chapter recapitulates the initial objectives of the research and the contributions claimed in Chapter~\ref{chapter:intro}, in addition to presenting the conclusions (Section~\ref{sec:conclusions}) of the three studies included in this PhD. Thesis. 
 In addition, Section~\ref{sec:future-work} also details future research work.
 
 \section{Conclusions}
@@ -43,7 +43,7 @@ However, the main result is the high variability of testability from project to 
 We note that many projects cannot rely on running tests in past commits, as these won’t run or even compile.
 Testing snapshots of the past is fundamental for the maintainability of old versions of the project which are still in production. 
 Therefore, we expect more research in this area in the future. 
-Fortunately, we have found some signals showing that good practices can be identified to increment testability of current snapshots (that will become past snapshots with time). 
+% Fortunately, we have found some signals showing that good practices can be identified to increment testability of current snapshots (that will become past snapshots with time). 
 We have also suggested some ways of increasing testability of past snapshots improving the methods we are using for building and running tests in them. 
 Of course, extending our study to other samples of Java code, and to other programming languages, will improve our knowledge in this area.
 
@@ -65,13 +65,13 @@ We also propose our method for automatically providing developers fixing a bug w
 \section{Future Work}
 \label{sec:future-work}
 
-The studies presented in this doctoral thesis are limited to projects written in the Java programming language. Moreover, these projects are mostly programming libraries, which usually have only unit tests and sometimes integration tests.
+The studies presented in this PhD. Thesis are limited to projects written in the Java programming language. Moreover, these projects are mostly programming libraries, which usually have only unit tests and sometimes integration tests.
 Therefore, further research is still needed to draw general conclusions on the compilability of past snapshots, testability of the past snapshots and to identify the change that introduced the bug, especially for languages other than Java (C, C++, Python, JavaScript, Go, Rust and other popular programming languages), and in general to projects with different testing practices (e.g., including load testing or end-to-end testing).
 
 In Chapter~\ref{chapter:testability}, one of the main limitations we have encountered when running the tests is to reproduce in context the test execution. Despite having the tests collected in the commit history, we do not have the information of whether these tests could be compiled and subsequently executed, as well as the absence of the result of the execution. 
 This information could be obtained from the Continuous Integration (CI) system (if used), where the build of projects and the execution of their tests is done automatically, and their results are recorded.
-It has been a very common practice for open-source projects to use continuous integration systems that are not publicly accessible (such as Jenkins) and therefore it is not possible to retrieve test construction and execution information. 
-Even so, numerous projects have used Travis~\footnote{\url{https://www.travis-ci.com/}} as a continuous integration system. This CI system has allowed projects such as TravisTorrent~\cite{msr17challenge} to offer build and test execution datasets for over 1,000 projects. 
+It has been a very common practice for open-source projects to use continuous integration systems that are not publicly accessible (such as Jenkins) and therefore it is not possible to retrieve test building and execution information. 
+Even so, many projects have used Travis~\footnote{\url{https://www.travis-ci.com/}} as a continuous integration system. This CI system has allowed projects such as TravisTorrent~\cite{msr17challenge} to offer build and test execution datasets for over 1,000 projects. 
 Within the open-source world, this CI system is gradually being replaced by GitHub Actions, another CI system integrated into the GitHub platform (the most widely used Git repository platform). 
 Therefore, a possible future work would be to create a new dataset of builds and test executions to help us understand how the tests behaved at the time they were executed and in the right context. 
 This future work would have to deal with problems such as the fact that such executions (together with their results and logs) usually have a maximum lifetime of 90 days, so we would have to "record" such executions over a period of time.
