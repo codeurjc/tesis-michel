@@ -53,7 +53,7 @@ Specifically, this metric drops to 70.58\%, which means that in almost 30\% of t
 %                           SECOND SET                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The second set of project that we are going to study (Figure~\ref{fig:projects-2}) have been selected as a representative set of projects that, taking a look at their visual representation, it seems that it is possible to run the tests in the past in almost all their history, although in some of them we find multiple commits where failures or errors are located.
+The second set of projects that we are going to study (Figure~\ref{fig:projects-2}) have been selected as a representative set of projects that, taking a look at their visual representation, it seems that it is possible to run the tests in the past in almost all their history, although in some of them we find multiple commits where failures or errors are located.
 However, if we look again at the Fully Testability values (Table~\ref{table:projects-2}), we find that their values are surprisingly low. 
 For example, the \textit{Checkstyle} project, despite the fact that a portion of its commits at the beginning of the project are not compilable, the figure seems to indicate that almost all of its tests pass. 
 Its low Fully Testability value is due to a few tests failing consistently (in the order of 10 out of 1000) along the project history.
@@ -173,8 +173,8 @@ The Test Compilability metric is greatly affected by Source Compilability; if th
 The reasons why source code cannot be compiled have been studied in previous chapter and in previous work~\cite{tufano2017there,Sulir:2016:QSJ:3001878.3001882}, and are caused mainly because of the impossibility to reproduce the context and retrieve the dependencies of a particular commit. 
 For the okio, closure and zxing projects, the Source Compilability values are very close to Test Compilability values.
 So, we can state that in these projects, if the source code compiles, in most cases the test code compiles as well. 
-We can reflect this in a new metric: Test Compilability\textsubscript{S}, the ratio of test-compilable commits with respect to the source-compilable commits.
-The Test Compilability metric, when calculated considering all commits in the project history, is renamed to Test Compilability\textsubscript{A}.
+We can capture this idea in a new metric: \textbf{Test Compilability\textsubscript{S}}, the ratio of test-compilable commits with respect to the source-compilable commits.
+The Test Compilability metric, when calculated considering all commits in the project history, is renamed to \textbf{Test Compilability\textsubscript{A}}.
 Table~\ref{table:projects-3-B} shows the values of these two variants of Test Compilability, in addition to the Source Compilability values mentioned above.
 
 
@@ -196,14 +196,14 @@ Table~\ref{table:projects-3-B} shows the values of these two variants of Test Co
 Following the idea of focusing on those commits where we can compile the test code, we should consider that it is possible that the commits that do not compile, never did and therefore their testability information is not useful to us.
 % Once again we find that the testability metrics do not provide all the information. 
 % When we cannot compile source code or test code, we lose testability information. 
-For projects such as those in set 3, the testability of the commits where we can compile the tests gives us valuable information that neither the Fully Testability nor the Testability Rate capture, as both metrics are calculated from all commits in the history of the project.
+For projects such as those in the third set, the testability of the commits where we can compile the tests gives us valuable information that neither the Fully Testability nor the Testability Rate capture, as both metrics are calculated from all commits in the history of the project.
 
 To capture the testability of Test Compilable commits we define the following metrics:
 \begin{itemize}
     \item \textbf{Testability Rate\textsubscript{T}}: mean of \textit{testable rate} for \textit{test-compilable commits} in the project.
     \item \textbf{Fully Testability\textsubscript{T}}: ratio of \textit{fully testable commits} with respect to the number of \textit{test-compilable commits} of the project.
 \end{itemize}
-The Fully Testability and Testability Rate metrics, when calculated considering all the commits in the history, are renamed Fully Testability\textsubscript{A} and Testability Rate\textsubscript{A}.
+The Fully Testability and Testability Rate metrics, when calculated considering \textit{all} the commits in the history, are renamed \textbf{Fully Testability\textsubscript{A}} and \textbf{Testability Rate\textsubscript{A}}.
 
 In Table~\ref{table:projects-3-with-flavor-testability-rate} we include the new metrics defined for the third set of projects. 
 We note that for all 3 projects, the new metrics more closely capture the testability of the commits we can compile.
@@ -226,6 +226,7 @@ The Fully Testability\textsubscript{T} shows us that for those commits where we 
 
 \def \RQIII{On average, how many tests of a snapshot can be run with a `success' result?}
 
-This case study helped us to define metrics that better describe a project's stability. These new metrics lead to a new research question: 
+This case study helped us to define metrics that better describe a project's testability. 
+These new metrics lead to a new research question: 
 
 \textbf{RQ\textsubscript{2.3}}: ``\RQIII''
