@@ -1,6 +1,7 @@
 Encontrar los cambios en el código que introducen errores es importante tanto para los profesionales como para los investigadores, pero hacerlo con precisión es un proceso manual que requiere mucho esfuerzo.
 Hay varios estudios que intentan detectar automáticamente estos cambios que introducen el error. 
 El estado del arte más reconocido en este campo es el SZZ, un algoritmo basado en la identificación del cambio que corrige el error para analizar las líneas que han sido modificadas o eliminadas, asumiendo que el último cambio realizado en esas líneas antes de la corrección fue el cambio que introdujo el error. 
+Una de las principales limitaciones es cuando la premisa del algoritmo no se cumpla: que las lineas que introdujeron el error no sean las mismas que posteriormente se arreglaron.
 Un trabajo reciente (presentado como Tesis Doctoral por Gema Rodríguez en 2018) ofrecía un modelo teórico, denominado "método de la prueba perfecta", que proponía un enfoque completamente diferente al SZZ y pretendía mitigar las limitaciones de este algoritmo. 
 El método de la prueba perfecta es una construcción teórica cuyo objetivo es detectar cambios que introducen errores (en inglés \textit{Bug Introduction Changes} o \textit{BICs}) a través de un prueba perfecta teórica. 
 Esta prueba perfecta siempre falla si el error está presente, y pasa en caso contrario.
@@ -17,7 +18,10 @@ Para conseguir el objetivo mencionado, en esta tesis también se realizará un e
 Esta tesis también amplía el estudio mencionado para comprobar si, además de poder construir el código fuente, podemos construir y ejecutar sus pruebas. 
 Con estos dos estudios se pretende arrojar algo de luz sobre los problemas de la propuesta inicial de la operacionalización de la prueba perfecta para poder llevarla a la práctica con los conocimientos adquiridos.
 
-Los resultados obtenidos en esta tesis muestran que la compilación de instantáneas pasadas se ve muy afectada por el tiempo, a menos que se apliquen medidas de mitigación; 
-la comprobación de instantáneas pasadas se ve afectada principalmente por la compilación, pero contrariamente a lo esperado, no todas las pruebas pasan en todos las instantáneas;
-la puesta en práctica del método de la prueba perfecta mediante pruebas de regresión es factible y puede automatizarse completamente en la práctica cuando las pruebas pueden trasplantarse y ejecutarse en instantáneas pasadas del código.
+Los resultados obtenidos en esta tesis muestran que 
+\begin{inparaenum}[a)]
+    \item la compilación de instantáneas pasadas se ve muy afectada por el tiempo, a menos que se apliquen medidas de mitigación; 
+    \item la comprobación de instantáneas pasadas se ve afectada principalmente por la compilación, pero contrariamente a lo esperado, no todas las pruebas pasan en todos las instantáneas;
+    \item la puesta en práctica del método de la prueba perfecta mediante pruebas de regresión es factible y puede automatizarse completamente en la práctica cuando las pruebas pueden trasplantarse y ejecutarse en instantáneas pasadas del código.
+\end{inparaenum}
 Dado que implementar pruebas de regresión cuando se corrige un error se considera una buena práctica, cuando los desarrolladores la siguen, pueden detectar sin esfuerzo los cambios que introducen errores utilizando la operacionalización propuesta del método de la prueba perfecta.
