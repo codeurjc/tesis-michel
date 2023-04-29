@@ -1,6 +1,8 @@
 Finding code changes that introduced bugs is important both for practitioners and researchers, but doing it precisely is a manual, effort-intensive process.
 There are several studies that try to automatically detect these changes that introduce the bug. 
-The most recognized state of the art in this field is the SZZ algorithm, which is based on identifying the change that fix the bug to analyze the lines that have been modified or deleted, assuming that the bug was introduced by the last change made in those lines before the fix. \patxi{Habla aquí de las limitaciones, porque luego las menciones justo en la siguiente frase}
+The most recognized state of the art in this field is the SZZ algorithm, which is based on identifying the change that fix the bug to analyze the lines that have been modified or deleted, assuming that the bug was introduced by the last change made in those lines before the fix. 
+%\patxi{Habla aquí de las limitaciones, porque luego las menciones justo en la siguiente frase}
+One of the main limitations is that when the assumption of the algorithm is not met: the lines that introduced the error are not the same as the lines that were later fixed.
 A recent work (presented as a PhD. Thesis by Gema Rodriguez in 2018) offered a theoretical model, called the "perfect test method", which proposed a completely different approach to the SZZ and aimed to mitigate the limitations of this algorithm. 
 The perfect test method is a theoretical construct aimed at detecting bug-introducing changes (BIC) through a theoretical perfect test. This perfect test always fails if the bug is present, and passes otherwise.
 In theory, this perfect test would allow to detect the bug in the change history of a project.
@@ -16,9 +18,12 @@ In order to achieve the above-mentioned objective, this thesis will also carry o
 This dissertation also extends the abovementioned study to check whether, in addition to being able to build the source code, we can build and run its tests. 
 These two studies are intended to shed some light on the problems of the initial proposal of the operationalization of the perfect test in order to be able to implement it with the knowledge acquired.
 
-The results obtained in this thesis show that \patxi{quizá enumerar estos puntos: a)...; b)...; c)...}compiling past snapshots is greatly affected by time unless mitigation measures are applied; 
-testing past snapshots is mainly affected by compilation, but contrary to what was expected, not all tests pass in all commits;
-operationalization of the perfect test method through regression tests is feasible and can be completely automated in practice when tests can be transplanted and run in past snapshots of the code.
+The results obtained in this thesis show that 
+\begin{inparaenum}[a)]
+    \item compiling past snapshots is greatly affected by time unless mitigation measures are applied;
+    \item testing past snapshots is mainly affected by compilation, but contrary to what was expected, not all tests pass in all commits;
+    \item operationalization of the perfect test method through regression tests is feasible and can be completely automated in practice when tests can be transplanted and run in past snapshots of the code.
+\end{inparaenum}
 Given that implementing regression tests when a bug is fixed is considered a good practice, when developers follow it, they can detect effortlessly bug-introducing changes by using the proposed operationalization of the perfect test method.
 
 
