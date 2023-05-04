@@ -23,5 +23,14 @@
         "config/TeXiS/":true,
         ".vscode/":true,
     },
-    "workbench.colorTheme": "Atom One Light"
+    "workbench.colorTheme": "Atom One Light",
+    "cSpell.language": "en,es",
+    "cSpell.words": [
+        "compilabilidad",
+        "compilables",
+        "Ejecutabilidad",
+        "operacionalización",
+        "operacionalizar",
+        "testabilidad"
+    ]
 }

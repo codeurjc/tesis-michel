@@ -2,7 +2,7 @@
 
 De acuerdo al artículo 22 de la Normativa Reguladora de los Estudios de Doctorado de la Universidad Rey Juan Carlos, aprobada en Consejo de Gobierno de 07/06/2019, se provee un resumen en castellano del contenido completo de la tesis, incluyendo específicamente los antecedentes, objetivos, metodología, resultados y conclusiones obtenidas.
 
-\section{Intoducción}
+\section{Introducción}
 
 En ingeniería de software, los desarrolladores colaboran para crear productos de software utilizando Sistemas de Control de Versiones (VCS, por sus siglas en inglés), como Git. 
 Los VCS permiten manejar, coordinar y organizar el desarrollo de productos de software, y los cambios que se realizan durante el proceso se agrupan en una revisión o "commit". 
@@ -32,7 +32,7 @@ El objetivo principal de esta tesis es validar la hipótesis propuesta, con el o
 De las limitaciones señaladas por los autores de este modelo, surgen objetivos particulares relacionados con el estudio de la historia de los proyectos para comprender la viabilidad de nuestra propuesta. 
 Los objetivos de la tesis serán tres y corresponden a tres proyectos de investigación que se complementan entre sí:
 \begin{itemize}
-    \item Verificar en qué medida es posible construir commits anteriores de un proyecto. Para poder llevar a cabo la ejecución de pruebas en el pasado, es necesario cumplir con la condición previa de que este código se pueda construir: lo que significa que se pueden descargar sus dependencias y compilar el código (si el lenguaje lo requiere). Exiten trabajos previos sobre este tema que pretendemos validar y ampliar.
+    \item Verificar en qué medida es posible construir commits anteriores de un proyecto. Para poder llevar a cabo la ejecución de pruebas en el pasado, es necesario cumplir con la condición previa de que este código se pueda construir: lo que significa que se pueden descargar sus dependencias y compilar el código (si el lenguaje lo requiere). Existen trabajos previos sobre este tema que pretendemos validar y ampliar.
     \item Verificar en qué medida es posible ejecutar las pruebas en el pasado. Este objetivo amplía el propósito del anterior, extendiéndolo mediante la prueba de ejecutar las pruebas después de que el código haya sido compilado. Como no hay trabajos previos sobre este tema (en el momento de escribir esta tesis), pretendemos proponer nuevas métricas que nos ayuden a evaluar la cobertura proporcionada por las pruebas a nivel del proyecto.
     \item Aplicar el conocimiento adquirido al alcanzar los objetivos anteriores para verificar nuestra hipótesis, que es posible resolver nuestro objetivo inicial: validar la hipótesis de que es posible utilizar las pruebas de regresión como una "prueba perfecta" siguiendo el modelo teórico propuesto en la literatura. Para ello, ejecutaremos pruebas de regresión a lo largo de la historia de commits del proyecto para detectar el cambio que introdujo el error.
 \end{itemize}
@@ -89,7 +89,7 @@ Una vez ejecutada la experimentación siguiendo la metodología para los proyect
 
 \subsection{Contexto y objetivos}
 
-La reproducción de programas ejecutables a partir del código fuente de versiones anteriores es fundamental tanto para los profesionales, que necesitan mantener versiones antiguas en producción~\cite{bartelsoftware} o transplantar a versiones anteriores una funcionalidad con cierta seguridad~\cite{tian2017mining}, como para los investigadores, que necesitan estudiar esas versiones antiguas. 
+La reproducción de programas ejecutables a partir del código fuente de versiones anteriores es fundamental tanto para los profesionales, que necesitan mantener versiones antiguas en producción~\cite{bartelsoftware} o trasplantar a versiones anteriores una funcionalidad con cierta seguridad~\cite{tian2017mining}, como para los investigadores, que necesitan estudiar esas versiones antiguas. 
 En la sección anterior se ha estudiado la compilación de versiones anteriores del código fuente de un proyecto.
 Sin embargo, no solo la compilación del código fuente es importante, sino que la construcción y ejecución de pruebas de las versiones anteriores también es importante tanto para el mantenimiento como para la investigación.
 
@@ -107,7 +107,7 @@ Siguiendo la metodología de la sección anterior, lo ampliaremos, ejecutando lo
     \item Ejecutaremos el comando de ejecución de las pruebas, comprobando si todas las pruebas se ejecutan con éxito.
 \end{itemize}
 
-De manera adicional, planteamos un caso de estudio (con un enfoque exploratorio sobre un subcojunto de proyectos) que nos permita comprender cual es la mejor forma de evaluar la testabilidad de un proyecto y si su definición es adecuada.
+De manera adicional, planteamos un caso de estudio (con un enfoque exploratorio sobre un subconjunto de proyectos) que nos permita comprender cual es la mejor forma de evaluar la testabilidad de un proyecto y si su definición es adecuada.
 
 \subsection{Resultados}
 
@@ -129,9 +129,72 @@ Una vez hemos aplicado la metodología a los 86 proyectos y hemos ampliado la de
 
 \subsection{Contexto y objetivos}
 
+Los errores son una de las principales preocupaciones de los desarrolladores de software. 
+Encontrar errores en el código y corregirlos consume mucho esfuerzo. 
+Aprender cómo se introdujeron los errores es importante tanto para los académicos como para los profesionales. 
+Los profesionales desean saber qué cambio introdujo un error cuando intentan corregirlo y qué versiones anteriores se ven afectadas por él. 
+Los investigadores quieren estudiar cómo se introdujeron los error para encontrar formas de prevenirlos. 
+Sin embargo, encontrar el cambio de código fuente que introdujo el error no es fácil.
+
+Hay variar propuestas que intentan detectar automáticamente estos cambios que introducen el error. 
+El estado del arte más reconocido en este campo es el SZZ~\cite{sliwerski2005changes}, un algoritmo basado en la identificación del cambio que corrige el error para analizar las líneas que han sido modificadas o eliminadas, asumiendo que el último cambio realizado en esas líneas antes de la corrección fue el cambio que introdujo el error.
+Sin embargo, el algoritmo se ve limitado cuando la premisa no se cumple.
+Como consecuencia, Rodríguez et al.~\cite{rodriguez2020bugs} propone el método de la "prueba perfecta", que proponía un enfoque completamente diferente al SZZ y pretendía mitigar las limitaciones de este algoritmo. 
+El método de la prueba perfecta es una construcción teórica cuyo objetivo es detectar cambios que introducen errores (en inglés
+Bug Introduction Changes o BICs) a través de un prueba perfecta teórica.
+Esta prueba perfecta siempre falla si el error está presente, y pasa en caso contrario. En teoría, esta prueba perfecta permitiría detectar el error en el historial de cambios de un proyecto.
+
+En este estudio tendremos como objetivo operacionalizar el método de la prueba perfecta para poder aplicarlo a proyectos de software reales.
+Es una práctica común en el desarrollo de software que, cuando se detecta y corrige un error, los desarrolladores escriban una
+prueba que detecte dicho error en caso de que reaparezca, lo que se conoce como una prueba de regresión. 
+Esta prueba puede incluso estar disponible como parte del informe de error antes de que se corrija el error (la corrección está dirigida por pruebas).
+Planteamos por lo tanto la hipótesis de que las pruebas de regresión podrían utilizarse como pruebas perfectas para detectar el cambio que introdujo el error
+
 \subsection{Metodología}
 
+Para evaluar la hipótesis, se ha desarrollado una herramienta que utiliza las pruebas de regresión para detectar el cambio que introdujo el error.
+Para evaluar la herramienta y por tanto la hipótesis, utilizaremos un conjunto de 809 errores localizados en 16 proyectos de un popular dataset de proyectos Java (Defects4J~\cite{just2014defects4j}).
+La herramienta sigue los siguientes pasos para cada error:
+\begin{itemize}
+    \item Extrae la información del error: el cambio que arregla del error, la prueba de regresión escrita junto ese cambio y el reporte de error.
+    \item Clona el repositorio de código
+    \item Ejecuta la prueba de regresión en el cambio que arregla el error, comprobando que la prueba pasa con éxito.
+    \item Ejecuta la prueba de regresión en los cambios previos al cambio que arregla el error. 
+\end{itemize}
+
+Por cada cambio, se ejecutarían los siguientes pasos:
+\begin{inparaenum}[\bf(1)]
+    \item nos situamos en el cambio que queremos probar,
+    \item trasplantamos (copiamos) la prueba de regresión,
+    \item compilamos el código fuente,
+    \item ejecutamos la prueba de regresión,
+    \item ejecutamos la prueba de regresión y
+    \item recopilamos el resultado de la prueba.
+\end{inparaenum}
+
+Para localizar el cambio que introdujo el error, consideramos el histórico de cambios como un grafo dirigido que parte del cambio que arregla el error y va hacia atrás en el tiempo. 
+Recorriendo este grafo encontraremos 2 posibles casos:
+\begin{itemize}
+    \item Encontramos un cambio donde la prueba falla, pero los cambios directamente anteriores a este cambio pasan la prueba. En este caso, el cambio que falla es el cambio que introdujo el error. Es posible que encontremos casos donde la prueba vuelve a pasar con éxito pero el cambio siguiente es uno dónde la prueba no puede ser ejecutada (por ejemplo, porque no se puede compilar el código fuente o de los test). En este caso, todos los commits siguientes hasta el primero en el que si se pueda ejecutar la prueba y falle son candidatos a ser el cambio que introdujo el error.
+    \item No encontramos ningún cambio donde la prueba vuelve a pasar, por lo que asumimos que el cambio estuvo siempre en el código o no fuimos capaces de trasplantar la prueba lo suficientemente lejos en el pasado.
+\end{itemize}
+
+Aplicando los conocimientos adquiridos en los estudios anteriores, utilizaremos medidas de mitigación para los problemas que impiden la compilación del código fuente o la ejecución de la prueba de regresión.
+
+Una vez detectados los cambios que introdujeron el error, validaremos de manera manual los resultados obtenidos con el fin de comprobar la fiabilidad de la herramienta y para generar un nuevo conjunto de datos que pueda ser utilizado por otros investigadores.
+
 \subsection{Resultados}
+
+Tras aplicar la herramienta desarrollada a los 809 errores de los 16 proyectos de Defects4J, se obtuvieron los siguientes resultados:
+
+\begin{itemize}
+    \item Se comprobó que para los 809 errores, la prueba de regresión pudo ser trasplantada y ejecutada en el 33\% de los cambios del historial de cambios.
+    Encontramos que la principal causa de que la prueba no pudiera ser ejecutada era que el código fuente no podía ser compilado, problema parcialmente mitigado por la herramienta desarrollada gracias a el conocimiento adquirido en el estudio de la compilabilidad del software.
+    \item De los 809 errores, la herramienta encontró un cambio dónde la prueba de regresión vuelve a pasar con éxito en 96 casos. En 67 casos se encontró un único candidato a ser el cambio que introdujo el, mientras que en 29 casos se encontraron varios candidatos.
+    \item De los 67 casos dónde se encontró un candidato, se comprobó manualmente que era el cambio que introdujo el error. 
+    Como resultado, generamos un conjunto de datos con estos 67 errores y el cambio que introdujo el error, que puede ser utilizado por otros investigadores.
+    \item Los errores son esencialmente introducidos en un cambio que pretende solucionar otro error o mediante una refactorización o reimplementación.
+\end{itemize}
 
 \section{Conclusiones y trabajos futuros}
 \label{sec:resumen:conclusiones}
