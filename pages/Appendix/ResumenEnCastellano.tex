@@ -40,7 +40,7 @@ Los objetivos de la tesis serán tres y corresponden a tres proyectos de investi
 \section{Compilación de versiones anteriores del código}
 \label{sec:resumen:buildability}
 
-\subsection{Contexto}
+\subsection{Contexto y objetivos}
 La capacidad de compilar versiones pasadas del código fuente de un producto de software ha demostrado ser de interés tanto para investigadores como para profesionales. 
 Algunos ejemplos de sus usos son: 
 \begin{inparaenum}[\bf(1)]
@@ -61,7 +61,7 @@ El proceso para llevar a cabo la experimentación de la replicación y la reprod
 Por cada commit de cada proyecto, ejecutaremos los siguientes pasos a de manera automática:
 \begin{itemize}
     \item Buscaremos su fichero de configuración (Maven, Gradle o Ant). Si lo encuentra, pasaremos al siguiente paso, si no, pasaremos al siguiente commit.
-    \item Ejecutaremos el comando de compilación correspondiente al fichero de configuración
+    \item Ejecutaremos el comando de compilación correspondiente al fichero de configuración.
     \item Comprobaremos su resultado. Si compiló correctamente, anotaremos su resultado. Si no compiló correctamente, guardaremos la salida de error para analizarla y comprobar la naturaleza del fallo, además de anotar su resultado.
 \end{itemize}
 
@@ -87,12 +87,47 @@ Una vez ejecutada la experimentación siguiendo la metodología para los proyect
 \section{Ejecutabilidad de las pruebas en versiones anteriores del código}
 \label{sec:resumen:testability}
 
+\subsection{Contexto y objetivos}
+
+La reproducción de programas ejecutables a partir del código fuente de versiones anteriores es fundamental tanto para los profesionales, que necesitan mantener versiones antiguas en producción~\cite{bartelsoftware} o transplantar a versiones anteriores una funcionalidad con cierta seguridad~\cite{tian2017mining}, como para los investigadores, que necesitan estudiar esas versiones antiguas. 
+En la sección anterior se ha estudiado la compilación de versiones anteriores del código fuente de un proyecto.
+Sin embargo, no solo la compilación del código fuente es importante, sino que la construcción y ejecución de pruebas de las versiones anteriores también es importante tanto para el mantenimiento como para la investigación.
+
+En este estudio tendremos como objetivo analizar en qué medida se pueden compilar y ejecutar pruebas de versiones pasadas de un proyecto. 
+Para ello, seleccionaremos un total de 86 proyectos de Java del conjunto de datos ManySStuBs4J y evaluaremos su testabilidad, definida como la capacidad de ejecutar todas las pruebas con éxito en una version. Este definición viene motivada por los sistemas de integración continua, que ejecutan para una versión del proyecto todas las pruebas y solo la consideran "integrable" esta versión si toda las pruebas pasan.
+
 \subsection{Metodología}
+
+Siguiendo la metodología de la sección anterior, lo ampliaremos, ejecutando los siguientes pasos por cada commit de cada proyecto:
+
+\begin{itemize}
+    \item Buscaremos su fichero de configuración. Si lo encuentra, pasaremos al siguiente paso, si no, pasaremos al siguiente commit.
+    \item Ejecutaremos el comando de compilación del código fuente.
+    \item Ejecutaremos el comando de compilación del código de las pruebas.
+    \item Ejecutaremos el comando de ejecución de las pruebas, comprobando si todas las pruebas se ejecutan con éxito.
+\end{itemize}
+
+De manera adicional, planteamos un caso de estudio (con un enfoque exploratorio sobre un subcojunto de proyectos) que nos permita comprender cual es la mejor forma de evaluar la testabilidad de un proyecto y si su definición es adecuada.
 
 \subsection{Resultados}
 
+El caso de estudio planteado nos permite concluir que la definición de testabilidad inicialmente definida es muy limitada (una version es apta solo si todas las pruebas pasan). 
+Desde el punto de vista de un profesional o un investigador que necesita añadir un cambio a una versión anterior y tiene que evaluar si las pruebas le permiten estar seguro de no introducir ninguna regresión en el código, saber que en un alto porcentaje (pero no el 100\%) de las pruebas pasan puede ser suficiente.
+De esta forma, la testabilidad de un proyecto puede ser evaluada de una manera binaria (si todas las pruebas pasan o no) o de una manera más flexible (el porcentaje de pruebas que pasan).
+
+Una vez hemos aplicado la metodología a los 86 proyectos y hemos ampliado la definición de testabilidad, obtenemos los siguientes resultados:
+
+\begin{itemize}
+    \item Pudimos compilar el código de los test con un valor medio por proyecto del 41\%. Este valor es muy cercano al de la compilabilidad media del código fuente (47\%). Podemos concluir que cuando el código fuente compila, el por lo que, en general, la compilación de pruebas no es un problema. Sin embargo, los problemas de la compilación del código fuente (siendo un paso previo al de la compilación de los test) son un limitante importante para la experimentación.
+    \item Considerando la testabilidad en su forma binaria (todos los test pasan o no), obtenemos que, de media, en el 22\% de las versiones de un proyecto podemos ejecutar todas sus pruebas con éxito. Si consideramos solo las versiones en las que somos capaces de compilar las pruebas, este porcentaje aumenta considerablemente (52\%).
+    \item Considerando la testabilidad como el porcentaje de pruebas que pasan en una version, obtenemos que, de media, para las versiones del un proyecto, el 38\% de las pruebas pasan con éxito. Si consideramos solo las versiones en las que somos capaces de compilar las pruebas, este porcentaje aumenta considerablemente (94\%). 
+\end{itemize}
+
+
 \section{Localización del cambio que introdujo el error a través de las pruebas de regresión}
 \label{sec:resumen:bug-hunter}
+
+\subsection{Contexto y objetivos}
 
 \subsection{Metodología}
 
