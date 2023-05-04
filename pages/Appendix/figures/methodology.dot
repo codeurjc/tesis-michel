@@ -1,0 +1,22 @@
+digraph G {
+    splines="TRUE";
+
+    /* Entities */
+    repoSelection [label="Selección de repositorio", shape="rectangle"]
+    repoExtraction [label="Extracción del commit", shape="rectangle"]
+    discarded [label="Descartado", shape="rect"]
+    pom [label="¿El commit tiene\n un fichero\n de configuración?", shape="diamond"]
+    buildResult [label="¿El commit compila?", shape="diamond"]
+    success [label="Reporte", shape="rect"]
+    failureAnalysis [label="Análisis del fallo", shape="rect"]
+    
+    /* Relationships */
+    repoSelection -> repoExtraction
+    repoExtraction -> pom 
+    pom -> buildResult [label="si"]
+    pom -> discarded [label="no"]
+    buildResult -> success [label="si"]
+    buildResult -> failureAnalysis [label="no"]
+    failureAnalysis -> success
+
+}
