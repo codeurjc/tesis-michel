@@ -51,7 +51,7 @@ Of course, extending our study to other samples of Java code, and to other progr
 %Replication testing is essential to improve the maintainability of projects that need to be maintained in previous versions.
 %Reproducing this study using other languages such as Python, Javascript or C++ could lead to interesting future work.
 
-\subsection{Bug localization trough regression testing}
+\subsection{Bug localization through regression testing}
 
 In Chapter~\ref{chapter:bug-hunter} we leverage the knowledge and tools researched in Chapters~\ref{chapter:buildability} and~\ref{chapter:testability} to operationalize the theoretical method, called \emph{perfect test}, to detect the change that introduced a bug (BIC), by using a regression test as perfect test. We show, using a well-known bugs dataset~\cite{just2014defects4j}, that the method works for those bugs where we are able to transplant the regression test in the past and find a commit where this test passes again, by using our tool to automatically detect the BIC and then validating the results. 
 
