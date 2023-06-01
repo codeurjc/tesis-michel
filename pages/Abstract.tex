@@ -1,7 +1,6 @@
 Finding code changes that introduced bugs is important both for practitioners and researchers, but doing it precisely is a manual, effort-intensive process.
 There are several studies that try to automatically detect these changes that introduce the bug. 
 The most recognized state of the art in this field is the SZZ algorithm, which is based on identifying the change that fix the bug to analyze the lines that have been modified or deleted, assuming that the bug was introduced by the last change made in those lines before the fix. 
-%\patxi{Habla aquí de las limitaciones, porque luego las menciones justo en la siguiente frase}
 One of the main limitations is that when the assumption of the algorithm is not met: the lines that introduced the error are not the same as the lines that were later fixed.
 A recent work (presented as a PhD. Thesis by Gema Rodriguez in 2018) offered a theoretical model, called the "perfect test method", which proposed a completely different approach to the SZZ and aimed to mitigate the limitations of this algorithm. 
 The perfect test method is a theoretical construct aimed at detecting bug-introducing changes (BIC) through a theoretical perfect test. This perfect test always fails if the bug is present, and passes otherwise.
