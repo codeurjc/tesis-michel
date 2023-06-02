@@ -37,6 +37,8 @@ This result, which may seem surprising, deserves as well more discussion that we
 When compilability is low, this fraction is necessarily low, just meaning that commits are not testable because they are not source- or test-compilable. 
 When compilability is high, \textit{Fully Testability\textsubscript{A}} really shows us how testable the project is, at least from the binary approach (all tests pass or fail) followed, for example, by continuous integration systems.
 
+\newpage
+
 With the data presented up to here, we can already answer RQ\textsubscript{2.1}, RQ\textsubscript{2.2} and RQ\textsubscript{2.3}:
 
 \vspace{0.5cm}
@@ -46,8 +48,6 @@ We found 93,925 test-compilable commits out of 103,097 source-compilable commits
 When calculating \textit{Test Compilability} using all the commits of the project we obtain an average value of 41.73\%, while if we compute only the commits in which we can compile the source code, the average value increases significantly (88.2\%).
 We can conclude that when the source code compiles, the test code compile, therefore, in general, test compilation is not an issue.
 \end{minipage}}
-
-\newpage
 
 \vspace{0.5cm}
 \fbox{\begin{minipage}{0.9\textwidth}
@@ -64,3 +64,4 @@ When calculating \textit{Testability Rate} using all the commits of the project 
 This is in line with our expectations: in general when the tests compile, they succeed.
 \end{minipage}}
     
+\newpage

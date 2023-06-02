@@ -10,13 +10,13 @@
 %     \draw[-Latex]             (testBuildable) -- (success);
 
 % \end{tikzpicture}
-\begin{tikzpicture}[sibling distance=15em,
-    every node/.style = {shape=rectangle, draw, align=center, top color=white }]
+\begin{tikzpicture}[sibling distance=15em, level distance=2cm,
+    every node/.style = {shape=rectangle, draw, align=center, top color=white,  }]
     \node {Total bugs \\ (809)}
       child { node {The regression test \\ succeeds in some precedent\\ commit(96)} 
           child { node {One candidate\\ found (67)} }
           child { node {Multiple candidates\\ found (29)} }
       }
-      child { node {The regression test\\ does not succeed in\\  any precedent commit(713)} }
+      child { node {The regression test\\ does not succeed in\\  any precedent commit (713)} }
       ;
 \end{tikzpicture}

@@ -5,6 +5,8 @@ Our proposal for identifying the change that introduced a bug is based on transp
 
 To determine which specific piece of code of a change in a bug fix is the part actually fixing the bug, BugBuilder~\cite{jiang2021extracting} transplants each part to the previous versions of the code. It then runs the regression test to check whether the bug is still present. This approach is similar to ours, with the difference that the authors of BugBuilder intend to find out which part of a change is the fix, while we intend to find when the bug was introduced, and for that we need to transplant not only to the previous version, but also to many other versions prior to the bug fix.
 
+\newpage
+
 \section{Bug Introduction Changes}
 \label{sec:bic:related}
 

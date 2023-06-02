@@ -15,8 +15,6 @@ Detailed logs of the execution are also not available in the reproduction packag
 \textbf{\textbf{RQ\textsubscript{1.1d}}: ``Is the data in the reproduction package of the original study enough for a replication?''} There is enough data for comparing results, even at the repository level. However, there is not enough data to exactly reproduce the original study: a copy of the git repositories, as they were when the analysis was performed, is missing; some relevant software is also missing (such as the one to detect the Maven configuration in a snapshot); and the logs of their execution for all snapshots are also missing, which makes it difficult to understand the reasons of some discrepancies when replicating the study.
 \end{minipage}}
 
-\newpage
-
 \subsection{Compilability}
 
 To answer RQ\textsubscript{1.1a} and RQ\textsubscript{1.1c} in detail, we follow the same process as the original study, classifying repositories in three categories according to their number of commits: short history (number of commits in the first quartile, Q1), medium history (Q2 and Q3) and long history (Q4). Repositories classified as short (20) have less than 203 commits, medium (39 repositories) have between 203 and 1,148 commits, and long repositories (20) have more than 1,148 commits. Then, we analyze the compilability of those snapshots for which we found configuration for Maven, assuming the rest could not be built because developers were not using automatic tools for building.
@@ -96,19 +94,18 @@ Tables~\ref{table:replication-compilability} and \ref{table:replication-compilab
   \end{center}
 \end{table*}
 
-
-
-\vspace{0.2cm}
 \fbox{\begin{minipage}{0.9\textwidth}
 \textbf{ \textbf{RQ\textsubscript{1.1a}}: ``How many snapshots from the change history are compilable?''} 8.74\% or less of the commits were compilable for half of the analyzed projects. The result for the original study was 28.64\%.
 Thus, results are very different, likely affected by the time passed (as we will discuss when answering RQ\textsubscript{1.1c}).
 \end{minipage}}
 
+\vspace{0.2cm}
+
 \fbox{\begin{minipage}{0.9\textwidth}
 \textbf{\textbf{RQ\textsubscript{1.1c}}: ``Has compilability degraded since the original study?''}
 A much smaller fraction of the commits with build configuration can be built (22.33\% in the original study versus 14.66\% in our replication). When analyzing repositories by size, medium projects are more affected by this decrease in compilability, with half of them having a compilability of 1.70\% or less, while in the original study that number was 36.24\%. Short projects are also affected, and the less affected are long projects, but still they move from a median of 16.48\% to 9.44\% in our replication.
 \end{minipage}}
-\vspace{0.2cm}
+\vspace{0.5cm}
 
 We found significant differences in three repositories when checking for the existence of Maven configuration files (for all the others, results are exactly the same). In those three repositories we found 6,583 extra commits with a Maven configuration. When trying to build them, we could build 442 extra snapshots, which would increase the number of compilable snapshots to 15,106 (from a total of 108,394), or 13.93\% compilability, slightly less than 14,40\, as shown in Table~\ref{table:replication-compilability-2}.
 
@@ -212,12 +209,13 @@ For 67,298 of the snapshots that failed to build, we reported the same exception
 
 Both in \textit{different error} and in \textit{new error}, one of the main causes for failed builds is \textit{Resolution}, and specifically, the resolution of external artifacts needed for the build. We can affirm that one of the main reasons for the degradation in compilability with time is the impossibility of recovering more and more of the dependencies of these projects as time passes. On the other hand, \textit{Compilation} errors only appear in \textit{same error}, since they only depend on using the same compiler (so if they failed in the replication, they should have failed in the original study). Comparing the number of \textit{Compilation} errors in the replication and in the original study, it decreased from 2,807 to 2,544. Some inspection raised the cause: new exceptions mask previous building errors.
 
-\newpage
 % jgb: SIZE We could remove the next para if needed
 We studied in some detail the \textit{Resolution} category. One of the most recurrent cause was experiencing timeouts when accessing some external artifact, usually a dependency (5.12\% of total errors). This type of error appears only as \textit{different error} or \textit{new error}. Given that no long network failures were observed during the execution of our study, this is due to access to artifacts that are no longer available, which is consistent with the previous comment on dependencies.
 
-\vspace{0.2cm}
+\vspace{0.5cm}
 \fbox{\begin{minipage}{0.9\textwidth}
 \textbf{\textbf{RQ\textsubscript{1.1b}}: ``What types of errors prevent snapshots from being built?''}
 The proportion of the different kinds of errors is similar to the original study. Most of the errors (63.45\%) are caused by resolution of dependencies and other external artifacts (60.49\% for the original study), these being the errors that contributed the most to the degradation of compilability. Parsing errors convey 11.88\% of the failures we detected, close to the 12.13\% reported in the original study. The same can be said for Compilation errors (2.92\% in our replication \emph{vs.} 3.55\% in the original study). About 80\% of the snapshots behaved exactly like in the previous study (they built, or they failed with the same error).
 \end{minipage}}
+
+\newpage
